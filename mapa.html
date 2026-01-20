@@ -308,12 +308,12 @@
 
         // Función para inicializar el mapa
         function initMap() {
-            // Centro del mapa en Guadalajara (ajustado para mostrar el área visible en la captura)
-            const centro = { lat: 20.675, lng: -103.345 };
+            // Centro del mapa en Guadalajara (ajustado para mostrar Zapopan, Guadalajara y Tonalá como en la captura)
+            const centro = { lat: 20.6597, lng: -103.3496 };
             
             // Crear el mapa
             const map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12, // Zoom ajustado para mostrar el área visible en la captura
+                zoom: 10, // Zoom para mostrar toda el área metropolitana (Zapopan, Guadalajara, Tonalá) como en la captura
                 center: centro,
                 mapTypeId: 'roadmap',
                 styles: [
