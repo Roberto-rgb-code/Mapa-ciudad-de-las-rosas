@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa - Guadalajara Ciudad de las Rosas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .info-window {
+            max-width: 350px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .info-window h3 {
+            color: #8B1538;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .info-window .category {
+            display: inline-block;
+            background: #FFE5E5;
+            color: #8B1538;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .info-window .category.historical {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .info-window .category.business {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .info-window p {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .info-window .address {
+            color: #666;
+            font-size: 13px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .info-window .contact {
+            color: #666;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .info-window strong {
+            color: #8B1538;
+        }
+
+        .geolocation-button {
+            position: absolute;
+            bottom: 140px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            color: #333;
+            border: none;
+            padding: 0;
+            border-radius: 2px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            transition: box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .geolocation-button:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .geolocation-button:active {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .geolocation-message {
+            position: absolute;
+            bottom: 190px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            max-width: 250px;
+            display: none;
+        }
+
+        .geolocation-message.error {
+            background: rgba(244, 67, 54, 0.95);
+            color: white;
+        }
+
+        .geolocation-message.success {
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+        }
+
+        .geolocation-instructions {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            max-width: 320px;
+            display: none;
+        }
+
+        .geolocation-instructions h4 {
+            margin: 0 0 10px 0;
+            color: #8B1538;
+            font-size: 15px;
+        }
+
+        .geolocation-instructions ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .geolocation-instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .geolocation-instructions .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+        }
+
+        .geolocation-instructions .close-btn:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <button id="btnGeolocation" class="geolocation-button" title="Mostrar mi ubicación exacta">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 19C8.13 19 5 15.87 5 12C5 8.13 8.13 5 12 5C15.87 5 19 8.13 19 12C19 15.87 15.87 19 12 19Z" fill="#333"/>
+        </svg>
+    </button>
+    <div id="geolocationMessage" class="geolocation-message"></div>
+    <div id="geolocationInstructions" class="geolocation-instructions">
+        <button class="close-btn" onclick="document.getElementById('geolocationInstructions').style.display='none'">×</button>
+        <h4>📍 Para ubicación exacta</h4>
+        <ol>
+            <li>Haz clic en el ícono de <strong>candado</strong> o <strong>información</strong> junto a la URL</li>
+            <li>Busca <strong>"Ubicación"</strong> o <strong>"Location"</strong></li>
+            <li>Cambia de <strong>"Bloquear"</strong> a <strong>"Permitir"</strong></li>
+            <li>Recarga la página o haz clic en el botón de ubicación</li>
+        </ol>
+        <p style="margin-top: 10px; font-size: 11px; color: #666;">
+            <strong>Nota:</strong> Sin permisos solo se muestra ubicación aproximada por IP (precisión ~2km)
+        </p>
+    </div>
+
+    <script>
+        // Coordenadas de los lugares
+        const lugares = {
+            historicos: [
+                {
+                    nombre: "Santuario de Nuestra Señora de Guadalupe",
+                    lat: 20.68482,
+                    lng: -103.34825,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "La primera piedra se colocó el 7 de enero de 1777 y tras cuatro años de obras, la iglesia se inauguró en 1781. La construcción fue promovida y costeada por el filántropo español y entonces obispo de la diócesis, Antonio Alcalde y Barriga, quien tuvo la idea de edificar una iglesia en la parte norte de la ciudad de Guadalajara, que en aquel entonces estaba prácticamente deshabitada. Fue el mismo obispo Alcalde quien costeó los gastos de la construcción del templo, así como la construcción de varias casas que se rentarían a bajo precio para las personas pobres que quisieran habitarlas, llamadas \"las cuadritas\" del Barrio del Santuario. La imagen de Nuestra Señora de Guadalupe se encuentra en el altar principal, pintura que data de 1779 realizada por Don José de Alcíbar.",
+                    direccion: "Barrio del Santuario, Guadalajara, Jal.",
+                    imagen: "assets/santuario.png"
+                },
+                {
+                    nombre: "Catedral de Guadalajara",
+                    lat: 20.67672,
+                    lng: -103.34764,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Oficialmente Catedral Basílica de la Asunción de María Santísima, es la sede de la arquidiócesis de Guadalajara y uno de los principales templos de la Iglesia católica en México. Entre las criptas, debajo de lo que fue la capilla real, se encuentra la de los arzobispos de Guadalajara que datan del siglo XVI. Destacan los dedicados a La Virgen de las Rosas, Santiago el Mayor (patrono de la Nueva España), La Virgen de Guadalupe, Nuestra Señora de Zapopan entre otros.",
+                    direccion: "Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/catedral.png"
+                },
+                {
+                    nombre: "Rotonda de los Jaliscienses Ilustres",
+                    lat: 20.67777,
+                    lng: -103.34701,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Rinde homenaje a los jaliscienses que han trascendido a través de la historia. El monumento construido en 1952, por el arquitecto Vicente Mendiola, bajo iniciativa del entonces gobernador José de Jesús González Gallo, consta de diecisiete columnas estriadas sin base ni capitel y que sostienen un anillo de cantera que tiene grabado en uno de sus lados la leyenda \"Jalisco a sus hijos esclarecidos\"; en el centro del monumento existe un pebetero, además de 98 nichos para albergar los cuerpos de los hombres y mujeres más ilustres nacidos en Jalisco.",
+                    direccion: "Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/rotonda.png"
+                },
+                {
+                    nombre: "Mercado San Juan de Dios",
+                    lat: 20.675562,
+                    lng: -103.33986,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Es el mercado techado más grande de América Latina. Obra del arquitecto Alejandro Zohn, se inauguró el 30 de diciembre de 1958. Se encuentra ubicado en lo que una vez fue la orilla oriental del río San Juan de Dios, cercano a la capital de la entonces Nueva Galicia. La zona era la entrada de los abastecimientos provenientes de la Ciudad de México. Hacia 1880, Mariano Bárcena da cuenta de la existencia del mercado como uno de los tres principales de Guadalajara, junto al de la plaza de Venegas o de la Independencia (actual mercado Corona) y el de plaza de Toros o plaza Alcalde. Para esas fechas y hasta principios del siglo xx, el mercado poseía la estructura del tianguis mexicano: tablados, lonas, mesas y tendidos sobre el suelo, todo esto al aire libre.",
+                    direccion: "Calle Javier Mina, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/mercadosanjuandedios.png"
+                }
+            ],
+            empresas: [
+                {
+                    nombre: "Restaurante Casa Dolores",
+                    lat: 20.67750,
+                    lng: -103.34650,
+                    categoria: "RESTAURANTE",
+                    descripcion: "COMIDA MEXICANA - Inspirada en el aroma de la historia de México. Somos un restaurante que elogia lo mejor de México, trasformando sus tradicionales sabores, texturas y aromas en los más exquisitos platillos de cocina mexicana, resultado de una cuidadosa selección de ingredientes, teniendo muy presente nuestro legado que implica ser orgullosamente mexicanos.",
+                    direccion: "Paseo Alcalde 22, Col. Centro. Guadalajara, Jal.",
+                    horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
+                    telefono: "+52 33 1001 8581",
+                    web: "opentable.com.mx",
+                    instagram: "@casadoloresgdl"
+                },
+                {
+                    nombre: "Ex Convento de Santa Teresa",
+                    lat: 20.67800,
+                    lng: -103.34800,
+                    categoria: "SALÓN DE EVENTOS",
+                    descripcion: "Donde cada rincón, es un bello espacio histórico que hará resaltar tu evento. Recinto con 400 años de historia que forma parte de la riqueza arquitectónica de la ciudad, para hacer de tu evento la vivencia más memorable y exclusiva. Fundado en el siglo XVII, por la orden de las carmelitas descalzas como el primer claustro en Guadalajara. \"Nuestra historia es el marco ideal para tus nuevas historias\"",
+                    direccion: "Donato Guerra 25, Zona Centro, 44100 Guadalajara, Jal.",
+                    telefono: "+52 33 1989 0373",
+                    web: "exconvento.com.mx",
+                    facebook: "facebook.com/ExconventoST",
+                    instagram: "@exconventost"
+                },
+                {
+                    nombre: "Casa Anguiano",
+                    lat: 20.67720,
+                    lng: -103.34780,
+                    categoria: "ARTÍCULOS RELIGIOSOS",
+                    descripcion: "Casa fundada en 1942. Líderes en la comercialización de Artículos Religiosos en la República Mexicana. Nuestra empresa cuenta con un punto de venta al público en el centro de la bella ciudad de Guadalajara, a unas cuantas calles de nuestra emblemática Catedral, ademas de un taller propio donde fabricamos diferentes artículos y proporcionamos varios servicios como restauraciones de imagenes y metales sagrados por mencionar algunos.",
+                    direccion: "Av. Fray Antonio Alcalde 113, Col. Centro. Guadalajara, Jal.",
+                    horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
+                    telefono: "+52 333 614 6880",
+                    whatsapp: "+52 331 061 6961",
+                    web: "casaanguiano.com"
+                },
+                {
+                    nombre: "El Pilón de los Arrieros",
+                    lat: 20.67600,
+                    lng: -103.34550,
+                    categoria: "GASTRONOMÍA ARTESANAL",
+                    descripcion: "Con más de 40 años de tradición. Lupita Figueroa es la dueña de todas las recetas, donde se sirven excelentes platillos, teniendo como especialidad la birria de chivo, además de la barbacoa de borrego, exquisitos chamorros adobados y la cochinita pibil complementan sus deliciosos platillos. Ven y disfruta de un festín de sabores mexicanos. Por sus mesas han pasado artistas, cantantes, actores, personajes de la radio y la televisión nacionales y extranjeros.",
+                    direccion: "Calle Galeana 388, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
+                    horario: "Lunes – Domingo: 9:00 am – 9:00 pm",
+                    telefono: "+52 33 3613 2799",
+                    instagram: "@elpilondelosarrieros"
+                }
+            ]
+        };
+
+        // Función para inicializar el mapa
+        function initMap() {
+            // Centro del mapa en Guadalajara (ajustado para mostrar Zapopan, Guadalajara y Tonalá como en la captura)
+            const centro = { lat: 20.6597, lng: -103.3496 };
+            
+            // Crear el mapa
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10, // Zoom para mostrar toda el área metropolitana (Zapopan, Guadalajara, Tonalá) como en la captura
+                center: centro,
+                mapTypeId: 'roadmap',
+                styles: [
+                    {
+                        featureType: 'poi',
+                        elementType: 'labels',
+                        stylers: [{ visibility: 'off' }]
+                    }
+                ]
+            });
+
+            // Función para crear icono personalizado desde imagen
+            function crearIconoPersonalizado(rutaImagen, tamaño = 60) {
+                return {
+                    url: rutaImagen,
+                    scaledSize: new google.maps.Size(tamaño, tamaño),
+                    anchor: new google.maps.Point(tamaño / 2, tamaño),
+                    origin: new google.maps.Point(0, 0)
+                };
+            }
+
+            // Icono de georreferenciación para empresas sin imagen
+            const iconoGeorreferenciacion = {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                    <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 2 C14.06 2 6 10.06 6 20 C6 29.94 24 46 24 46 C24 46 42 29.94 42 20 C42 10.06 33.94 2 24 2 Z" 
+                              fill="#8B1538" stroke="#fff" stroke-width="2"/>
+                        <circle cx="24" cy="20" r="6" fill="#fff"/>
+                        <circle cx="24" cy="20" r="3" fill="#8B1538"/>
+                    </svg>
+                `),
+                scaledSize: new google.maps.Size(48, 48),
+                anchor: new google.maps.Point(24, 48)
+            };
+
+            // Icono para la ubicación actual del usuario (persona/usuario)
+            const iconoUbicacionUsuario = {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                    <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="#4285F4" stroke="#fff" stroke-width="3"/>
+                        <circle cx="24" cy="18" r="7" fill="#fff"/>
+                        <path d="M12 38 C12 32 16 28 24 28 C32 28 36 32 36 38" fill="#fff"/>
+                    </svg>
+                `),
+                scaledSize: new google.maps.Size(48, 48),
+                anchor: new google.maps.Point(24, 48)
+            };
+
+            // Función para crear contenido del info window
+            function crearContenidoInfo(lugar) {
+                const esHistorico = lugar.categoria.includes('HISTÓRICO');
+                const categoriaClass = esHistorico ? 'historical' : 'business';
+                
+                let contenido = `
+                    <div class="info-window">
+                        <span class="category ${categoriaClass}">${lugar.categoria}</span>
+                        <h3>${lugar.nombre}</h3>
+                        <p>${lugar.descripcion}</p>
+                        <div class="address">
+                            <strong>📍 Dirección:</strong><br>${lugar.direccion}
+                        </div>
+                `;
+
+                if (lugar.horario) {
+                    contenido += `<div class="contact"><strong>🕐 Horario:</strong> ${lugar.horario}</div>`;
+                }
+
+                if (lugar.telefono) {
+                    contenido += `<div class="contact"><strong>📞 Teléfono:</strong> ${lugar.telefono}</div>`;
+                }
+
+                if (lugar.whatsapp) {
+                    contenido += `<div class="contact"><strong>💬 WhatsApp:</strong> ${lugar.whatsapp}</div>`;
+                }
+
+                if (lugar.web) {
+                    contenido += `<div class="contact"><strong>🌐 Web:</strong> ${lugar.web}</div>`;
+                }
+
+                if (lugar.instagram) {
+                    contenido += `<div class="contact"><strong>📷 Instagram:</strong> ${lugar.instagram}</div>`;
+                }
+
+                if (lugar.facebook) {
+                    contenido += `<div class="contact"><strong>👥 Facebook:</strong> ${lugar.facebook}</div>`;
+                }
+
+                contenido += `</div>`;
+                return contenido;
+            }
+
+            // Agregar marcadores históricos con imágenes personalizadas
+            lugares.historicos.forEach(lugar => {
+                const icono = lugar.imagen 
+                    ? crearIconoPersonalizado(lugar.imagen, 60)
+                    : iconoEmpresa;
+
+                const marker = new google.maps.Marker({
+                    position: { lat: lugar.lat, lng: lugar.lng },
+                    map: map,
+                    title: lugar.nombre,
+                    icon: icono
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: crearContenidoInfo(lugar)
+                });
+
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker);
+                });
+            });
+
+            // Agregar marcadores de empresas
+            lugares.empresas.forEach(lugar => {
+                const marker = new google.maps.Marker({
+                    position: { lat: lugar.lat, lng: lugar.lng },
+                    map: map,
+                    title: lugar.nombre,
+                    icon: iconoGeorreferenciacion
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: crearContenidoInfo(lugar)
+                });
+
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker);
+                });
+            });
+
+            // Variables para almacenar el marcador y círculo del usuario
+            let userMarker = null;
+            let accuracyCircle = null;
+
+            // Función para mostrar mensaje
+            function mostrarMensaje(mensaje, tipo = 'info') {
+                const messageDiv = document.getElementById('geolocationMessage');
+                if (messageDiv) {
+                    messageDiv.textContent = mensaje;
+                    messageDiv.className = 'geolocation-message ' + tipo;
+                    messageDiv.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 5000);
+                }
+            }
+
+            // Función para obtener ubicación usando Google Geolocation API
+            // Nota: Desde navegadores web, solo puede usar IP (precisión similar a geolocalización por IP)
+            // Para mayor precisión, se necesitan permisos de geolocalización del navegador (GPS)
+            async function obtenerUbicacionGoogleGeolocation() {
+                try {
+                    // Google Geolocation API puede usar información de red (WiFi, torres celulares)
+                    // pero desde navegadores web no tenemos acceso a esa información por seguridad
+                    // Por lo tanto, solo usará la IP, dando precisión similar a geolocalización por IP
+                    const requestBody = {
+                        considerIp: true // Usar IP (única opción disponible desde navegador web)
+                    };
+                    
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 8000);
+                    
+                    const response = await fetch(
+                        `https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFGebMe1CODtGrn8fXU9oAa7-I6DgaBhM`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(requestBody),
+                            signal: controller.signal
+                        }
+                    );
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(`HTTP ${response.status}: ${errorData.error?.message || 'Error desconocido'}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.location && data.location.lat && data.location.lng) {
+                        const accuracy = data.accuracy || 5000; // Precisión en metros (típicamente 1-5km con IP)
+                        console.log('✅ Ubicación obtenida por Google Geolocation API - Precisión:', Math.round(accuracy), 'metros');
+                        
+                        // Si la precisión es muy baja (>5km), es básicamente geolocalización por IP
+                        if (accuracy > 5000) {
+                            console.log('⚠️ Precisión baja: usando principalmente IP. Para ubicación exacta, permite permisos de geolocalización.');
+                        }
+                        
+                        return {
+                            lat: data.location.lat,
+                            lng: data.location.lng,
+                            accuracy: accuracy,
+                            source: 'google-geolocation'
+                        };
+                    }
+                    
+                    throw new Error('Datos inválidos de Google Geolocation API');
+                } catch (error) {
+                    console.log('⚠️ Google Geolocation API falló:', error.message);
+                    return null;
+                }
+            }
+
+            // Función para obtener ubicación por IP (respaldo si Google Geolocation falla)
+            async function obtenerUbicacionPorIP() {
+                const servicios = [
+                    // Servicio 1: ip-api.com (HTTP, no HTTPS en versión gratuita)
+                    async () => {
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 5000);
+                        
+                        try {
+                            // Intentar HTTP primero (según documentación)
+                            let response;
+                            try {
+                                response = await fetch('http://ip-api.com/json/?fields=status,message,lat,lon,city,regionName,country', {
+                                    signal: controller.signal,
+                                    headers: {
+                                        'Accept': 'application/json',
+                                    },
+                                });
+                            } catch (mixedContentError) {
+                                // Si hay error de mixed content (HTTPS bloqueando HTTP), intentar con HTTPS
+                                // aunque la documentación dice que no está disponible, algunos casos funcionan
+                                console.log('⚠️ HTTP bloqueado, intentando HTTPS...');
+                                response = await fetch('https://ip-api.com/json/?fields=status,message,lat,lon,city,regionName,country', {
+                                    signal: controller.signal,
+                                    headers: {
+                                        'Accept': 'application/json',
+                                    },
+                                });
+                            }
+                            
+                            clearTimeout(timeoutId);
+                            
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                            
+                            const data = await response.json();
+                            
+                            if (data.status === 'success' && data.lat && data.lon) {
+                                return {
+                                    lat: parseFloat(data.lat),
+                                    lng: parseFloat(data.lon),
+                                    accuracy: 2000,
+                                    city: data.city,
+                                    region: data.regionName,
+                                    source: 'ip-api.com'
+                                };
+                            }
+                            throw new Error('Datos inválidos');
+                        } catch (error) {
+                            clearTimeout(timeoutId);
+                            throw error;
+                        }
+                    },
+                    // Servicio 2: ipapi.co (respaldo)
+                    async () => {
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 5000);
+                        
+                        const response = await fetch('https://ipapi.co/json/', {
+                            signal: controller.signal,
+                        });
+                        
+                        clearTimeout(timeoutId);
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        
+                        if (data.latitude && data.longitude && !data.error) {
+                            return {
+                                lat: parseFloat(data.latitude),
+                                lng: parseFloat(data.longitude),
+                                accuracy: 2000,
+                                city: data.city,
+                                region: data.region,
+                                source: 'ipapi.co'
+                            };
+                        }
+                        throw new Error('Datos inválidos');
+                    },
+                    // Servicio 3: ipinfo.io (respaldo)
+                    async () => {
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 5000);
+                        
+                        const response = await fetch('https://ipinfo.io/json', {
+                            signal: controller.signal,
+                        });
+                        
+                        clearTimeout(timeoutId);
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        
+                        if (data.loc) {
+                            const coords = data.loc.split(',');
+                            if (coords.length === 2) {
+                                return {
+                                    lat: parseFloat(coords[0]),
+                                    lng: parseFloat(coords[1]),
+                                    accuracy: 3000,
+                                    city: data.city,
+                                    region: data.region,
+                                    source: 'ipinfo.io'
+                                };
+                            }
+                        }
+                        throw new Error('Datos inválidos');
+                    },
+                    // Servicio 4: geojs.io (respaldo final)
+                    async () => {
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 5000);
+                        
+                        const response = await fetch('https://get.geojs.io/v1/ip/geo.json', {
+                            signal: controller.signal,
+                        });
+                        
+                        clearTimeout(timeoutId);
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        
+                        if (data.latitude && data.longitude) {
+                            return {
+                                lat: parseFloat(data.latitude),
+                                lng: parseFloat(data.longitude),
+                                accuracy: 3000,
+                                city: data.city,
+                                region: data.region,
+                                source: 'geojs.io'
+                            };
+                        }
+                        throw new Error('Datos inválidos');
+                    }
+                ];
+
+                // Intentar cada servicio en orden
+                for (let i = 0; i < servicios.length; i++) {
+                    try {
+                        const resultado = await servicios[i]();
+                        
+                        if (resultado && 
+                            typeof resultado.lat === 'number' && 
+                            typeof resultado.lng === 'number' &&
+                            !isNaN(resultado.lat) && 
+                            !isNaN(resultado.lng)) {
+                            
+                            console.log('✅ Ubicación obtenida por IP desde:', resultado.source, '- Ciudad:', resultado.city);
+                            return {
+                                lat: resultado.lat,
+                                lng: resultado.lng,
+                                accuracy: resultado.accuracy || 2000,
+                                city: resultado.city,
+                                region: resultado.region,
+                                source: 'ip'
+                            };
+                        }
+                    } catch (error) {
+                        console.log(`⚠️ Servicio ${i + 1} falló:`, error.message);
+                        // Continuar con el siguiente servicio
+                        continue;
+                    }
+                }
+
+                console.error('❌ Todos los servicios de geolocalización por IP fallaron');
+                return null;
+            }
+
+            // Función para mostrar la ubicación en el mapa
+            function mostrarUbicacionEnMapa(userLocation, accuracy, source = 'gps') {
+                // Eliminar marcador anterior si existe
+                if (userMarker) {
+                    userMarker.setMap(null);
+                }
+                if (accuracyCircle) {
+                    accuracyCircle.setMap(null);
+                }
+
+                // Crear marcador para la ubicación del usuario
+                userMarker = new google.maps.Marker({
+                    position: userLocation,
+                    map: map,
+                    title: "Tu ubicación actual",
+                    icon: iconoUbicacionUsuario,
+                    animation: google.maps.Animation.DROP
+                });
+
+                // Crear círculo de precisión
+                accuracyCircle = new google.maps.Circle({
+                    center: userLocation,
+                    radius: accuracy,
+                    map: map,
+                    fillColor: '#4285F4',
+                    fillOpacity: 0.15,
+                    strokeColor: '#4285F4',
+                    strokeOpacity: 0.3,
+                    strokeWeight: 1
+                });
+
+                // Info window para la ubicación del usuario
+                let sourceText = '';
+                if (source === 'ip') {
+                    sourceText = ' (aproximada por IP)';
+                } else if (source === 'google-geolocation') {
+                    sourceText = ' (Google Geolocation API)';
+                }
+                
+                const userInfoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div class="info-window">
+                            <h3 style="color: #4285F4; margin-bottom: 10px;">👤 Tu ubicación${sourceText}</h3>
+                            <p style="color: #666; font-size: 13px;">Estás aquí</p>
+                            <p style="color: #666; font-size: 12px; margin-top: 8px;">
+                                Precisión: ${Math.round(accuracy)} metros
+                            </p>
+                        </div>
+                    `
+                });
+
+                userMarker.addListener('click', () => {
+                    userInfoWindow.open(map, userMarker);
+                });
+
+                // Solo centrar y hacer zoom si es ubicación precisa (GPS)
+                // Para ubicaciones aproximadas (IP), solo mostrar el marcador sin cambiar la vista
+                if (source === 'gps' && accuracy < 100) {
+                    map.setCenter(userLocation);
+                    map.setZoom(15);
+                } else if (source === 'gps') {
+                    // GPS pero con baja precisión, ajustar zoom moderadamente
+                    map.setCenter(userLocation);
+                    map.setZoom(13);
+                }
+                // Para IP o Google Geolocation API, no cambiar la vista inicial
+            }
+
+            // Función para obtener y mostrar la ubicación del usuario (siguiendo el patrón del ejemplo)
+            async function obtenerUbicacionUsuario(mostrarMensajeFlag = true) {
+                // Prioridad 1: Geolocalización del navegador (GPS/Wi-Fi, más precisa)
+                if (navigator.geolocation) {
+                    if (mostrarMensajeFlag) {
+                        mostrarMensaje('Solicitando tu ubicación...', 'info');
+                    }
+
+                    console.log('🌐 Intentando geolocalización del navegador...');
+                    
+                    navigator.geolocation.getCurrentPosition(
+                        async function(position) {
+                            try {
+                                const { latitude, longitude } = position.coords;
+                                console.log('📍 Coordenadas obtenidas:', latitude, longitude);
+                                
+                                const userLocation = {
+                                    lat: latitude,
+                                    lng: longitude
+                                };
+
+                                mostrarUbicacionEnMapa(userLocation, position.coords.accuracy, 'gps');
+                                
+                                if (mostrarMensajeFlag) {
+                                    mostrarMensaje('¡Ubicación encontrada!', 'success');
+                                }
+                            } catch (err) {
+                                console.error('❌ Error procesando geolocalización:', err);
+                                // Fallback a IP
+                                await intentarUbicacionPorIP(mostrarMensajeFlag);
+                            }
+                        },
+                        async function(error) {
+                            // Si el usuario rechaza o no está disponible, intentar por IP
+                            console.log('⚠️ Geolocalización del navegador falló, intentando por IP...');
+                            
+                            // Si el permiso está denegado, mostrar instrucciones
+                            if (error.code === error.PERMISSION_DENIED) {
+                                const instructionsDiv = document.getElementById('geolocationInstructions');
+                                if (instructionsDiv && mostrarMensajeFlag) {
+                                    instructionsDiv.style.display = 'block';
+                                    // Ocultar después de 15 segundos
+                                    setTimeout(() => {
+                                        instructionsDiv.style.display = 'none';
+                                    }, 15000);
+                                }
+                            }
+                            
+                            await intentarUbicacionPorIP(mostrarMensajeFlag, error);
+                        },
+                        {
+                            timeout: 8000,
+                            enableHighAccuracy: true, // Usar GPS si está disponible
+                            maximumAge: 300000 // Cache de 5 minutos
+                        }
+                    );
+                } else {
+                    // Si no hay soporte, ir directo a IP
+                    console.log('⚠️ Navegador no soporta geolocalización, usando IP...');
+                    await intentarUbicacionPorIP(mostrarMensajeFlag);
+                }
+            }
+
+            // Función helper para intentar ubicación (Google Geolocation primero, luego IP)
+            async function intentarUbicacionPorIP(mostrarMensajeFlag = true, error = null) {
+                // Si el permiso está denegado y es automático, intentar silenciosamente
+                if (error && error.code === error.PERMISSION_DENIED && !mostrarMensajeFlag) {
+                    // Intentar Google Geolocation API primero (más precisa)
+                    const googleLocation = await obtenerUbicacionGoogleGeolocation();
+                    if (googleLocation) {
+                        mostrarUbicacionEnMapa(
+                            { lat: googleLocation.lat, lng: googleLocation.lng },
+                            googleLocation.accuracy,
+                            'google-geolocation'
+                        );
+                        return;
+                    }
+                    
+                    // Si falla, intentar IP
+                    const ipLocation = await obtenerUbicacionPorIP();
+                    if (ipLocation) {
+                        mostrarUbicacionEnMapa(
+                            { lat: ipLocation.lat, lng: ipLocation.lng },
+                            ipLocation.accuracy,
+                            'ip'
+                        );
+                    }
+                    return;
+                }
+
+                if (mostrarMensajeFlag) {
+                    mostrarMensaje('Obteniendo ubicación...', 'info');
+                }
+
+                // Intentar Google Geolocation API primero (más precisa que IP)
+                const googleLocation = await obtenerUbicacionGoogleGeolocation();
+                
+                if (googleLocation) {
+                    mostrarUbicacionEnMapa(
+                        { lat: googleLocation.lat, lng: googleLocation.lng },
+                        googleLocation.accuracy,
+                        'google-geolocation'
+                    );
+                    if (mostrarMensajeFlag) {
+                        const precisionKm = (googleLocation.accuracy / 1000).toFixed(1);
+                        if (googleLocation.accuracy > 5000) {
+                            mostrarMensaje(`Ubicación aproximada (${precisionKm}km). Permite permisos para ubicación exacta.`, 'info');
+                        } else {
+                            mostrarMensaje(`Ubicación encontrada (precisión: ${Math.round(googleLocation.accuracy)}m)`, 'success');
+                        }
+                    }
+                    return;
+                }
+
+                // Si Google Geolocation falla, intentar IP como respaldo
+                if (mostrarMensajeFlag) {
+                    mostrarMensaje('Obteniendo ubicación aproximada por IP...', 'info');
+                }
+
+                const ipLocation = await obtenerUbicacionPorIP();
+                
+                if (ipLocation) {
+                    mostrarUbicacionEnMapa(
+                        { lat: ipLocation.lat, lng: ipLocation.lng },
+                        ipLocation.accuracy,
+                        'ip'
+                    );
+                    if (mostrarMensajeFlag) {
+                        mostrarMensaje('Ubicación aproximada encontrada (por IP)', 'success');
+                    }
+                } else {
+                    if (mostrarMensajeFlag) {
+                        let mensajeError = 'No se pudo obtener tu ubicación.';
+                        if (error) {
+                            switch(error.code) {
+                                case error.PERMISSION_DENIED:
+                                    mensajeError = 'Permiso denegado. Permite el acceso a ubicación para mayor precisión.';
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    mensajeError = 'Ubicación no disponible.';
+                                    break;
+                                case error.TIMEOUT:
+                                    mensajeError = 'Tiempo de espera agotado.';
+                                    break;
+                            }
+                        }
+                        mostrarMensaje(mensajeError, 'error');
+                    }
+                }
+            }
+
+            // Botón para solicitar ubicación manualmente
+            document.getElementById('btnGeolocation').addEventListener('click', function() {
+                // Ocultar instrucciones si están visibles
+                const instructionsDiv = document.getElementById('geolocationInstructions');
+                if (instructionsDiv) {
+                    instructionsDiv.style.display = 'none';
+                }
+                obtenerUbicacionUsuario(true);
+            });
+
+            // Intentar obtener la ubicación automáticamente al cargar
+            obtenerUbicacionUsuario(false);
+        }
+    </script>
+
+    <!-- Google Maps API -->
+    <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFGebMe1CODtGrn8fXU9oAa7-I6DgaBhM&callback=initMap&language=es&loading=async"
+        async defer>
+    </script>
+</body>
+</html>
