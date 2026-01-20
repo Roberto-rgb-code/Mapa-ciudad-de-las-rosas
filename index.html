@@ -190,10 +190,284 @@
         .geolocation-instructions .close-btn:hover {
             color: #333;
         }
+
+        .layers-button {
+            position: absolute;
+            top: 120px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            color: #333;
+            border: none;
+            padding: 8px;
+            border-radius: 2px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            transition: box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .layers-button:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .layers-button:active {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .layers-menu {
+            position: absolute;
+            top: 170px;
+            right: 20px;
+            z-index: 1001;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            min-width: 200px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .layers-menu.active {
+            display: block;
+        }
+
+        .layers-menu-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .layers-menu-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .layers-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .layers-menu-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .layers-menu-item.active {
+            background-color: #e3f2fd;
+        }
+
+        .layers-menu-item-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .layers-menu-item-label {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .layers-menu-item-check {
+            width: 20px;
+            height: 20px;
+            color: #1976d2;
+            display: none;
+        }
+
+        .layers-menu-item.active .layers-menu-item-check {
+            display: block;
+        }
+
+        .map-type-button {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            color: #333;
+            border: none;
+            padding: 8px;
+            border-radius: 2px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            transition: box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-type-button:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .map-type-button:active {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .map-type-menu {
+            position: absolute;
+            top: 120px;
+            right: 20px;
+            z-index: 1001;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            min-width: 200px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .map-type-menu.active {
+            display: block;
+        }
+
+        .map-type-menu-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .map-type-menu-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .map-type-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .map-type-menu-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .map-type-menu-item.active {
+            background-color: #e3f2fd;
+        }
+
+        .map-type-menu-item-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-type-menu-item-label {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .map-type-menu-item-check {
+            width: 20px;
+            height: 20px;
+            color: #1976d2;
+            display: none;
+        }
+
+        .map-type-menu-item.active .map-type-menu-item-check {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div id="map"></div>
+    <button id="btnLayers" class="layers-button" title="Capas del mapa">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+    </button>
+    <div id="layersMenu" class="layers-menu">
+        <div class="layers-menu-header">Capas del mapa</div>
+        <div class="layers-menu-item" data-layer="traffic">
+            <div class="layers-menu-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 10h-3V8.86c1.72-.45 3-2 3-3.86h-3V4c0-.55-.45-1-1-1H8c-.55 0-1 .45-1 1v1H4c0 1.86 1.28 3.41 3 3.86V10H4c0 1.86 1.28 3.41 3 3.86V15H4v2h3v1.14c1.72.45 3 2 3 3.86h3V22c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1h3c0-1.86-1.28-3.41-3-3.86V15h3v-2h-3v-1.14c-1.72-.45-3-2-3-3.86zm-8 9c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="#666"/>
+                    <path d="M12 15c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" fill="#666"/>
+                </svg>
+            </div>
+            <div class="layers-menu-item-label">Tráfico</div>
+            <svg class="layers-menu-item-check" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="layers-menu-item" data-layer="transit">
+            <div class="layers-menu-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 16c0 .88.39 1.67 1 2.22V20a1 1 0 001 1h1a1 1 0 001-1v-1h8v1a1 1 0 001 1h1a1 1 0 001-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z" fill="#666"/>
+                </svg>
+            </div>
+            <div class="layers-menu-item-label">Transporte público</div>
+            <svg class="layers-menu-item-check" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+            </svg>
+        </div>
+    </div>
+    <button id="btnMapType" class="map-type-button" title="Tipo de mapa">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="7" height="7" fill="#666" rx="1"/>
+            <rect x="13" y="6" width="7" height="7" fill="none" stroke="#666" stroke-width="1.5" rx="1"/>
+        </svg>
+    </button>
+    <div id="mapTypeMenu" class="map-type-menu">
+        <div class="map-type-menu-header">Tipo de mapa</div>
+        <div class="map-type-menu-item" data-map-type="roadmap">
+            <div class="map-type-menu-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+            </div>
+            <div class="map-type-menu-item-label">Estándar</div>
+            <svg class="map-type-menu-item-check" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="map-type-menu-item" data-map-type="satellite">
+            <div class="map-type-menu-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 19V5h14v14H5z" fill="#666"/>
+                    <path d="M7 7h10v10H7z" fill="#666"/>
+                </svg>
+            </div>
+            <div class="map-type-menu-item-label">Satélite</div>
+            <svg class="map-type-menu-item-check" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="map-type-menu-item" data-map-type="terrain">
+            <div class="map-type-menu-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z" fill="#666"/>
+                </svg>
+            </div>
+            <div class="map-type-menu-item-label">Relieve</div>
+            <svg class="map-type-menu-item-check" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+            </svg>
+        </div>
+    </div>
     <button id="btnGeolocation" class="geolocation-button" title="Mostrar mi ubicación exacta">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 19C8.13 19 5 15.87 5 12C5 8.13 8.13 5 12 5C15.87 5 19 8.13 19 12C19 15.87 15.87 19 12 19Z" fill="#333"/>
@@ -323,6 +597,120 @@
                         stylers: [{ visibility: 'off' }]
                     }
                 ]
+            });
+
+            // Variables para controlar las capas
+            let trafficLayer = null;
+            let transitLayer = null;
+            const layerStates = {
+                traffic: false,
+                transit: false
+            };
+
+            // Inicializar capas de Google Maps
+            trafficLayer = new google.maps.TrafficLayer();
+            transitLayer = new google.maps.TransitLayer();
+
+            // Widget de Capas (Tráfico y Transporte público)
+            const layersButton = document.getElementById('btnLayers');
+            const layersMenu = document.getElementById('layersMenu');
+            const layerItems = layersMenu.querySelectorAll('.layers-menu-item');
+
+            // Widget de Tipo de Mapa (Estándar, Satélite, Relieve)
+            const mapTypeButton = document.getElementById('btnMapType');
+            const mapTypeMenu = document.getElementById('mapTypeMenu');
+            const mapTypeItems = mapTypeMenu.querySelectorAll('.map-type-menu-item');
+
+            // Toggle del menú de capas
+            layersButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                layersMenu.classList.toggle('active');
+                // Cerrar el menú de tipo de mapa si está abierto
+                mapTypeMenu.classList.remove('active');
+            });
+
+            // Manejar clics en los items del menú de capas
+            layerItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const layerType = this.getAttribute('data-layer');
+                    toggleLayer(layerType);
+                });
+            });
+
+            // Función para activar/desactivar capas
+            function toggleLayer(layerType) {
+                const item = layersMenu.querySelector(`[data-layer="${layerType}"]`);
+                
+                if (layerType === 'traffic') {
+                    layerStates.traffic = !layerStates.traffic;
+                    if (layerStates.traffic) {
+                        trafficLayer.setMap(map);
+                        item.classList.add('active');
+                    } else {
+                        trafficLayer.setMap(null);
+                        item.classList.remove('active');
+                    }
+                } else if (layerType === 'transit') {
+                    layerStates.transit = !layerStates.transit;
+                    if (layerStates.transit) {
+                        transitLayer.setMap(map);
+                        item.classList.add('active');
+                    } else {
+                        transitLayer.setMap(null);
+                        item.classList.remove('active');
+                    }
+                }
+            }
+
+            // Marcar "Estándar" como activo por defecto
+            const defaultMapTypeItem = mapTypeMenu.querySelector('[data-map-type="roadmap"]');
+            if (defaultMapTypeItem) {
+                defaultMapTypeItem.classList.add('active');
+            }
+
+            // Toggle del menú de tipo de mapa
+            mapTypeButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mapTypeMenu.classList.toggle('active');
+                // Cerrar el menú de capas si está abierto
+                layersMenu.classList.remove('active');
+            });
+
+            // Manejar clics en los items del menú de tipo de mapa
+            mapTypeItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const mapType = this.getAttribute('data-map-type');
+                    setMapType(mapType);
+                });
+            });
+
+            // Función para cambiar el tipo de mapa base
+            function setMapType(mapType) {
+                // Remover activo de todos los items
+                mapTypeItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Activar el item seleccionado
+                const selectedItem = mapTypeMenu.querySelector(`[data-map-type="${mapType}"]`);
+                if (selectedItem) {
+                    selectedItem.classList.add('active');
+                }
+
+                // Cambiar el tipo de mapa
+                map.setMapTypeId(mapType);
+            }
+
+            // Cerrar los menús al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if (!layersMenu.contains(e.target) && !layersButton.contains(e.target)) {
+                    layersMenu.classList.remove('active');
+                }
+                if (!mapTypeMenu.contains(e.target) && !mapTypeButton.contains(e.target)) {
+                    mapTypeMenu.classList.remove('active');
+                }
             });
 
             // Función para crear icono personalizado desde imagen
