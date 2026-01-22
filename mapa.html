@@ -595,22 +595,56 @@
             text-transform: uppercase;
         }
 
-        /* Título del mapa */
-        .map-title {
+        /* Logo del mapa - esquina superior izquierda */
+        .map-logo {
             position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 70px;
+            left: 15px;
             z-index: 999;
-            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 25px;
-            box-shadow: 0 4px 12px rgba(139, 21, 56, 0.4);
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(136, 14, 79, 0.2);
+            border: 2px solid #f8bbd9;
+        }
+
+        .map-logo img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .map-logo-text {
+            text-align: center;
+        }
+
+        .map-logo-title {
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            font-weight: bold;
+            color: #880e4f;
+            line-height: 1.2;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .map-logo-subtitle {
+            font-size: 10px;
+            color: #ad1457;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2px;
+        }
+
+        .map-logo-rose {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        /* Título del mapa - centro superior */
+        .map-title {
+            display: none; /* Ocultamos el título central, usamos el logo */
         }
 
         /* Indicador de Norte - alineado con panel de controles */
@@ -634,26 +668,27 @@
             height: 24px;
         }
 
-        /* Leyenda */
+        /* Leyenda - estilo Ciudad de las Rosas */
         .legend {
             position: absolute;
             bottom: 30px;
             left: 15px;
             z-index: 1000;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(136, 14, 79, 0.15);
             padding: 12px 16px;
             min-width: 180px;
+            border: 2px solid #f8bbd9;
         }
 
         .legend-header {
             font-size: 12px;
             font-weight: 600;
-            color: #333;
+            color: #880e4f;
             margin-bottom: 10px;
             padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 2px solid #f8bbd9;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -864,7 +899,25 @@
         /* Tablets y móviles grandes */
         @media (max-width: 768px) {
             .map-title {
-                display: none; /* Ocultar título en móviles */
+                display: none;
+            }
+
+            .map-logo {
+                top: 70px;
+                left: 10px;
+                padding: 8px 12px;
+            }
+
+            .map-logo-title {
+                font-size: 14px;
+            }
+
+            .map-logo-subtitle {
+                font-size: 8px;
+            }
+
+            .map-logo-rose {
+                font-size: 18px;
             }
 
             .search-box {
@@ -878,6 +931,7 @@
             .legend {
                 max-width: 160px;
                 padding: 10px 12px;
+                bottom: 25px;
             }
 
             .legend-item span {
@@ -885,7 +939,7 @@
             }
 
             .info-panel {
-                display: none; /* Ocultar panel de info en móviles */
+                display: none;
             }
         }
 
@@ -973,7 +1027,18 @@
 <body>
     <div id="map"></div>
     
-    <!-- Título del mapa -->
+    <!-- Logo del mapa -->
+    <div class="map-logo" id="mapLogo">
+        <div class="map-logo-rose">🌹</div>
+        <div class="map-logo-text">
+            <div class="map-logo-title">Guadalajara</div>
+            <div class="map-logo-subtitle">Ciudad de las Rosas</div>
+        </div>
+        <!-- Cuando tengas el logo, reemplaza el contenido con: -->
+        <!-- <img src="assets/logo.png" alt="Guadalajara Ciudad de las Rosas"> -->
+    </div>
+    
+    <!-- Título del mapa (oculto, se usa el logo) -->
     <div class="map-title">
         <span>Guadalajara - Ciudad de las Rosas</span>
     </div>
@@ -1266,67 +1331,115 @@
             };
             
             // Crear el mapa centrado donde están los puntos
-            // Estilo profesional tipo ArcGIS MapViewer
+            // Estilo "Ciudad de las Rosas" - tonos rosa/pastel
             const estiloMapa = [
+                // Fondo general rosa claro
                 {
                     featureType: 'all',
                     elementType: 'geometry',
-                    stylers: [{ saturation: -20 }]
+                    stylers: [{ saturation: 10 }, { lightness: 5 }]
                 },
+                // Paisaje/fondo en rosa pastel
+                {
+                    featureType: 'landscape',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#fce4ec' }] // Rosa muy claro
+                },
+                {
+                    featureType: 'landscape.man_made',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#f8bbd9' }] // Rosa más intenso para zonas urbanas
+                },
+                // Parques en verde suave
+                {
+                    featureType: 'poi.park',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#a5d6a7' }] // Verde pastel
+                },
+                // Ocultar POIs
                 {
                     featureType: 'poi',
                     elementType: 'labels',
                     stylers: [{ visibility: 'off' }]
                 },
                 {
-                    featureType: 'poi.park',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#c8e6c9' }]
+                    featureType: 'poi.business',
+                    stylers: [{ visibility: 'off' }]
                 },
+                // Calles principales en blanco/crema
                 {
-                    featureType: 'road',
-                    elementType: 'geometry',
-                    stylers: [{ lightness: 20 }]
+                    featureType: 'road.highway',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#fff9c4' }] // Amarillo muy claro
                 },
                 {
                     featureType: 'road.highway',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#ffcc80' }]
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#ffeb3b' }, { weight: 1 }]
                 },
                 {
                     featureType: 'road.arterial',
-                    elementType: 'geometry',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#ffffff' }] // Blanco
+                },
+                {
+                    featureType: 'road.arterial',
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#e0e0e0' }]
+                },
+                {
+                    featureType: 'road.local',
+                    elementType: 'geometry.fill',
                     stylers: [{ color: '#ffffff' }]
                 },
                 {
                     featureType: 'road.local',
-                    elementType: 'geometry',
+                    elementType: 'geometry.stroke',
                     stylers: [{ color: '#f5f5f5' }]
                 },
-                {
-                    featureType: 'water',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#b3e5fc' }]
-                },
-                {
-                    featureType: 'landscape',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#f5f5f5' }]
-                },
-                {
-                    featureType: 'administrative',
-                    elementType: 'labels.text.fill',
-                    stylers: [{ color: '#666666' }]
-                },
+                // Nombres de calles en gris oscuro
                 {
                     featureType: 'road',
                     elementType: 'labels.text.fill',
-                    stylers: [{ color: '#555555' }]
+                    stylers: [{ color: '#5d4037' }] // Marrón oscuro
                 },
                 {
+                    featureType: 'road',
+                    elementType: 'labels.text.stroke',
+                    stylers: [{ color: '#ffffff' }, { weight: 3 }]
+                },
+                // Agua en azul claro
+                {
+                    featureType: 'water',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#81d4fa' }] // Azul claro
+                },
+                // Etiquetas administrativas (zonas) en rosa oscuro
+                {
+                    featureType: 'administrative.neighborhood',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#ad1457' }] // Rosa oscuro/magenta
+                },
+                {
+                    featureType: 'administrative.neighborhood',
+                    elementType: 'labels.text.stroke',
+                    stylers: [{ color: '#fce4ec' }, { weight: 2 }]
+                },
+                {
+                    featureType: 'administrative.locality',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#880e4f' }] // Rosa muy oscuro
+                },
+                // Transporte simplificado
+                {
                     featureType: 'transit',
-                    elementType: 'labels',
+                    elementType: 'all',
                     stylers: [{ visibility: 'simplified' }]
+                },
+                {
+                    featureType: 'transit.station',
+                    elementType: 'labels.icon',
+                    stylers: [{ visibility: 'off' }]
                 }
             ];
 
