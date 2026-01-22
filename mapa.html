@@ -457,10 +457,456 @@
         .map-type-menu-item.active .map-type-menu-item-check {
             display: block;
         }
+
+        /* ===== ELEMENTOS CARTOGRÁFICOS PROFESIONALES ===== */
+
+        /* Barra de búsqueda */
+        .search-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            overflow: hidden;
+            width: 320px;
+            transition: box-shadow 0.3s, width 0.3s;
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            width: 380px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 12px 16px;
+            font-size: 14px;
+            outline: none;
+            background: transparent;
+        }
+
+        .search-box input::placeholder {
+            color: #999;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .search-box button:hover {
+            color: #8B1538;
+            background: #f5f5f5;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+        .search-result-item:hover {
+            background: #f8f9fa;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .search-result-icon.historical {
+            background: #e3f2fd;
+            color: #1565C0;
+        }
+
+        .search-result-icon.business {
+            background: #fff3e0;
+            color: #E65100;
+        }
+
+        .search-result-text {
+            flex: 1;
+        }
+
+        .search-result-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .search-result-category {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* Título del mapa */
+        .map-title {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 25px;
+            box-shadow: 0 4px 12px rgba(139, 21, 56, 0.4);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        /* Indicador de Norte */
+        .north-indicator {
+            position: absolute;
+            top: 15px;
+            right: 70px;
+            z-index: 1000;
+            background: white;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .north-indicator svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* Leyenda */
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            left: 15px;
+            z-index: 1000;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 12px 16px;
+            min-width: 180px;
+        }
+
+        .legend-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .legend-symbol {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .legend-symbol.historical {
+            background: #e3f2fd;
+            border: 2px solid #1565C0;
+        }
+
+        .legend-symbol.business {
+            background: #fff3e0;
+            border: 2px solid #E65100;
+        }
+
+        .legend-symbol.user {
+            background: #e3f2fd;
+            border: 2px solid #4285F4;
+        }
+
+        .legend-symbol svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Escala personalizada */
+        .scale-bar {
+            position: absolute;
+            bottom: 30px;
+            right: 15px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            border-radius: 6px;
+            padding: 8px 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            font-size: 11px;
+            color: #555;
+        }
+
+        .scale-bar-line {
+            display: flex;
+            align-items: flex-end;
+            margin-top: 4px;
+        }
+
+        .scale-bar-segment {
+            height: 4px;
+            border-left: 2px solid #333;
+            border-right: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
+
+        .scale-bar-segment:first-child {
+            background: #333;
+        }
+
+        .scale-bar-segment:last-child {
+            background: transparent;
+        }
+
+        /* Panel de información */
+        .info-panel {
+            position: absolute;
+            bottom: 100px;
+            left: 15px;
+            z-index: 999;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 10px 14px;
+            font-size: 11px;
+            color: #666;
+            max-width: 180px;
+        }
+
+        .info-panel-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+        }
+
+        .info-panel-label {
+            color: #888;
+        }
+
+        .info-panel-value {
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Botones de zoom personalizados */
+        .zoom-controls {
+            position: absolute;
+            top: 70px;
+            right: 15px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: background 0.2s;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .zoom-btn:first-child {
+            border-radius: 4px 4px 0 0;
+        }
+
+        .zoom-btn:last-child {
+            border-radius: 0 0 4px 4px;
+        }
+
+        .zoom-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .zoom-btn:active {
+            background: #eee;
+        }
+
+        /* Ajustar posiciones de controles existentes */
+        .map-type-button {
+            top: 160px;
+        }
+
+        .layers-button {
+            top: 210px;
+        }
+
+        .layers-menu {
+            top: 260px;
+        }
+
+        .map-type-menu {
+            top: 210px;
+        }
+
+        .geolocation-button {
+            bottom: 100px;
+        }
     </style>
 </head>
 <body>
     <div id="map"></div>
+    
+    <!-- Título del mapa -->
+    <div class="map-title">
+        <span>Guadalajara - Ciudad de las Rosas</span>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar lugares...">
+            <button id="searchBtn" title="Buscar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <!-- Indicador de Norte -->
+    <div class="north-indicator" title="Norte">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L8 12h3v8h2v-8h3L12 2z" fill="#C41E3A"/>
+            <path d="M12 2L8 12h3" fill="#8B1538"/>
+            <text x="12" y="23" text-anchor="middle" font-size="6" font-weight="bold" fill="#333">N</text>
+        </svg>
+    </div>
+
+    <!-- Controles de zoom personalizados -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomIn" title="Acercar">+</button>
+        <button class="zoom-btn" id="zoomOut" title="Alejar">−</button>
+    </div>
+
+    <!-- Leyenda -->
+    <div class="legend">
+        <div class="legend-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            </svg>
+            LEYENDA
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol historical">
+                <svg viewBox="0 0 24 24" fill="#1565C0">
+                    <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                </svg>
+            </div>
+            <span>Edificio Histórico</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol business">
+                <svg viewBox="0 0 24 24" fill="#E65100">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+            </div>
+            <span>Empresa / Comercio</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol user">
+                <svg viewBox="0 0 24 24" fill="#4285F4">
+                    <circle cx="12" cy="12" r="6"/>
+                </svg>
+            </div>
+            <span>Tu ubicación</span>
+        </div>
+    </div>
+
+    <!-- Panel de información -->
+    <div class="info-panel" id="infoPanel">
+        <div class="info-panel-row">
+            <span class="info-panel-label">Zoom:</span>
+            <span class="info-panel-value" id="zoomLevel">15</span>
+        </div>
+        <div class="info-panel-row">
+            <span class="info-panel-label">Lat:</span>
+            <span class="info-panel-value" id="centerLat">20.678</span>
+        </div>
+        <div class="info-panel-row">
+            <span class="info-panel-label">Lng:</span>
+            <span class="info-panel-value" id="centerLng">-103.346</span>
+        </div>
+    </div>
+
     <button id="btnLayers" class="layers-button" title="Capas del mapa">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -729,12 +1175,111 @@
                 mapTypeId: 'roadmap',
                 styles: estiloMapa,
                 mapTypeControl: false, // Usamos nuestro propio control
-                fullscreenControl: true,
+                fullscreenControl: false,
                 streetViewControl: false,
-                zoomControlOptions: {
-                    position: google.maps.ControlPosition.RIGHT_CENTER
+                zoomControl: false, // Usamos controles personalizados
+                scaleControl: true, // Mostrar escala de Google
+                scaleControlOptions: {
+                    position: google.maps.ControlPosition.BOTTOM_RIGHT
                 }
             });
+
+            // ===== FUNCIONALIDAD DE BÚSQUEDA =====
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            const allPlaces = [...lugares.historicos, ...lugares.empresas];
+
+            function filterPlaces(query) {
+                if (!query.trim()) return [];
+                const lowerQuery = query.toLowerCase();
+                return allPlaces.filter(place => 
+                    place.nombre.toLowerCase().includes(lowerQuery) ||
+                    place.categoria.toLowerCase().includes(lowerQuery) ||
+                    (place.descripcion && place.descripcion.toLowerCase().includes(lowerQuery))
+                );
+            }
+
+            function renderSearchResults(results) {
+                if (results.length === 0) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+                
+                searchResults.innerHTML = results.map(place => {
+                    const isHistorical = place.categoria.includes('HISTÓRICO');
+                    const iconClass = isHistorical ? 'historical' : 'business';
+                    return `
+                        <div class="search-result-item" data-lat="${place.lat}" data-lng="${place.lng}" data-name="${place.nombre}">
+                            <div class="search-result-icon ${iconClass}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                                </svg>
+                            </div>
+                            <div class="search-result-text">
+                                <div class="search-result-name">${place.nombre}</div>
+                                <div class="search-result-category">${place.categoria}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                searchResults.classList.add('active');
+            }
+
+            searchInput.addEventListener('input', function() {
+                const results = filterPlaces(this.value);
+                renderSearchResults(results);
+            });
+
+            searchInput.addEventListener('focus', function() {
+                if (this.value.trim()) {
+                    const results = filterPlaces(this.value);
+                    renderSearchResults(results);
+                }
+            });
+
+            searchResults.addEventListener('click', function(e) {
+                const item = e.target.closest('.search-result-item');
+                if (item) {
+                    const lat = parseFloat(item.dataset.lat);
+                    const lng = parseFloat(item.dataset.lng);
+                    map.setCenter({ lat, lng });
+                    map.setZoom(17);
+                    searchResults.classList.remove('active');
+                    searchInput.value = item.dataset.name;
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-container')) {
+                    searchResults.classList.remove('active');
+                }
+            });
+
+            // ===== CONTROLES DE ZOOM PERSONALIZADOS =====
+            document.getElementById('zoomIn').addEventListener('click', function() {
+                map.setZoom(map.getZoom() + 1);
+            });
+
+            document.getElementById('zoomOut').addEventListener('click', function() {
+                map.setZoom(map.getZoom() - 1);
+            });
+
+            // ===== PANEL DE INFORMACIÓN (Actualización en tiempo real) =====
+            const zoomLevelEl = document.getElementById('zoomLevel');
+            const centerLatEl = document.getElementById('centerLat');
+            const centerLngEl = document.getElementById('centerLng');
+
+            function updateInfoPanel() {
+                zoomLevelEl.textContent = map.getZoom();
+                const center = map.getCenter();
+                centerLatEl.textContent = center.lat().toFixed(5);
+                centerLngEl.textContent = center.lng().toFixed(5);
+            }
+
+            map.addListener('zoom_changed', updateInfoPanel);
+            map.addListener('center_changed', updateInfoPanel);
+            updateInfoPanel(); // Inicial
 
             // Variables para controlar las capas
             let trafficLayer = null;
