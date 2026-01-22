@@ -757,18 +757,18 @@
             color: #333;
         }
 
-        /* Botones de zoom personalizados */
-        .zoom-controls {
+        /* ===== PANEL DE CONTROLES LATERAL DERECHO ===== */
+        .controls-panel {
             position: absolute;
             top: 70px;
-            right: 15px;
+            right: 10px;
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 8px;
         }
 
-        .zoom-btn {
+        .control-btn {
             width: 40px;
             height: 40px;
             background: white;
@@ -777,47 +777,80 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            transition: background 0.2s;
-            font-size: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: all 0.2s;
             color: #666;
+            border-radius: 4px;
         }
 
-        .zoom-btn:first-child {
-            border-radius: 4px 4px 0 0;
-        }
-
-        .zoom-btn:last-child {
-            border-radius: 0 0 4px 4px;
-        }
-
-        .zoom-btn:hover {
+        .control-btn:hover {
             background: #f5f5f5;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
         }
 
-        .zoom-btn:active {
+        .control-btn:active {
             background: #eee;
         }
 
-        /* Ajustar posiciones de controles existentes */
-        .map-type-button {
-            top: 160px;
+        .control-btn.active {
+            background: #e3f2fd;
+            color: #1976d2;
         }
 
-        .layers-button {
-            top: 210px;
+        .control-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* Grupo de zoom */
+        .zoom-group {
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .zoom-group .control-btn {
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .zoom-group .control-btn:first-child {
+            border-radius: 4px 4px 0 0;
+        }
+
+        .zoom-group .control-btn:last-child {
+            border-radius: 0 0 4px 4px;
+        }
+
+        .zoom-group .control-btn + .control-btn {
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Separador visual */
+        .control-separator {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 4px 0;
+        }
+
+        /* Ajustar posiciones de menús */
+        .layers-button, .map-type-button, .geolocation-button {
+            position: static;
+            box-shadow: none;
         }
 
         .layers-menu {
-            top: 260px;
+            position: absolute;
+            top: 200px;
+            right: 60px;
         }
 
         .map-type-menu {
-            top: 210px;
-        }
-
-        .geolocation-button {
-            bottom: 100px;
+            position: absolute;
+            top: 150px;
+            right: 60px;
         }
     </style>
 </head>
@@ -851,10 +884,37 @@
         </svg>
     </div>
 
-    <!-- Controles de zoom personalizados -->
-    <div class="zoom-controls">
-        <button class="zoom-btn" id="zoomIn" title="Acercar">+</button>
-        <button class="zoom-btn" id="zoomOut" title="Alejar">−</button>
+    <!-- Panel de controles lateral derecho -->
+    <div class="controls-panel">
+        <!-- Grupo de zoom -->
+        <div class="zoom-group">
+            <button class="control-btn" id="zoomIn" title="Acercar">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </button>
+            <button class="control-btn" id="zoomOut" title="Alejar">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13H5v-2h14v2z"/></svg>
+            </button>
+        </div>
+
+        <!-- Tipo de mapa -->
+        <button id="btnMapType" class="control-btn" title="Tipo de mapa">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+        </button>
+
+        <!-- Capas -->
+        <button id="btnLayers" class="control-btn" title="Capas del mapa">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </button>
+
+        <!-- Street View -->
+        <button id="btnStreetView" class="control-btn" title="Street View">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/><circle cx="18" cy="6" r="5"/><path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/></svg>
+        </button>
+
+        <!-- Geolocalización -->
+        <button id="btnGeolocation" class="control-btn" title="Mi ubicación">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+        </button>
     </div>
 
     <!-- Leyenda -->
@@ -907,11 +967,7 @@
         </div>
     </div>
 
-    <button id="btnLayers" class="layers-button" title="Capas del mapa">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
-    </button>
+    <!-- Menús desplegables -->
     <div id="layersMenu" class="layers-menu">
         <div class="layers-menu-header">Capas del mapa</div>
         <div class="layers-menu-item" data-layer="traffic">
@@ -938,12 +994,6 @@
             </svg>
         </div>
     </div>
-    <button id="btnMapType" class="map-type-button" title="Tipo de mapa">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="4" width="7" height="7" fill="#666" rx="1"/>
-            <rect x="13" y="6" width="7" height="7" fill="none" stroke="#666" stroke-width="1.5" rx="1"/>
-        </svg>
-    </button>
     <div id="mapTypeMenu" class="map-type-menu">
         <div class="map-type-menu-header">Tipo de mapa</div>
         <div class="map-type-menu-item" data-map-type="roadmap">
@@ -981,11 +1031,6 @@
             </svg>
         </div>
     </div>
-    <button id="btnGeolocation" class="geolocation-button" title="Mostrar mi ubicación exacta">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 19C8.13 19 5 15.87 5 12C5 8.13 8.13 5 12 5C15.87 5 19 8.13 19 12C19 15.87 15.87 19 12 19Z" fill="#333"/>
-        </svg>
-    </button>
     <div id="geolocationMessage" class="geolocation-message"></div>
     <div id="geolocationInstructions" class="geolocation-instructions">
         <button class="close-btn" onclick="document.getElementById('geolocationInstructions').style.display='none'">×</button>
@@ -1280,6 +1325,51 @@
             map.addListener('zoom_changed', updateInfoPanel);
             map.addListener('center_changed', updateInfoPanel);
             updateInfoPanel(); // Inicial
+
+            // ===== STREET VIEW =====
+            const streetViewBtn = document.getElementById('btnStreetView');
+            let streetViewActive = false;
+            
+            // Crear el servicio de Street View
+            const streetViewService = new google.maps.StreetViewService();
+            const panorama = map.getStreetView();
+            
+            streetViewBtn.addEventListener('click', function() {
+                if (streetViewActive) {
+                    // Desactivar Street View
+                    panorama.setVisible(false);
+                    streetViewActive = false;
+                    this.classList.remove('active');
+                } else {
+                    // Activar Street View en el centro actual del mapa
+                    const center = map.getCenter();
+                    streetViewService.getPanorama({
+                        location: center,
+                        radius: 50
+                    }, function(data, status) {
+                        if (status === google.maps.StreetViewStatus.OK) {
+                            panorama.setPosition(data.location.latLng);
+                            panorama.setPov({
+                                heading: 270,
+                                pitch: 0
+                            });
+                            panorama.setVisible(true);
+                            streetViewActive = true;
+                            streetViewBtn.classList.add('active');
+                        } else {
+                            alert('Street View no disponible en esta ubicación. Mueve el mapa a una calle.');
+                        }
+                    });
+                }
+            });
+
+            // Detectar cuando se cierra Street View
+            panorama.addListener('visible_changed', function() {
+                if (!panorama.getVisible()) {
+                    streetViewActive = false;
+                    streetViewBtn.classList.remove('active');
+                }
+            });
 
             // Variables para controlar las capas
             let trafficLayer = null;
