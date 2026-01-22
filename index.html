@@ -852,6 +852,116 @@
             top: 150px;
             right: 60px;
         }
+
+        /* ===== DISEÑO RESPONSIVO ===== */
+        
+        /* Tablets y móviles grandes */
+        @media (max-width: 768px) {
+            .map-title {
+                display: none; /* Ocultar título en móviles */
+            }
+
+            .search-box {
+                width: 280px;
+            }
+
+            .search-box:focus-within {
+                width: 320px;
+            }
+
+            .legend {
+                max-width: 160px;
+                padding: 10px 12px;
+            }
+
+            .legend-item span {
+                font-size: 11px;
+            }
+
+            .info-panel {
+                display: none; /* Ocultar panel de info en móviles */
+            }
+        }
+
+        /* Móviles pequeños */
+        @media (max-width: 480px) {
+            .search-container {
+                left: 10px;
+                right: 60px;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .search-box:focus-within {
+                width: 100%;
+            }
+
+            .search-box input {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .legend {
+                bottom: 20px;
+                left: 10px;
+                max-width: 140px;
+                padding: 8px 10px;
+            }
+
+            .legend-header {
+                font-size: 10px;
+                margin-bottom: 6px;
+                padding-bottom: 6px;
+            }
+
+            .legend-item {
+                padding: 4px 0;
+            }
+
+            .legend-symbol {
+                width: 16px;
+                height: 16px;
+            }
+
+            .legend-item span {
+                font-size: 10px;
+            }
+
+            .controls-panel {
+                right: 8px;
+                top: 60px;
+                gap: 6px;
+            }
+
+            .control-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            .control-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .north-indicator {
+                right: 8px;
+                width: 36px;
+                height: 36px;
+            }
+
+            .north-indicator svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .layers-menu,
+            .map-type-menu {
+                right: 50px;
+                min-width: 180px;
+            }
+        }
     </style>
 </head>
 <body>
