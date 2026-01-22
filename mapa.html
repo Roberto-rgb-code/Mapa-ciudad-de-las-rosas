@@ -608,7 +608,7 @@
             padding: 12px 16px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(136, 14, 79, 0.2);
-            border: 2px solid #f8bbd9;
+            border: 2px solid #f79ed6;
         }
 
         .map-logo img {
@@ -679,7 +679,7 @@
             box-shadow: 0 4px 15px rgba(136, 14, 79, 0.15);
             padding: 12px 16px;
             min-width: 180px;
-            border: 2px solid #f8bbd9;
+            border: 2px solid #f79ed6;
         }
 
         .legend-header {
@@ -688,7 +688,7 @@
             color: #880e4f;
             margin-bottom: 10px;
             padding-bottom: 8px;
-            border-bottom: 2px solid #f8bbd9;
+            border-bottom: 2px solid #f79ed6;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -1339,16 +1339,16 @@
                     elementType: 'geometry',
                     stylers: [{ saturation: 10 }, { lightness: 5 }]
                 },
-                // Paisaje/fondo en rosa pastel
+                // Paisaje/fondo en rosa #f79ed6
                 {
                     featureType: 'landscape',
                     elementType: 'geometry.fill',
-                    stylers: [{ color: '#fce4ec' }] // Rosa muy claro
+                    stylers: [{ color: '#f9c4e2' }] // Rosa claro basado en #f79ed6
                 },
                 {
                     featureType: 'landscape.man_made',
                     elementType: 'geometry.fill',
-                    stylers: [{ color: '#f8bbd9' }] // Rosa más intenso para zonas urbanas
+                    stylers: [{ color: '#f79ed6' }] // Rosa principal del usuario
                 },
                 // Parques en verde suave
                 {
@@ -1423,7 +1423,7 @@
                 {
                     featureType: 'administrative.neighborhood',
                     elementType: 'labels.text.stroke',
-                    stylers: [{ color: '#fce4ec' }, { weight: 2 }]
+                    stylers: [{ color: '#f9c4e2' }, { weight: 2 }]
                 },
                 {
                     featureType: 'administrative.locality',
