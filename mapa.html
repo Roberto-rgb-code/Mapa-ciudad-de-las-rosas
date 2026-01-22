@@ -566,7 +566,7 @@
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "La primera piedra se colocó el 7 de enero de 1777 y tras cuatro años de obras, la iglesia se inauguró en 1781. La construcción fue promovida y costeada por el filántropo español y entonces obispo de la diócesis, Antonio Alcalde y Barriga, quien tuvo la idea de edificar una iglesia en la parte norte de la ciudad de Guadalajara, que en aquel entonces estaba prácticamente deshabitada. Fue el mismo obispo Alcalde quien costeó los gastos de la construcción del templo, así como la construcción de varias casas que se rentarían a bajo precio para las personas pobres que quisieran habitarlas, llamadas \"las cuadritas\" del Barrio del Santuario. La imagen de Nuestra Señora de Guadalupe se encuentra en el altar principal, pintura que data de 1779 realizada por Don José de Alcíbar.",
                     direccion: "Barrio del Santuario, Guadalajara, Jal.",
-                    imagen: "assets/santuario.png"
+                    imagen: "assets/santuario-removebg-preview.png"
                 },
                 {
                     nombre: "Catedral de Guadalajara",
@@ -575,7 +575,7 @@
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Oficialmente Catedral Basílica de la Asunción de María Santísima, es la sede de la arquidiócesis de Guadalajara y uno de los principales templos de la Iglesia católica en México. Entre las criptas, debajo de lo que fue la capilla real, se encuentra la de los arzobispos de Guadalajara que datan del siglo XVI. Destacan los dedicados a La Virgen de las Rosas, Santiago el Mayor (patrono de la Nueva España), La Virgen de Guadalupe, Nuestra Señora de Zapopan entre otros.",
                     direccion: "Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/catedral_new.png"
+                    imagen: "assets/catedral-removebg-preview.png"
                 },
                 {
                     nombre: "Rotonda de los Jaliscienses Ilustres",
@@ -584,7 +584,7 @@
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Rinde homenaje a los jaliscienses que han trascendido a través de la historia. El monumento construido en 1952, por el arquitecto Vicente Mendiola, bajo iniciativa del entonces gobernador José de Jesús González Gallo, consta de diecisiete columnas estriadas sin base ni capitel y que sostienen un anillo de cantera que tiene grabado en uno de sus lados la leyenda \"Jalisco a sus hijos esclarecidos\"; en el centro del monumento existe un pebetero, además de 98 nichos para albergar los cuerpos de los hombres y mujeres más ilustres nacidos en Jalisco.",
                     direccion: "Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/rotonda.png"
+                    imagen: "assets/rotonda-removebg-preview.png"
                 },
                 {
                     nombre: "Mercado San Juan de Dios",
@@ -593,7 +593,7 @@
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Es el mercado techado más grande de América Latina. Obra del arquitecto Alejandro Zohn, se inauguró el 30 de diciembre de 1958. Se encuentra ubicado en lo que una vez fue la orilla oriental del río San Juan de Dios, cercano a la capital de la entonces Nueva Galicia. La zona era la entrada de los abastecimientos provenientes de la Ciudad de México. Hacia 1880, Mariano Bárcena da cuenta de la existencia del mercado como uno de los tres principales de Guadalajara, junto al de la plaza de Venegas o de la Independencia (actual mercado Corona) y el de plaza de Toros o plaza Alcalde. Para esas fechas y hasta principios del siglo xx, el mercado poseía la estructura del tianguis mexicano: tablados, lonas, mesas y tendidos sobre el suelo, todo esto al aire libre.",
                     direccion: "Calle Javier Mina, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/mercadosanjuandedios.png"
+                    imagen: "assets/mercadosanjuandedios-removebg-preview.png"
                 }
             ],
             empresas: [
@@ -659,17 +659,81 @@
             };
             
             // Crear el mapa centrado donde están los puntos
+            // Estilo profesional tipo ArcGIS MapViewer
+            const estiloMapa = [
+                {
+                    featureType: 'all',
+                    elementType: 'geometry',
+                    stylers: [{ saturation: -20 }]
+                },
+                {
+                    featureType: 'poi',
+                    elementType: 'labels',
+                    stylers: [{ visibility: 'off' }]
+                },
+                {
+                    featureType: 'poi.park',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#c8e6c9' }]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'geometry',
+                    stylers: [{ lightness: 20 }]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#ffcc80' }]
+                },
+                {
+                    featureType: 'road.arterial',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#ffffff' }]
+                },
+                {
+                    featureType: 'road.local',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#f5f5f5' }]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#b3e5fc' }]
+                },
+                {
+                    featureType: 'landscape',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#f5f5f5' }]
+                },
+                {
+                    featureType: 'administrative',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#666666' }]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#555555' }]
+                },
+                {
+                    featureType: 'transit',
+                    elementType: 'labels',
+                    stylers: [{ visibility: 'simplified' }]
+                }
+            ];
+
             const map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15, // Zoom para mostrar todos los puntos claramente
                 center: centro,
                 mapTypeId: 'roadmap',
-                styles: [
-                    {
-                        featureType: 'poi',
-                        elementType: 'labels',
-                        stylers: [{ visibility: 'off' }]
-                    }
-                ]
+                styles: estiloMapa,
+                mapTypeControl: false, // Usamos nuestro propio control
+                fullscreenControl: true,
+                streetViewControl: false,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_CENTER
+                }
             });
 
             // Variables para controlar las capas
@@ -786,41 +850,56 @@
                 }
             });
 
-            // Función para crear icono personalizado desde imagen
-            function crearIconoPersonalizado(rutaImagen, tamaño = 60) {
+            // Función para crear icono personalizado desde imagen con marco elegante
+            function crearIconoPersonalizado(rutaImagen, tamaño = 56) {
                 return {
                     url: rutaImagen,
                     scaledSize: new google.maps.Size(tamaño, tamaño),
-                    anchor: new google.maps.Point(tamaño / 2, tamaño),
+                    anchor: new google.maps.Point(tamaño / 2, tamaño / 2),
                     origin: new google.maps.Point(0, 0)
                 };
             }
 
-            // Icono de georreferenciación para empresas sin imagen
+            // Icono de georreferenciación para empresas - estilo ArcGIS profesional
             const iconoGeorreferenciacion = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                    <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 2 C14.06 2 6 10.06 6 20 C6 29.94 24 46 24 46 C24 46 42 29.94 42 20 C42 10.06 33.94 2 24 2 Z" 
-                              fill="#8B1538" stroke="#fff" stroke-width="2"/>
-                        <circle cx="24" cy="20" r="6" fill="#fff"/>
-                        <circle cx="24" cy="20" r="3" fill="#8B1538"/>
+                    <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+                            </filter>
+                        </defs>
+                        <path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" 
+                              fill="#8B1538" filter="url(#shadow)"/>
+                        <circle cx="20" cy="20" r="14" fill="#fff"/>
+                        <circle cx="20" cy="20" r="8" fill="#8B1538"/>
+                        <circle cx="20" cy="20" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(48, 48),
-                anchor: new google.maps.Point(24, 48)
+                scaledSize: new google.maps.Size(40, 52),
+                anchor: new google.maps.Point(20, 52)
             };
 
-            // Icono para la ubicación actual del usuario (persona/usuario)
+            // Icono para la ubicación actual del usuario - estilo moderno con pulso
             const iconoUbicacionUsuario = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                    <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="24" cy="24" r="20" fill="#4285F4" stroke="#fff" stroke-width="3"/>
-                        <circle cx="24" cy="18" r="7" fill="#fff"/>
-                        <path d="M12 38 C12 32 16 28 24 28 C32 28 36 32 36 38" fill="#fff"/>
+                    <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <circle cx="16" cy="16" r="14" fill="#4285F4" opacity="0.2"/>
+                        <circle cx="16" cy="16" r="10" fill="#4285F4" opacity="0.4"/>
+                        <circle cx="16" cy="16" r="6" fill="#4285F4" stroke="#fff" stroke-width="2" filter="url(#glow)"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(48, 48),
-                anchor: new google.maps.Point(24, 48)
+                scaledSize: new google.maps.Size(32, 32),
+                anchor: new google.maps.Point(16, 16)
             };
 
             // Función para crear contenido del info window mejorado
