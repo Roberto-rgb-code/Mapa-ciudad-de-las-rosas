@@ -1254,17 +1254,7 @@
                     userInfoWindow.open(map, userMarker);
                 });
 
-                // Solo centrar y hacer zoom si es ubicación precisa (GPS)
-                // Para ubicaciones aproximadas (IP), solo mostrar el marcador sin cambiar la vista
-                if (source === 'gps' && accuracy < 100) {
-                    map.setCenter(userLocation);
-                    map.setZoom(15);
-                } else if (source === 'gps') {
-                    // GPS pero con baja precisión, ajustar zoom moderadamente
-                    map.setCenter(userLocation);
-                    map.setZoom(13);
-                }
-                // Para IP o Google Geolocation API, no cambiar la vista inicial
+                // No mover el mapa - solo mostrar el marcador de ubicación
             }
 
             // Función para obtener y mostrar la ubicación del usuario (siguiendo el patrón del ejemplo)
