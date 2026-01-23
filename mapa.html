@@ -294,7 +294,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            background: linear-gradient(135deg, #8B1538 0%, #C2185B 100%);
             color: white;
             padding: 8px 14px;
             border-radius: 8px;
@@ -308,9 +308,9 @@
 
         .info-window .route-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+            box-shadow: 0 4px 12px rgba(139, 21, 56, 0.4);
             color: white;
-            background: linear-gradient(135deg, #1557b0 0%, #1a73e8 100%);
+            background: linear-gradient(135deg, #6d1029 0%, #8B1538 100%);
         }
 
         .info-window .route-btn svg {
@@ -335,23 +335,23 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #F9A825 0%, #FBC02D 100%);
-            color: #333;
+            background: white;
+            color: #8B1538;
             padding: 8px 14px;
             border-radius: 8px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            border: none;
+            border: 2px solid #f79ed6;
             transition: all 0.2s;
             text-decoration: none;
         }
 
         .info-window .streetview-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(249, 168, 37, 0.4);
-            color: #333;
-            background: linear-gradient(135deg, #F57F17 0%, #F9A825 100%);
+            box-shadow: 0 4px 12px rgba(247, 158, 214, 0.4);
+            background: #fce4ec;
+            border-color: #C2185B;
         }
 
         .info-window .streetview-btn svg {
@@ -402,8 +402,8 @@
         }
 
         .streetview-modal-header {
-            background: linear-gradient(135deg, #F9A825 0%, #FBC02D 100%);
-            color: #333;
+            background: linear-gradient(135deg, #8B1538 0%, #C2185B 100%);
+            color: white;
             padding: 16px 20px;
             display: flex;
             align-items: center;
@@ -426,14 +426,14 @@
 
         .streetview-modal-subtitle {
             font-size: 12px;
-            opacity: 0.8;
+            opacity: 0.9;
             margin-top: 2px;
         }
 
         .streetview-modal-close {
-            background: rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.2);
             border: none;
-            color: #333;
+            color: white;
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -445,7 +445,7 @@
         }
 
         .streetview-modal-close:hover {
-            background: rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.3);
         }
 
         .streetview-modal-body {
@@ -474,7 +474,7 @@
             width: 50px;
             height: 50px;
             border: 3px solid rgba(255,255,255,0.2);
-            border-top-color: #FBC02D;
+            border-top-color: #f79ed6;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 16px;
@@ -825,11 +825,11 @@
         }
 
         .info-window-header.historical {
-            background: linear-gradient(135deg, #1565C0 0%, #1976D2 100%);
+            background: linear-gradient(135deg, #8B1538 0%, #C2185B 100%);
         }
 
         .info-window-header.business {
-            background: linear-gradient(135deg, #E65100 0%, #F57C00 100%);
+            background: linear-gradient(135deg, #8B1538 0%, #C2185B 100%);
         }
 
         .info-window-image {
@@ -891,11 +891,11 @@
         }
 
         .info-window .address.historical {
-            border-left-color: #1565C0;
+            border-left-color: #C2185B;
         }
 
         .info-window .address.business {
-            border-left-color: #E65100;
+            border-left-color: #C2185B;
         }
 
         .info-window-footer {
@@ -3450,18 +3450,14 @@
                     streetViewService.getPanorama({ location: { lat, lng }, radius: 100 }, (data, status) => {
                         if (status !== 'OK') {
                             streetviewModalBody.innerHTML = `
-                                <div style="text-align:center;padding:60px 20px;color:#666;background:#f5f5f5;">
-                                    <svg viewBox="0 0 24 24" fill="#F9A825" style="width:64px;height:64px;margin-bottom:16px;">
+                                <div style="text-align:center;padding:60px 20px;color:#666;background:#fce4ec;">
+                                    <svg viewBox="0 0 24 24" fill="#C2185B" style="width:64px;height:64px;margin-bottom:16px;">
                                         <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                                         <circle cx="18" cy="6" r="5"/>
                                         <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
                                     </svg>
-                                    <div style="font-size:18px;font-weight:600;color:#333;margin-bottom:8px;">Street View no disponible</div>
-                                    <div style="font-size:14px;margin-bottom:20px;">No hay imágenes de Street View cerca de esta ubicación.</div>
-                                    <a href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}" target="_blank" 
-                                       style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,#F9A825,#FBC02D);color:#333;text-decoration:none;border-radius:8px;font-weight:600;">
-                                        Ver en Google Maps
-                                    </a>
+                                    <div style="font-size:18px;font-weight:600;color:#8B1538;margin-bottom:8px;">Street View no disponible</div>
+                                    <div style="font-size:14px;color:#666;">No hay imágenes de Street View cerca de esta ubicación.</div>
                                 </div>
                             `;
                         }
