@@ -434,30 +434,169 @@
             opacity: 1;
         }
 
-        /* Responsive */
-        @media (max-width: 480px) {
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
             .route-panel {
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-                width: auto;
-                max-height: 60vh;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-height: 55vh;
+                border-radius: 20px 20px 0 0;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+            }
+
+            .route-panel-header {
+                padding: 12px 16px;
+                border-radius: 20px 20px 0 0;
+                position: relative;
+            }
+
+            /* Handle visual para arrastrar (estilo bottom sheet) */
+            .route-panel-header::before {
+                content: '';
+                position: absolute;
+                top: 6px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 36px;
+                height: 4px;
+                background: rgba(255,255,255,0.4);
+                border-radius: 2px;
+            }
+
+            .route-panel-title {
+                font-size: 13px;
+                padding-top: 4px;
+            }
+
+            .route-panel-subtitle {
+                font-size: 11px;
             }
 
             .route-summary {
+                padding: 10px 16px;
+                gap: 12px;
+            }
+
+            .route-stat-value {
+                font-size: 20px;
+            }
+
+            .route-stat-label {
+                font-size: 10px;
+            }
+
+            .route-modes {
+                padding: 8px 12px;
+                gap: 6px;
+            }
+
+            .route-mode-btn {
+                padding: 8px 4px;
+                border-radius: 8px;
+            }
+
+            .route-mode-btn svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .route-mode-btn span {
+                font-size: 9px;
+            }
+
+            .route-steps {
+                max-height: 120px;
+                padding: 4px 0;
+            }
+
+            .route-step {
+                padding: 10px 16px;
+                gap: 10px;
+            }
+
+            .route-step-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .route-step-icon svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .route-step-instruction {
+                font-size: 12px;
+            }
+
+            .route-step-distance {
+                font-size: 10px;
+            }
+
+            .route-panel-footer {
+                padding: 10px 16px 16px;
+            }
+
+            .route-start-nav-btn {
                 padding: 12px;
+                font-size: 13px;
+                border-radius: 8px;
+            }
+
+            .route-start-nav-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            /* Loading más compacto en mobile */
+            .route-loading {
+                padding: 24px;
+            }
+
+            .route-loading-spinner {
+                width: 32px;
+                height: 32px;
+            }
+
+            .route-loading-text {
+                font-size: 13px;
+            }
+
+            /* Error más compacto */
+            .route-error {
+                padding: 16px;
+            }
+
+            .route-error-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            /* Logo más pequeño en mobile cuando hay ruta */
+            .route-panel.active ~ .map-logo,
+            body:has(.route-panel.active) .map-logo {
+                transform: scale(0.8);
+                transform-origin: top left;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 380px) {
+            .route-panel {
+                max-height: 50vh;
             }
 
             .route-stat-value {
                 font-size: 18px;
             }
 
-            .route-modes {
-                padding: 10px 12px;
+            .route-steps {
+                max-height: 100px;
             }
 
-            .route-steps {
-                max-height: 180px;
+            .route-mode-btn span {
+                font-size: 8px;
             }
         }
 
@@ -1559,6 +1698,67 @@
             .map-type-menu {
                 right: 50px;
                 min-width: 180px;
+            }
+        }
+
+        /* Ocultar elementos cuando el panel de rutas está activo en móvil */
+        @media (max-width: 768px) {
+            .route-panel.active ~ .legend,
+            body:has(.route-panel.active) .legend {
+                display: none;
+            }
+
+            .route-panel.active ~ .map-logo,
+            body:has(.route-panel.active) .map-logo {
+                opacity: 0.6;
+                transform: scale(0.85);
+                transform-origin: top left;
+                transition: all 0.3s ease;
+            }
+
+            /* InfoWindow más compacto en móvil */
+            .gm-style-iw-c {
+                max-width: 280px !important;
+            }
+
+            .info-window {
+                max-width: 260px;
+            }
+
+            .info-window-header {
+                padding: 12px;
+            }
+
+            .info-window h3 {
+                font-size: 14px;
+            }
+
+            .info-window p {
+                font-size: 12px;
+                -webkit-line-clamp: 3;
+            }
+
+            .info-window-body {
+                padding: 12px;
+            }
+
+            .info-window .address {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .info-window-footer {
+                padding: 10px 12px;
+            }
+
+            .info-window .contact-item {
+                padding: 5px 8px;
+                font-size: 11px;
+            }
+
+            .info-window .route-btn {
+                padding: 10px 12px;
+                font-size: 11px;
             }
         }
     </style>
@@ -2738,6 +2938,10 @@
 
             // Función para abrir el panel de rutas
             function openRoutePanel() {
+                // En móvil, cerrar el InfoWindow para evitar superposición
+                if (window.innerWidth <= 768) {
+                    closeActiveInfoWindow();
+                }
                 routePanel.classList.add('active');
                 routeLoading.style.display = 'flex';
                 routeDetails.style.display = 'none';
