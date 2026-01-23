@@ -37,6 +37,39 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 0;
             overflow: hidden;
+            border-radius: 12px;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mejorar el botón de cerrar de Google Maps InfoWindow */
+        .gm-style-iw-d {
+            overflow: hidden !important;
+        }
+
+        .gm-style-iw-c {
+            border-radius: 12px !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+        }
+
+        .gm-ui-hover-effect {
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.2s !important;
+        }
+
+        .gm-ui-hover-effect:hover {
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         .info-window-header {
@@ -2088,6 +2121,32 @@
                 return contenido;
             }
 
+            // ===== MEJORAS UX: Control de InfoWindows =====
+            let activeInfoWindow = null; // Solo un InfoWindow abierto a la vez
+            let activeMarker = null; // Marcador activo actual
+            const allMarkers = []; // Array para almacenar todos los marcadores
+
+            // Función para cerrar el InfoWindow activo
+            function closeActiveInfoWindow() {
+                if (activeInfoWindow) {
+                    activeInfoWindow.close();
+                    activeInfoWindow = null;
+                    activeMarker = null;
+                }
+            }
+
+            // Cerrar InfoWindow al hacer clic en el mapa (fuera de marcadores)
+            map.addListener('click', () => {
+                closeActiveInfoWindow();
+            });
+
+            // Cerrar InfoWindow con tecla Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeActiveInfoWindow();
+                }
+            });
+
             // Agregar marcadores históricos con imágenes personalizadas
             lugares.historicos.forEach(lugar => {
                 const icono = lugar.imagen 
@@ -2098,16 +2157,42 @@
                     position: { lat: lugar.lat, lng: lugar.lng },
                     map: map,
                     title: lugar.nombre,
-                    icon: icono
+                    icon: icono,
+                    animation: null,
+                    cursor: 'pointer'
                 });
 
                 const infoWindow = new google.maps.InfoWindow({
-                    content: crearContenidoInfo(lugar)
+                    content: crearContenidoInfo(lugar),
+                    maxWidth: 400
                 });
 
+                // Click en marcador: cerrar anterior y abrir nuevo
                 marker.addListener('click', () => {
+                    // Cerrar InfoWindow anterior si existe
+                    closeActiveInfoWindow();
+                    
+                    // Abrir el nuevo InfoWindow
                     infoWindow.open(map, marker);
+                    activeInfoWindow = infoWindow;
+                    activeMarker = marker;
+                    
+                    // Pequeña animación de rebote
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(() => marker.setAnimation(null), 700);
                 });
+
+                // Hover: efecto visual
+                marker.addListener('mouseover', () => {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(() => {
+                        if (marker !== activeMarker) {
+                            marker.setAnimation(null);
+                        }
+                    }, 350);
+                });
+
+                allMarkers.push({ marker, infoWindow, lugar });
             });
 
             // Agregar marcadores de empresas
@@ -2116,16 +2201,42 @@
                     position: { lat: lugar.lat, lng: lugar.lng },
                     map: map,
                     title: lugar.nombre,
-                    icon: iconoGeorreferenciacion
+                    icon: iconoGeorreferenciacion,
+                    animation: null,
+                    cursor: 'pointer'
                 });
 
                 const infoWindow = new google.maps.InfoWindow({
-                    content: crearContenidoInfo(lugar)
+                    content: crearContenidoInfo(lugar),
+                    maxWidth: 400
                 });
 
+                // Click en marcador: cerrar anterior y abrir nuevo
                 marker.addListener('click', () => {
+                    // Cerrar InfoWindow anterior si existe
+                    closeActiveInfoWindow();
+                    
+                    // Abrir el nuevo InfoWindow
                     infoWindow.open(map, marker);
+                    activeInfoWindow = infoWindow;
+                    activeMarker = marker;
+                    
+                    // Pequeña animación de rebote
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(() => marker.setAnimation(null), 700);
                 });
+
+                // Hover: efecto visual
+                marker.addListener('mouseover', () => {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(() => {
+                        if (marker !== activeMarker) {
+                            marker.setAnimation(null);
+                        }
+                    }, 350);
+                });
+
+                allMarkers.push({ marker, infoWindow, lugar });
             });
 
             // Variables para almacenar el marcador y círculo del usuario
