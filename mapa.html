@@ -2883,6 +2883,9 @@
                 });
             }
 
+            // Exponer calculateRoute globalmente para los onclick inline
+            window.calculateRoute = calculateRoute;
+
             // Event listeners para el panel de rutas
             document.getElementById('routePanelClose').addEventListener('click', closeRoutePanel);
 
@@ -3047,6 +3050,9 @@
                     }, 5000);
                 }
             }
+
+            // Exponer mostrarMensaje globalmente para los onclick inline
+            window.mostrarMensaje = mostrarMensaje;
 
             // Función para obtener ubicación usando Google Geolocation API
             // Nota: Desde navegadores web, solo puede usar IP (precisión similar a geolocalización por IP)
