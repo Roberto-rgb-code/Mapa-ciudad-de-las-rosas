@@ -289,33 +289,6 @@
             border-top: 1px solid #eee;
         }
 
-        .route-start-nav-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-
-        .route-start-nav-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
-        }
-
-        .route-start-nav-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
         /* Botón de ruta en InfoWindow */
         .info-window .route-btn {
             display: inline-flex;
@@ -519,25 +492,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .streetview-modal-footer a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .streetview-modal-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .streetview-modal-footer a svg {
-            width: 16px;
-            height: 16px;
         }
 
         .streetview-tip {
@@ -805,17 +759,6 @@
 
             .route-panel-footer {
                 padding: 10px 16px 16px;
-            }
-
-            .route-start-nav-btn {
-                padding: 12px;
-                font-size: 13px;
-                border-radius: 8px;
-            }
-
-            .route-start-nav-btn svg {
-                width: 16px;
-                height: 16px;
             }
 
             /* Loading más compacto en mobile */
@@ -2270,15 +2213,6 @@
             <div class="route-steps" id="routeSteps">
                 <!-- Los pasos se llenan dinámicamente -->
             </div>
-
-            <div class="route-panel-footer">
-                <button class="route-start-nav-btn" id="routeStartNav">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/>
-                    </svg>
-                    Abrir en Google Maps
-                </button>
-            </div>
         </div>
 
         <!-- Error state -->
@@ -2317,12 +2251,6 @@
             </div>
             <div class="streetview-modal-footer">
                 <span class="streetview-tip">💡 Arrastra para moverte, usa el scroll para zoom</span>
-                <a href="#" id="streetviewOpenMaps" target="_blank">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                    </svg>
-                    Abrir en Google Maps
-                </a>
             </div>
         </div>
     </div>
@@ -3440,18 +3368,6 @@
                 }
             });
 
-            // Botón de abrir en Google Maps
-            document.getElementById('routeStartNav').addEventListener('click', () => {
-                if (!currentUserLocation || !currentDestination) return;
-                
-                const origin = `${currentUserLocation.lat},${currentUserLocation.lng}`;
-                const dest = `${currentDestination.lat},${currentDestination.lng}`;
-                const mode = currentTravelMode.toLowerCase();
-                
-                const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=${mode}`;
-                window.open(url, '_blank');
-            });
-
             // Función para crear el botón de ruta (se usa en InfoWindows)
             // El botón siempre está activo, la verificación de ubicación se hace al hacer clic
             function createRouteButton(lat, lng, nombre) {
@@ -3490,16 +3406,14 @@
             const streetviewModal = document.getElementById('streetviewModal');
             const streetviewModalTitle = document.getElementById('streetviewModalTitle');
             const streetviewModalBody = document.getElementById('streetviewModalBody');
-            const streetviewOpenMaps = document.getElementById('streetviewOpenMaps');
             let currentStreetViewLocation = null;
 
             // Abrir modal de Street View
             function openStreetView(lat, lng, placeName) {
                 currentStreetViewLocation = { lat, lng };
                 
-                // Actualizar título y enlace
+                // Actualizar título
                 streetviewModalTitle.textContent = placeName;
-                streetviewOpenMaps.href = `https://www.google.com/maps/@${lat},${lng},3a,75y,0h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8192`;
                 
                 // Mostrar modal con loading
                 streetviewModal.classList.add('active');
