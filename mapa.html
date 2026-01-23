@@ -2154,6 +2154,17 @@
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
             </svg>
         </div>
+        <div class="layers-menu-item" data-layer="3d">
+            <div class="layers-menu-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7v10l10 5 10-5V7l-10-5zm0 2.31l6.9 3.45L12 11.21 5.1 7.76 12 4.31zM4 8.94l7 3.5v6.62l-7-3.5V8.94zm9 10.12v-6.62l7-3.5v6.62l-7 3.5z" fill="#666"/>
+                </svg>
+            </div>
+            <div class="layers-menu-item-label">Vista 3D</div>
+            <svg class="layers-menu-item-check" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+            </svg>
+        </div>
     </div>
     <div id="mapTypeMenu" class="map-type-menu">
         <div class="map-type-menu-header">Tipo de mapa</div>
@@ -2907,12 +2918,16 @@
             let transitLayer = null;
             const layerStates = {
                 traffic: false,
-                transit: false
+                transit: false,
+                '3d': false
             };
 
             // Inicializar capas de Google Maps
             trafficLayer = new google.maps.TrafficLayer();
             transitLayer = new google.maps.TransitLayer();
+
+            // Configurar el mapa para soportar vista 3D (necesita mapId)
+            // La vista 3D funciona mejor con zoom alto y tipo satellite/hybrid
 
             // Widget de Capas (Tráfico y Transporte público)
             const layersButton = document.getElementById('btnLayers');
@@ -2962,6 +2977,31 @@
                     } else {
                         transitLayer.setMap(null);
                         item.classList.remove('active');
+                    }
+                } else if (layerType === '3d') {
+                    layerStates['3d'] = !layerStates['3d'];
+                    if (layerStates['3d']) {
+                        // Activar vista 3D
+                        map.setTilt(45);
+                        map.setHeading(0);
+                        // Si el zoom es muy bajo, aumentarlo para ver mejor el 3D
+                        if (map.getZoom() < 17) {
+                            map.setZoom(17);
+                        }
+                        // Cambiar a satélite para mejor efecto 3D
+                        map.setMapTypeId('satellite');
+                        // Actualizar el menú de tipo de mapa
+                        mapTypeItems.forEach(i => i.classList.remove('active'));
+                        const satItem = mapTypeMenu.querySelector('[data-map-type="satellite"]');
+                        if (satItem) satItem.classList.add('active');
+                        item.classList.add('active');
+                        mostrarMensaje('Vista 3D activada. Usa Ctrl + arrastrar para rotar', 'info');
+                    } else {
+                        // Desactivar vista 3D
+                        map.setTilt(0);
+                        map.setHeading(0);
+                        item.classList.remove('active');
+                        mostrarMensaje('Vista 3D desactivada', 'info');
                     }
                 }
             }
