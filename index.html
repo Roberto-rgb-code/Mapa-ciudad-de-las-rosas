@@ -357,13 +357,13 @@
             box-shadow: none;
         }
 
-        /* Botón de Vista Aérea en InfoWindow */
-        .info-window .aerial-btn {
+        /* Botón de Street View en InfoWindow */
+        .info-window .streetview-btn {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);
-            color: white;
+            background: linear-gradient(135deg, #F9A825 0%, #FBC02D 100%);
+            color: #333;
             padding: 8px 14px;
             border-radius: 8px;
             font-size: 12px;
@@ -374,21 +374,21 @@
             text-decoration: none;
         }
 
-        .info-window .aerial-btn:hover {
+        .info-window .streetview-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(123, 31, 162, 0.4);
-            color: white;
-            background: linear-gradient(135deg, #6a1b9a 0%, #7b1fa2 100%);
+            box-shadow: 0 4px 12px rgba(249, 168, 37, 0.4);
+            color: #333;
+            background: linear-gradient(135deg, #F57F17 0%, #F9A825 100%);
         }
 
-        .info-window .aerial-btn svg {
+        .info-window .streetview-btn svg {
             width: 14px;
             height: 14px;
             fill: currentColor;
         }
 
-        /* Modal de Vista Aérea */
-        .aerial-modal {
+        /* Modal de Street View */
+        .streetview-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -403,7 +403,7 @@
             animation: fadeIn 0.3s ease;
         }
 
-        .aerial-modal.active {
+        .streetview-modal.active {
             display: flex;
         }
 
@@ -412,10 +412,10 @@
             to { opacity: 1; }
         }
 
-        .aerial-modal-content {
+        .streetview-modal-content {
             background: white;
             border-radius: 16px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             max-height: 90vh;
             overflow: hidden;
@@ -428,39 +428,39 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        .aerial-modal-header {
-            background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);
-            color: white;
+        .streetview-modal-header {
+            background: linear-gradient(135deg, #F9A825 0%, #FBC02D 100%);
+            color: #333;
             padding: 16px 20px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .aerial-modal-header svg {
+        .streetview-modal-header svg {
             width: 24px;
             height: 24px;
         }
 
-        .aerial-modal-header-info {
+        .streetview-modal-header-info {
             flex: 1;
         }
 
-        .aerial-modal-title {
+        .streetview-modal-title {
             font-size: 16px;
             font-weight: 600;
         }
 
-        .aerial-modal-subtitle {
+        .streetview-modal-subtitle {
             font-size: 12px;
-            opacity: 0.9;
+            opacity: 0.8;
             margin-top: 2px;
         }
 
-        .aerial-modal-close {
-            background: rgba(255,255,255,0.2);
+        .streetview-modal-close {
+            background: rgba(0,0,0,0.1);
             border: none;
-            color: white;
+            color: #333;
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -471,29 +471,24 @@
             transition: background 0.2s;
         }
 
-        .aerial-modal-close:hover {
-            background: rgba(255,255,255,0.3);
+        .streetview-modal-close:hover {
+            background: rgba(0,0,0,0.2);
         }
 
-        .aerial-modal-body {
+        .streetview-modal-body {
             padding: 0;
-            background: #000;
+            background: #222;
             position: relative;
-            min-height: 300px;
         }
 
-        .aerial-modal-body video {
+        .streetview-modal-body iframe {
             width: 100%;
+            height: 500px;
+            border: none;
             display: block;
         }
 
-        .aerial-modal-body iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
-
-        .aerial-loading {
+        .streetview-loading {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -502,103 +497,85 @@
             color: white;
         }
 
-        .aerial-loading-spinner {
+        .streetview-loading-spinner {
             width: 50px;
             height: 50px;
             border: 3px solid rgba(255,255,255,0.2);
-            border-top-color: #9c27b0;
+            border-top-color: #FBC02D;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 16px;
         }
 
-        .aerial-loading-text {
+        .streetview-loading-text {
             font-size: 14px;
             opacity: 0.9;
         }
 
-        .aerial-error {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-
-        .aerial-error svg {
-            width: 64px;
-            height: 64px;
-            color: #9c27b0;
-            margin-bottom: 16px;
-        }
-
-        .aerial-error-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .aerial-error-message {
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .aerial-error-btn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .aerial-error-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(123, 31, 162, 0.4);
-        }
-
-        .aerial-modal-footer {
+        .streetview-modal-footer {
             padding: 12px 20px;
             background: #f8f9fa;
             border-top: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .streetview-modal-footer a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .streetview-modal-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .streetview-modal-footer a svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .streetview-tip {
             font-size: 12px;
             color: #666;
         }
 
-        .aerial-modal-footer a {
-            color: #7b1fa2;
-            text-decoration: none;
+        .aerial-error-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(249, 168, 37, 0.4);
         }
 
-        .aerial-modal-footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive modal */
+        /* Responsive modal Street View */
         @media (max-width: 768px) {
-            .aerial-modal {
+            .streetview-modal {
                 padding: 10px;
             }
 
-            .aerial-modal-content {
+            .streetview-modal-content {
                 max-height: 85vh;
             }
 
-            .aerial-modal-header {
+            .streetview-modal-header {
                 padding: 14px 16px;
             }
 
-            .aerial-modal-title {
+            .streetview-modal-title {
                 font-size: 14px;
             }
 
-            .aerial-modal-body iframe {
-                height: 280px;
+            .streetview-modal-body iframe {
+                height: 300px;
+            }
+
+            .streetview-modal-footer {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
             }
         }
 
@@ -2316,33 +2293,36 @@
         </div>
     </div>
 
-    <!-- Modal de Vista Aérea -->
-    <div id="aerialModal" class="aerial-modal">
-        <div class="aerial-modal-content">
-            <div class="aerial-modal-header">
+    <!-- Modal de Street View -->
+    <div id="streetviewModal" class="streetview-modal">
+        <div class="streetview-modal-content">
+            <div class="streetview-modal-header">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
+                    <circle cx="18" cy="6" r="5"/>
+                    <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
                 </svg>
-                <div class="aerial-modal-header-info">
-                    <div class="aerial-modal-title" id="aerialModalTitle">Vista Aérea</div>
-                    <div class="aerial-modal-subtitle">Vuelo virtual por la ubicación</div>
+                <div class="streetview-modal-header-info">
+                    <div class="streetview-modal-title" id="streetviewModalTitle">Street View</div>
+                    <div class="streetview-modal-subtitle">Explora la ubicación en 360°</div>
                 </div>
-                <button class="aerial-modal-close" id="aerialModalClose" title="Cerrar">
+                <button class="streetview-modal-close" id="streetviewModalClose" title="Cerrar">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                     </svg>
                 </button>
             </div>
-            <div class="aerial-modal-body" id="aerialModalBody">
-                <!-- Contenido dinámico: loading, video, o error -->
-                <div class="aerial-loading" id="aerialLoading">
-                    <div class="aerial-loading-spinner"></div>
-                    <div class="aerial-loading-text">Cargando vista aérea...</div>
-                </div>
+            <div class="streetview-modal-body" id="streetviewModalBody">
+                <!-- El iframe de Street View se inserta aquí -->
             </div>
-            <div class="aerial-modal-footer">
-                <span>Powered by Google Aerial View API</span>
-                <a href="https://developers.google.com/maps/documentation/aerial-view" target="_blank">Más información</a>
+            <div class="streetview-modal-footer">
+                <span class="streetview-tip">💡 Arrastra para moverte, usa el scroll para zoom</span>
+                <a href="#" id="streetviewOpenMaps" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                    </svg>
+                    Abrir en Google Maps
+                </a>
             </div>
         </div>
     </div>
@@ -3098,9 +3078,9 @@
                     ? `<img src="${lugar.imagen}" alt="${lugar.nombre}" class="info-window-image">` 
                     : '';
                 
-                // Crear botones de ruta y vista aérea
+                // Crear botones de ruta y Street View
                 const routeButtonHTML = createRouteButton(lugar.lat, lugar.lng, lugar.nombre);
-                const aerialButtonHTML = createAerialButton(lugar.direccion, lugar.nombre);
+                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre);
                 
                 let contenido = `
                     <div class="info-window">
@@ -3116,7 +3096,7 @@
                             </div>
                             <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
                                 ${routeButtonHTML}
-                                ${aerialButtonHTML}
+                                ${streetViewButtonHTML}
                             </div>
                         </div>
                 `;
@@ -3488,139 +3468,111 @@
                 `;
             }
 
-            // Función para crear el botón de Vista Aérea
-            function createAerialButton(direccion, nombre) {
-                const direccionEscapada = direccion.replace(/'/g, "\\'");
+            // Función para crear el botón de Street View
+            function createStreetViewButton(lat, lng, nombre) {
                 const nombreEscapado = nombre.replace(/'/g, "\\'");
                 return `
-                    <button class="aerial-btn" 
-                            onclick="event.stopPropagation(); openAerialView('${direccionEscapada}', '${nombreEscapado}')" 
-                            title="Ver vista aérea">
+                    <button class="streetview-btn" 
+                            onclick="event.stopPropagation(); openStreetView(${lat}, ${lng}, '${nombreEscapado}')" 
+                            title="Ver Street View">
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
+                            <circle cx="18" cy="6" r="5"/>
+                            <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
                         </svg>
-                        Vista Aérea
+                        Street View
                     </button>
                 `;
             }
-            window.createAerialButton = createAerialButton;
+            window.createStreetViewButton = createStreetViewButton;
 
-            // ===== SISTEMA DE VISTA AÉREA =====
-            const aerialModal = document.getElementById('aerialModal');
-            const aerialModalTitle = document.getElementById('aerialModalTitle');
-            const aerialModalBody = document.getElementById('aerialModalBody');
-            const aerialLoading = document.getElementById('aerialLoading');
-            const GOOGLE_API_KEY = 'AIzaSyCFGebMe1CODtGrn8fXU9oAa7-I6DgaBhM';
+            // ===== SISTEMA DE STREET VIEW =====
+            const streetviewModal = document.getElementById('streetviewModal');
+            const streetviewModalTitle = document.getElementById('streetviewModalTitle');
+            const streetviewModalBody = document.getElementById('streetviewModalBody');
+            const streetviewOpenMaps = document.getElementById('streetviewOpenMaps');
+            let currentStreetViewLocation = null;
 
-            // Abrir modal de vista aérea
-            async function openAerialView(address, placeName) {
-                // Mostrar modal con loading
-                aerialModal.classList.add('active');
-                aerialModalTitle.textContent = placeName;
-                aerialModalBody.innerHTML = `
-                    <div class="aerial-loading">
-                        <div class="aerial-loading-spinner"></div>
-                        <div class="aerial-loading-text">Buscando vista aérea de ${placeName}...</div>
-                    </div>
-                `;
-
-                try {
-                    // Llamar a la API de Aerial View
-                    const response = await fetch(
-                        `https://aerialview.googleapis.com/v1/videos:lookupVideo?key=${GOOGLE_API_KEY}&address=${encodeURIComponent(address)}`
-                    );
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-
-                    const data = await response.json();
-
-                    if (data.state === 'ACTIVE' && data.uris && data.uris.MP4_MEDIUM) {
-                        // Video disponible - mostrar
-                        aerialModalBody.innerHTML = `
-                            <video controls autoplay loop poster="${data.uris.IMAGE || ''}">
-                                <source src="${data.uris.MP4_MEDIUM}" type="video/mp4">
-                                Tu navegador no soporta video HTML5.
-                            </video>
-                        `;
-                    } else if (data.state === 'PROCESSING') {
-                        // Video en proceso
-                        showAerialMessage(
-                            'En proceso',
-                            'La vista aérea de esta ubicación se está generando. Intenta de nuevo más tarde.',
-                            'processing'
-                        );
-                    } else {
-                        // No disponible - mostrar Street View como alternativa
-                        showAerialAlternative(address, placeName);
-                    }
-                } catch (error) {
-                    console.log('Aerial View API error:', error);
-                    // Mostrar Street View como alternativa
-                    showAerialAlternative(address, placeName);
-                }
-            }
-            window.openAerialView = openAerialView;
-
-            // Mostrar alternativa con Street View
-            function showAerialAlternative(address, placeName) {
-                const streetViewUrl = `https://www.google.com/maps/embed/v1/streetview?key=${GOOGLE_API_KEY}&location=${encodeURIComponent(address)}&heading=0&pitch=0&fov=90`;
+            // Abrir modal de Street View
+            function openStreetView(lat, lng, placeName) {
+                currentStreetViewLocation = { lat, lng };
                 
-                aerialModalBody.innerHTML = `
-                    <div class="aerial-error">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                        </svg>
-                        <div class="aerial-error-title">Vista aérea no disponible</div>
-                        <div class="aerial-error-message">
-                            No hay video aéreo para esta ubicación.<br>
-                            Puedes explorar con Street View en Google Maps.
-                        </div>
-                        <button class="aerial-error-btn" onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}', '_blank')">
-                            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;margin-right:6px;vertical-align:middle">
-                                <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/><circle cx="18" cy="6" r="5"/><path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
-                            </svg>
-                            Abrir en Google Maps
-                        </button>
+                // Actualizar título y enlace
+                streetviewModalTitle.textContent = placeName;
+                streetviewOpenMaps.href = `https://www.google.com/maps/@${lat},${lng},3a,75y,0h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8192`;
+                
+                // Mostrar modal con loading
+                streetviewModal.classList.add('active');
+                streetviewModalBody.innerHTML = `
+                    <div class="streetview-loading">
+                        <div class="streetview-loading-spinner"></div>
+                        <div class="streetview-loading-text">Cargando Street View...</div>
                     </div>
                 `;
+                
+                // Crear el Street View panorama dentro del modal
+                setTimeout(() => {
+                    streetviewModalBody.innerHTML = '<div id="streetviewPanorama" style="width:100%;height:500px;"></div>';
+                    
+                    const panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById('streetviewPanorama'),
+                        {
+                            position: { lat, lng },
+                            pov: { heading: 0, pitch: 0 },
+                            zoom: 1,
+                            addressControl: true,
+                            fullscreenControl: true,
+                            motionTracking: false,
+                            motionTrackingControl: false,
+                            linksControl: true,
+                            panControl: true,
+                            zoomControl: true,
+                            enableCloseButton: false
+                        }
+                    );
+                    
+                    // Verificar si Street View está disponible
+                    const streetViewService = new google.maps.StreetViewService();
+                    streetViewService.getPanorama({ location: { lat, lng }, radius: 100 }, (data, status) => {
+                        if (status !== 'OK') {
+                            streetviewModalBody.innerHTML = `
+                                <div style="text-align:center;padding:60px 20px;color:#666;background:#f5f5f5;">
+                                    <svg viewBox="0 0 24 24" fill="#F9A825" style="width:64px;height:64px;margin-bottom:16px;">
+                                        <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
+                                        <circle cx="18" cy="6" r="5"/>
+                                        <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
+                                    </svg>
+                                    <div style="font-size:18px;font-weight:600;color:#333;margin-bottom:8px;">Street View no disponible</div>
+                                    <div style="font-size:14px;margin-bottom:20px;">No hay imágenes de Street View cerca de esta ubicación.</div>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}" target="_blank" 
+                                       style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,#F9A825,#FBC02D);color:#333;text-decoration:none;border-radius:8px;font-weight:600;">
+                                        Ver en Google Maps
+                                    </a>
+                                </div>
+                            `;
+                        }
+                    });
+                }, 100);
+            }
+            window.openStreetView = openStreetView;
+
+            // Cerrar modal de Street View
+            function closeStreetViewModal() {
+                streetviewModal.classList.remove('active');
+                streetviewModalBody.innerHTML = '';
+                currentStreetViewLocation = null;
             }
 
-            // Mostrar mensaje en modal
-            function showAerialMessage(title, message, type) {
-                aerialModalBody.innerHTML = `
-                    <div class="aerial-error">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-                        </svg>
-                        <div class="aerial-error-title">${title}</div>
-                        <div class="aerial-error-message">${message}</div>
-                    </div>
-                `;
-            }
-
-            // Cerrar modal
-            function closeAerialModal() {
-                aerialModal.classList.remove('active');
-                aerialModalBody.innerHTML = `
-                    <div class="aerial-loading">
-                        <div class="aerial-loading-spinner"></div>
-                        <div class="aerial-loading-text">Cargando vista aérea...</div>
-                    </div>
-                `;
-            }
-
-            // Event listeners para el modal
-            document.getElementById('aerialModalClose').addEventListener('click', closeAerialModal);
-            aerialModal.addEventListener('click', (e) => {
-                if (e.target === aerialModal) {
-                    closeAerialModal();
+            // Event listeners para el modal de Street View
+            document.getElementById('streetviewModalClose').addEventListener('click', closeStreetViewModal);
+            streetviewModal.addEventListener('click', (e) => {
+                if (e.target === streetviewModal) {
+                    closeStreetViewModal();
                 }
             });
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && aerialModal.classList.contains('active')) {
-                    closeAerialModal();
+                if (e.key === 'Escape' && streetviewModal.classList.contains('active')) {
+                    closeStreetViewModal();
                 }
             });
 
