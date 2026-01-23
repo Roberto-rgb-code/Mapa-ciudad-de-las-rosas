@@ -72,6 +72,395 @@
             transform: scale(1.1);
         }
 
+        /* ===== PANEL DE RUTAS ===== */
+        .route-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 360px;
+            max-height: calc(100vh - 100px);
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .route-panel.active {
+            display: flex;
+        }
+
+        .route-panel-header {
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .route-panel-header svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .route-panel-header-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .route-panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .route-panel-subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .route-panel-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .route-panel-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .route-summary {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .route-stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .route-stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #8B1538;
+        }
+
+        .route-stat-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .route-modes {
+            display: flex;
+            padding: 12px 16px;
+            gap: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .route-mode-btn {
+            flex: 1;
+            padding: 10px 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .route-mode-btn:hover {
+            border-color: #C41E3A;
+            background: #fff5f7;
+        }
+
+        .route-mode-btn.active {
+            border-color: #8B1538;
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+        }
+
+        .route-mode-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .route-mode-btn span {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .route-steps {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+            max-height: 250px;
+        }
+
+        .route-step {
+            display: flex;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .route-step:hover {
+            background: #f8f9fa;
+        }
+
+        .route-step:last-child {
+            border-bottom: none;
+        }
+
+        .route-step-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #e8f0fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .route-step-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: #1a73e8;
+        }
+
+        .route-step-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .route-step-instruction {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .route-step-distance {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .route-panel-footer {
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+
+        .route-start-nav-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .route-start-nav-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+        }
+
+        .route-start-nav-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Botón de ruta en InfoWindow */
+        .info-window .route-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .info-window .route-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+            color: white;
+            background: linear-gradient(135deg, #1557b0 0%, #1a73e8 100%);
+        }
+
+        .info-window .route-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .info-window .route-btn.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .info-window .route-btn.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Loading state para el panel de rutas */
+        .route-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            gap: 16px;
+        }
+
+        .route-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f0f0f0;
+            border-top-color: #8B1538;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .route-loading-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Error state */
+        .route-error {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .route-error-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            color: #e53935;
+        }
+
+        .route-error-message {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .route-error-btn {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .route-error-btn:hover {
+            background: #eee;
+        }
+
+        /* Badge de búsqueda con ruta */
+        .search-result-item .route-indicator {
+            margin-left: auto;
+            color: #1a73e8;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .search-result-item:hover .route-indicator {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .route-panel {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                width: auto;
+                max-height: 60vh;
+            }
+
+            .route-summary {
+                padding: 12px;
+            }
+
+            .route-stat-value {
+                font-size: 18px;
+            }
+
+            .route-modes {
+                padding: 10px 12px;
+            }
+
+            .route-steps {
+                max-height: 180px;
+            }
+        }
+
         .info-window-header {
             position: relative;
             background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
@@ -630,6 +1019,39 @@
             font-size: 11px;
             color: #888;
             text-transform: uppercase;
+        }
+
+        /* Botón de ruta en resultados de búsqueda */
+        .search-route-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.2s;
+        }
+
+        .search-result-item:hover .search-route-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .search-route-btn:hover {
+            background: linear-gradient(135deg, #1557b0 0%, #1a73e8 100%);
+            transform: scale(1.1) !important;
+        }
+
+        .search-route-btn svg {
+            width: 18px;
+            height: 18px;
         }
 
         /* Logo del mapa - esquina superior izquierda */
@@ -1330,6 +1752,98 @@
         </div>
     </div>
     <div id="geolocationMessage" class="geolocation-message"></div>
+
+    <!-- Panel de rutas -->
+    <div id="routePanel" class="route-panel">
+        <div class="route-panel-header">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+            </svg>
+            <div class="route-panel-header-info">
+                <div class="route-panel-title" id="routeDestinationName">Destino</div>
+                <div class="route-panel-subtitle">Calculando ruta...</div>
+            </div>
+            <button class="route-panel-close" id="routePanelClose" title="Cerrar">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="routeContent">
+            <!-- Loading state -->
+            <div class="route-loading" id="routeLoading">
+                <div class="route-loading-spinner"></div>
+                <div class="route-loading-text">Calculando la mejor ruta...</div>
+            </div>
+        </div>
+
+        <!-- Contenido de la ruta (se llena dinámicamente) -->
+        <div id="routeDetails" style="display: none;">
+            <div class="route-summary">
+                <div class="route-stat">
+                    <div class="route-stat-value" id="routeDistance">--</div>
+                    <div class="route-stat-label">Distancia</div>
+                </div>
+                <div class="route-stat">
+                    <div class="route-stat-value" id="routeDuration">--</div>
+                    <div class="route-stat-label">Tiempo</div>
+                </div>
+            </div>
+
+            <div class="route-modes">
+                <button class="route-mode-btn active" data-mode="DRIVING" title="En auto">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                    </svg>
+                    <span>Auto</span>
+                </button>
+                <button class="route-mode-btn" data-mode="WALKING" title="Caminando">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
+                    </svg>
+                    <span>A pie</span>
+                </button>
+                <button class="route-mode-btn" data-mode="TRANSIT" title="Transporte público">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/>
+                    </svg>
+                    <span>Bus</span>
+                </button>
+                <button class="route-mode-btn" data-mode="BICYCLING" title="En bicicleta">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5zm5.8-10l2.4-2.4.8.8c1.3 1.3 3 2.1 5.1 2.1V9c-1.5 0-2.7-.6-3.6-1.5l-1.9-1.9c-.5-.4-1-.6-1.6-.6s-1.1.2-1.4.6L7.8 8.4c-.4.4-.6.9-.6 1.4 0 .6.2 1.1.6 1.4L11 14v5h2v-6.2l-2.2-2.3zM19 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z"/>
+                    </svg>
+                    <span>Bici</span>
+                </button>
+            </div>
+
+            <div class="route-steps" id="routeSteps">
+                <!-- Los pasos se llenan dinámicamente -->
+            </div>
+
+            <div class="route-panel-footer">
+                <button class="route-start-nav-btn" id="routeStartNav">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/>
+                    </svg>
+                    Abrir en Google Maps
+                </button>
+            </div>
+        </div>
+
+        <!-- Error state -->
+        <div id="routeError" style="display: none;">
+            <div class="route-error">
+                <svg class="route-error-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                <div class="route-error-message" id="routeErrorMessage">No se pudo calcular la ruta</div>
+                <button class="route-error-btn" id="routeRetryBtn">Intentar de nuevo</button>
+            </div>
+        </div>
+    </div>
+
     <div id="geolocationInstructions" class="geolocation-instructions">
         <button class="close-btn" onclick="document.getElementById('geolocationInstructions').style.display='none'">×</button>
         <h4>📍 Para ubicación exacta</h4>
@@ -1752,6 +2266,7 @@
                 searchResults.innerHTML = results.map(place => {
                     const isHistorical = place.categoria.includes('HISTÓRICO');
                     const iconClass = isHistorical ? 'historical' : 'business';
+                    const hasLocation = currentUserLocation !== null;
                     return `
                         <div class="search-result-item" data-lat="${place.lat}" data-lng="${place.lng}" data-name="${place.nombre}">
                             <div class="search-result-icon ${iconClass}">
@@ -1763,6 +2278,13 @@
                                 <div class="search-result-name">${place.nombre}</div>
                                 <div class="search-result-category">${place.categoria}</div>
                             </div>
+                            ${hasLocation ? `
+                                <button class="search-route-btn" data-lat="${place.lat}" data-lng="${place.lng}" data-name="${place.nombre}" title="Cómo llegar">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+                                    </svg>
+                                </button>
+                            ` : ''}
                         </div>
                     `;
                 }).join('');
@@ -1783,14 +2305,41 @@
             });
 
             searchResults.addEventListener('click', function(e) {
+                // Verificar si se hizo clic en el botón de ruta
+                const routeBtn = e.target.closest('.search-route-btn');
+                if (routeBtn) {
+                    e.stopPropagation();
+                    const lat = parseFloat(routeBtn.dataset.lat);
+                    const lng = parseFloat(routeBtn.dataset.lng);
+                    const name = routeBtn.dataset.name;
+                    searchResults.classList.remove('active');
+                    searchInput.value = name;
+                    calculateRoute({ lat, lng }, name);
+                    return;
+                }
+                
                 const item = e.target.closest('.search-result-item');
                 if (item) {
                     const lat = parseFloat(item.dataset.lat);
                     const lng = parseFloat(item.dataset.lng);
+                    const name = item.dataset.name;
                     map.setCenter({ lat, lng });
                     map.setZoom(17);
                     searchResults.classList.remove('active');
-                    searchInput.value = item.dataset.name;
+                    searchInput.value = name;
+                    
+                    // Encontrar y abrir el InfoWindow del marcador correspondiente
+                    const markerData = allMarkers.find(m => 
+                        m.lugar.lat === lat && m.lugar.lng === lng
+                    );
+                    if (markerData) {
+                        closeActiveInfoWindow();
+                        markerData.infoWindow.open(map, markerData.marker);
+                        activeInfoWindow = markerData.infoWindow;
+                        activeMarker = markerData.marker;
+                        markerData.marker.setAnimation(google.maps.Animation.BOUNCE);
+                        setTimeout(() => markerData.marker.setAnimation(null), 700);
+                    }
                 }
             });
 
@@ -2046,6 +2595,9 @@
                     ? `<img src="${lugar.imagen}" alt="${lugar.nombre}" class="info-window-image">` 
                     : '';
                 
+                // Crear botón de ruta
+                const routeButtonHTML = createRouteButton(lugar.lat, lugar.lng, lugar.nombre);
+                
                 let contenido = `
                     <div class="info-window">
                         <div class="info-window-header ${categoriaClass}">
@@ -2057,6 +2609,9 @@
                             <p>${lugar.descripcion}</p>
                             <div class="address ${categoriaClass}">
                                 <strong>📍 Dirección</strong><br>${lugar.direccion}
+                            </div>
+                            <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                ${routeButtonHTML}
                             </div>
                         </div>
                 `;
@@ -2144,8 +2699,244 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     closeActiveInfoWindow();
+                    closeRoutePanel();
                 }
             });
+
+            // ===== SISTEMA DE RUTAS =====
+            // Variables globales para el sistema de rutas
+            let currentUserLocation = null; // Ubicación actual del usuario
+            let directionsService = null;
+            let directionsRenderer = null;
+            let currentRoute = null;
+            let currentTravelMode = 'DRIVING';
+            let currentDestination = null;
+            let currentDestinationName = '';
+
+            // Inicializar el servicio de direcciones
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                map: map,
+                suppressMarkers: false,
+                polylineOptions: {
+                    strokeColor: '#8B1538',
+                    strokeWeight: 5,
+                    strokeOpacity: 0.8
+                }
+            });
+
+            // Elementos del DOM para el panel de rutas
+            const routePanel = document.getElementById('routePanel');
+            const routeLoading = document.getElementById('routeLoading');
+            const routeDetails = document.getElementById('routeDetails');
+            const routeError = document.getElementById('routeError');
+            const routeDestinationName = document.getElementById('routeDestinationName');
+            const routeDistance = document.getElementById('routeDistance');
+            const routeDuration = document.getElementById('routeDuration');
+            const routeSteps = document.getElementById('routeSteps');
+            const routeErrorMessage = document.getElementById('routeErrorMessage');
+
+            // Función para abrir el panel de rutas
+            function openRoutePanel() {
+                routePanel.classList.add('active');
+                routeLoading.style.display = 'flex';
+                routeDetails.style.display = 'none';
+                routeError.style.display = 'none';
+            }
+
+            // Función para cerrar el panel de rutas
+            function closeRoutePanel() {
+                routePanel.classList.remove('active');
+                if (directionsRenderer) {
+                    directionsRenderer.setMap(null);
+                }
+                currentRoute = null;
+                currentDestination = null;
+            }
+
+            // Función para mostrar la ruta calculada
+            function showRouteDetails(route) {
+                const leg = route.routes[0].legs[0];
+                
+                routeLoading.style.display = 'none';
+                routeDetails.style.display = 'block';
+                routeError.style.display = 'none';
+                
+                // Actualizar resumen
+                routeDistance.textContent = leg.distance.text;
+                routeDuration.textContent = leg.duration.text;
+                
+                // Actualizar pasos
+                const stepsHTML = leg.steps.map((step, index) => {
+                    const instruction = step.instructions.replace(/<[^>]*>/g, ''); // Limpiar HTML
+                    const icon = getStepIcon(step.maneuver);
+                    return `
+                        <div class="route-step" data-step-index="${index}">
+                            <div class="route-step-icon">
+                                ${icon}
+                            </div>
+                            <div class="route-step-content">
+                                <div class="route-step-instruction">${instruction}</div>
+                                <div class="route-step-distance">${step.distance.text} • ${step.duration.text}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                routeSteps.innerHTML = stepsHTML;
+                
+                // Agregar interactividad a los pasos
+                routeSteps.querySelectorAll('.route-step').forEach((stepEl, index) => {
+                    stepEl.addEventListener('click', () => {
+                        const step = leg.steps[index];
+                        map.panTo(step.start_location);
+                        map.setZoom(17);
+                    });
+                });
+            }
+
+            // Función para mostrar error
+            function showRouteError(message) {
+                routeLoading.style.display = 'none';
+                routeDetails.style.display = 'none';
+                routeError.style.display = 'block';
+                routeErrorMessage.textContent = message;
+            }
+
+            // Función para obtener icono según el tipo de maniobra
+            function getStepIcon(maneuver) {
+                const icons = {
+                    'turn-left': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 7v6l-4-3 4-3zm-2 10.5V15H7V9H5v6c0 1.1.9 2 2 2h5v2.5l3.5-3.5L12 12.5z"/></svg>',
+                    'turn-right': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7v6l4-3-4-3zm2 10.5V15h5V9h2v6c0 1.1-.9 2-2 2h-5v2.5L8.5 16l3.5-3.5z"/></svg>',
+                    'straight': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-4 4h3v8H8l4 4 4-4h-3V8h3z"/></svg>',
+                    'merge': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 18.59L8.83 20 12 16.83 15.17 20l1.41-1.41L12 14l-4.59 4.59zm9.18-13.18L15.17 4 12 7.17 8.83 4 7.41 5.41 12 10l4.59-4.59z"/></svg>',
+                    'roundabout-left': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg>',
+                    'roundabout-right': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg>',
+                    'uturn-left': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 9v12h-2V9c0-2.21-1.79-4-4-4S8 6.79 8 9v4.17l1.59-1.59L11 13l-4 4-4-4 1.41-1.41L6 13.17V9c0-3.31 2.69-6 6-6s6 2.69 6 6z"/></svg>',
+                    'uturn-right': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 9v12h2V9c0-2.21 1.79-4 4-4s4 1.79 4 4v4.17l-1.59-1.59L13 13l4 4 4-4-1.41-1.41L18 13.17V9c0-3.31-2.69-6-6-6S6 5.69 6 9z"/></svg>',
+                    'fork-left': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 3h-4v7.9l-6 4.5V21h2v-4.6l5-3.75V21h2v-8.35l5 3.75V21h2v-5.6l-6-4.5V3z"/></svg>',
+                    'fork-right': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 3h-4v7.9l-6 4.5V21h2v-4.6l5-3.75V21h2v-8.35l5 3.75V21h2v-5.6l-6-4.5V3z"/></svg>',
+                    'ramp-left': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5H9z"/></svg>',
+                    'ramp-right': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 5v2H8.41L20 18.59 18.59 20 7 8.41V15H5V5h10z"/></svg>'
+                };
+                
+                return icons[maneuver] || '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+            }
+
+            // Función principal para calcular ruta
+            function calculateRoute(destination, destinationName, travelMode = 'DRIVING') {
+                if (!currentUserLocation) {
+                    mostrarMensaje('Necesitamos tu ubicación para calcular la ruta. Haz clic en "Mi ubicación".', 'error');
+                    return;
+                }
+
+                currentDestination = destination;
+                currentDestinationName = destinationName;
+                currentTravelMode = travelMode;
+
+                // Abrir panel y mostrar loading
+                openRoutePanel();
+                routeDestinationName.textContent = destinationName;
+
+                // Activar el renderer en el mapa
+                directionsRenderer.setMap(map);
+
+                const request = {
+                    origin: currentUserLocation,
+                    destination: destination,
+                    travelMode: google.maps.TravelMode[travelMode],
+                    unitSystem: google.maps.UnitSystem.METRIC,
+                    provideRouteAlternatives: false
+                };
+
+                directionsService.route(request, (result, status) => {
+                    if (status === 'OK') {
+                        currentRoute = result;
+                        directionsRenderer.setDirections(result);
+                        showRouteDetails(result);
+                        
+                        // Ajustar vista para mostrar toda la ruta
+                        const bounds = result.routes[0].bounds;
+                        map.fitBounds(bounds, { padding: 80 });
+                    } else {
+                        let errorMsg = 'No se pudo calcular la ruta.';
+                        switch (status) {
+                            case 'ZERO_RESULTS':
+                                errorMsg = 'No hay ruta disponible entre estos puntos.';
+                                break;
+                            case 'NOT_FOUND':
+                                errorMsg = 'No se encontró uno de los puntos.';
+                                break;
+                            case 'OVER_QUERY_LIMIT':
+                                errorMsg = 'Límite de consultas excedido. Intenta más tarde.';
+                                break;
+                            case 'REQUEST_DENIED':
+                                errorMsg = 'El servicio de rutas no está disponible.';
+                                break;
+                            case 'INVALID_REQUEST':
+                                errorMsg = 'Solicitud inválida.';
+                                break;
+                        }
+                        showRouteError(errorMsg);
+                        console.error('Error al calcular ruta:', status);
+                    }
+                });
+            }
+
+            // Event listeners para el panel de rutas
+            document.getElementById('routePanelClose').addEventListener('click', closeRoutePanel);
+
+            // Botones de modo de transporte
+            document.querySelectorAll('.route-mode-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!currentDestination) return;
+                    
+                    // Actualizar UI
+                    document.querySelectorAll('.route-mode-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Recalcular ruta con nuevo modo
+                    const mode = btn.dataset.mode;
+                    calculateRoute(currentDestination, currentDestinationName, mode);
+                });
+            });
+
+            // Botón de reintentar
+            document.getElementById('routeRetryBtn').addEventListener('click', () => {
+                if (currentDestination) {
+                    calculateRoute(currentDestination, currentDestinationName, currentTravelMode);
+                }
+            });
+
+            // Botón de abrir en Google Maps
+            document.getElementById('routeStartNav').addEventListener('click', () => {
+                if (!currentUserLocation || !currentDestination) return;
+                
+                const origin = `${currentUserLocation.lat},${currentUserLocation.lng}`;
+                const dest = `${currentDestination.lat},${currentDestination.lng}`;
+                const mode = currentTravelMode.toLowerCase();
+                
+                const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=${mode}`;
+                window.open(url, '_blank');
+            });
+
+            // Función para crear el botón de ruta (se usa en InfoWindows)
+            function createRouteButton(lat, lng, nombre) {
+                const hasLocation = currentUserLocation !== null;
+                const disabledClass = hasLocation ? '' : 'disabled';
+                const disabledTitle = hasLocation ? 'Cómo llegar' : 'Activa tu ubicación primero';
+                
+                return `
+                    <button class="route-btn ${disabledClass}" 
+                            onclick="event.stopPropagation(); ${hasLocation ? `calculateRoute({lat: ${lat}, lng: ${lng}}, '${nombre.replace(/'/g, "\\'")}')` : `mostrarMensaje('Primero activa tu ubicación haciendo clic en el botón de Mi ubicación', 'error')`}" 
+                            title="${disabledTitle}">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+                        </svg>
+                        Cómo llegar
+                    </button>
+                `;
+            }
 
             // Agregar marcadores históricos con imágenes personalizadas
             lugares.historicos.forEach(lugar => {
@@ -2497,6 +3288,9 @@
 
             // Función para mostrar la ubicación en el mapa
             function mostrarUbicacionEnMapa(userLocation, accuracy, source = 'gps') {
+                // Guardar ubicación del usuario para el sistema de rutas
+                currentUserLocation = userLocation;
+                
                 // Eliminar marcador anterior si existe
                 if (userMarker) {
                     userMarker.setMap(null);
