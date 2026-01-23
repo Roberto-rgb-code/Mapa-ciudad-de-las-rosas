@@ -545,6 +545,128 @@
             color: #666;
         }
 
+        /* ===== CONTROLES 3D ===== */
+        .controls-3d {
+            position: fixed;
+            left: 20px;
+            bottom: 100px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            padding: 12px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 1000;
+            animation: slideInLeft 0.3s ease;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .controls-3d.active {
+            display: flex;
+        }
+
+        .controls-3d-header {
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .controls-3d-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .controls-3d-label {
+            font-size: 10px;
+            color: #999;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+
+        .controls-3d-row {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .control-3d-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: #333;
+        }
+
+        .control-3d-btn:hover {
+            background: #1a73e8;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .control-3d-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-3d-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .control-3d-btn.reset {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            gap: 6px;
+        }
+
+        .control-3d-btn.reset:hover {
+            background: linear-gradient(135deg, #ee5a5a 0%, #dd4a4a 100%);
+        }
+
+        .controls-3d-divider {
+            height: 1px;
+            background: #eee;
+            margin: 4px 0;
+        }
+
+        /* Responsive para controles 3D */
+        @media (max-width: 768px) {
+            .controls-3d {
+                left: 10px;
+                bottom: 80px;
+                padding: 10px;
+            }
+
+            .control-3d-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            .control-3d-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+
         .aerial-error-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(249, 168, 37, 0.4);
@@ -2338,6 +2460,57 @@
         </div>
     </div>
 
+    <!-- Controles 3D -->
+    <div id="controls3D" class="controls-3d">
+        <div class="controls-3d-header">Controles 3D</div>
+        
+        <!-- Inclinación -->
+        <div class="controls-3d-group">
+            <div class="controls-3d-label">Inclinación</div>
+            <div class="controls-3d-row">
+                <button class="control-3d-btn" id="tiltUp" title="Inclinar arriba">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                    </svg>
+                </button>
+                <button class="control-3d-btn" id="tiltDown" title="Inclinar abajo">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="controls-3d-divider"></div>
+
+        <!-- Rotación -->
+        <div class="controls-3d-group">
+            <div class="controls-3d-label">Rotación</div>
+            <div class="controls-3d-row">
+                <button class="control-3d-btn" id="rotateLeft" title="Rotar izquierda">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7.11 8.53L5.7 7.11C4.8 8.27 4.24 9.61 4.07 11h2.02c.14-.87.49-1.72 1.02-2.47zM6.09 13H4.07c.17 1.39.72 2.73 1.62 3.89l1.41-1.42c-.52-.75-.87-1.59-1.01-2.47zm1.01 5.32c1.16.9 2.51 1.44 3.9 1.61V17.9c-.87-.15-1.71-.49-2.46-1.03L7.1 18.32zM13 4.07V1L8.45 5.55 13 10V6.09c2.84.48 5 2.94 5 5.91s-2.16 5.43-5 5.91v2.02c3.95-.49 7-3.85 7-7.93s-3.05-7.44-7-7.93z"/>
+                    </svg>
+                </button>
+                <button class="control-3d-btn" id="rotateRight" title="Rotar derecha">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.55 5.55L11 1v3.07C7.06 4.56 4 7.92 4 12s3.05 7.44 7 7.93v-2.02c-2.84-.48-5-2.94-5-5.91s2.16-5.43 5-5.91V10l4.55-4.45zM19.93 11c-.17-1.39-.72-2.73-1.62-3.89l-1.42 1.42c.54.75.88 1.6 1.02 2.47h2.02zM13 17.9v2.02c1.39-.17 2.74-.71 3.9-1.61l-1.44-1.44c-.75.54-1.59.89-2.46 1.03zm3.89-2.42l1.42 1.41c.9-1.16 1.45-2.5 1.62-3.89h-2.02c-.14.87-.48 1.72-1.02 2.48z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="controls-3d-divider"></div>
+
+        <!-- Reset -->
+        <button class="control-3d-btn reset" id="reset3D" title="Restablecer vista">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+            </svg>
+            Restablecer
+        </button>
+    </div>
+
     <div id="geolocationInstructions" class="geolocation-instructions">
         <button class="close-btn" onclick="document.getElementById('geolocationInstructions').style.display='none'">×</button>
         <h4>📍 Para ubicación exacta</h4>
@@ -2980,6 +3153,7 @@
                     }
                 } else if (layerType === '3d') {
                     layerStates['3d'] = !layerStates['3d'];
+                    const controls3D = document.getElementById('controls3D');
                     if (layerStates['3d']) {
                         // Activar vista 3D
                         map.setTilt(45);
@@ -2995,16 +3169,60 @@
                         const satItem = mapTypeMenu.querySelector('[data-map-type="satellite"]');
                         if (satItem) satItem.classList.add('active');
                         item.classList.add('active');
-                        mostrarMensaje('Vista 3D activada. Usa Ctrl + arrastrar para rotar', 'info');
+                        // Mostrar controles 3D
+                        controls3D.classList.add('active');
+                        mostrarMensaje('Vista 3D activada', 'info');
                     } else {
                         // Desactivar vista 3D
                         map.setTilt(0);
                         map.setHeading(0);
                         item.classList.remove('active');
+                        // Ocultar controles 3D
+                        controls3D.classList.remove('active');
                         mostrarMensaje('Vista 3D desactivada', 'info');
                     }
                 }
             }
+
+            // ===== CONTROLES 3D =====
+            const tiltUpBtn = document.getElementById('tiltUp');
+            const tiltDownBtn = document.getElementById('tiltDown');
+            const rotateLeftBtn = document.getElementById('rotateLeft');
+            const rotateRightBtn = document.getElementById('rotateRight');
+            const reset3DBtn = document.getElementById('reset3D');
+
+            // Inclinar arriba (reducir tilt)
+            tiltUpBtn.addEventListener('click', () => {
+                const currentTilt = map.getTilt() || 0;
+                const newTilt = Math.max(0, currentTilt - 15);
+                map.setTilt(newTilt);
+            });
+
+            // Inclinar abajo (aumentar tilt)
+            tiltDownBtn.addEventListener('click', () => {
+                const currentTilt = map.getTilt() || 0;
+                const newTilt = Math.min(67.5, currentTilt + 15);
+                map.setTilt(newTilt);
+            });
+
+            // Rotar izquierda
+            rotateLeftBtn.addEventListener('click', () => {
+                const currentHeading = map.getHeading() || 0;
+                map.setHeading(currentHeading - 30);
+            });
+
+            // Rotar derecha
+            rotateRightBtn.addEventListener('click', () => {
+                const currentHeading = map.getHeading() || 0;
+                map.setHeading(currentHeading + 30);
+            });
+
+            // Restablecer vista
+            reset3DBtn.addEventListener('click', () => {
+                map.setTilt(45);
+                map.setHeading(0);
+                mostrarMensaje('Vista restablecida', 'info');
+            });
 
             // Marcar "Estándar" como activo por defecto
             const defaultMapTypeItem = mapTypeMenu.querySelector('[data-map-type="roadmap"]');
