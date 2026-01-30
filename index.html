@@ -2947,7 +2947,7 @@
             });
 
             // Función para crear icono personalizado desde imagen con marco elegante
-            function crearIconoPersonalizado(rutaImagen, tamaño = 56) {
+            function crearIconoPersonalizado(rutaImagen, tamaño = 80) {
                 return {
                     url: rutaImagen,
                     scaledSize: new google.maps.Size(tamaño, tamaño),
@@ -2972,8 +2972,28 @@
                         <circle cx="20" cy="20" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(40, 52),
-                anchor: new google.maps.Point(20, 52)
+                scaledSize: new google.maps.Size(50, 65),
+                anchor: new google.maps.Point(25, 65)
+            };
+            
+            // Icono de georreferenciación GRANDE para hover
+            const iconoGeorreferenciacionGrande = {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                    <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+                            </filter>
+                        </defs>
+                        <path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" 
+                              fill="#8B1538" filter="url(#shadow)"/>
+                        <circle cx="20" cy="20" r="14" fill="#fff"/>
+                        <circle cx="20" cy="20" r="8" fill="#8B1538"/>
+                        <circle cx="20" cy="20" r="4" fill="#fff"/>
+                    </svg>
+                `),
+                scaledSize: new google.maps.Size(70, 91),
+                anchor: new google.maps.Point(35, 91)
             };
 
             // Icono para la ubicación actual del usuario - estilo moderno con pulso
@@ -3100,6 +3120,13 @@
             function closeActiveInfoWindow() {
                 if (activeInfoWindow) {
                     activeInfoWindow.close();
+                    // Restaurar el icono al tamaño normal
+                    if (activeMarker) {
+                        const markerData = allMarkers.find(m => m.marker === activeMarker);
+                        if (markerData && markerData.iconoNormal) {
+                            activeMarker.setIcon(markerData.iconoNormal);
+                        }
+                    }
                     activeInfoWindow = null;
                     activeMarker = null;
                 }
@@ -3489,16 +3516,22 @@
             });
 
             // Agregar marcadores históricos con imágenes personalizadas
+            const tamañoNormal = 80;
+            const tamañoGrande = 110;
+            
             lugares.historicos.forEach(lugar => {
-                const icono = lugar.imagen 
-                    ? crearIconoPersonalizado(lugar.imagen, 60)
+                const iconoNormal = lugar.imagen 
+                    ? crearIconoPersonalizado(lugar.imagen, tamañoNormal)
+                    : iconoEmpresa;
+                const iconoHover = lugar.imagen 
+                    ? crearIconoPersonalizado(lugar.imagen, tamañoGrande)
                     : iconoEmpresa;
 
                 const marker = new google.maps.Marker({
                     position: { lat: lugar.lat, lng: lugar.lng },
                     map: map,
                     title: lugar.nombre,
-                    icon: icono,
+                    icon: iconoNormal,
                     animation: null,
                     cursor: 'pointer'
                 });
@@ -3518,13 +3551,17 @@
                     activeInfoWindow = infoWindow;
                     activeMarker = marker;
                     
+                    // Hacer el icono más grande al seleccionar
+                    marker.setIcon(iconoHover);
+                    
                     // Pequeña animación de rebote
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(() => marker.setAnimation(null), 700);
                 });
 
-                // Hover: efecto visual
+                // Hover: efecto visual - icono crece
                 marker.addListener('mouseover', () => {
+                    marker.setIcon(iconoHover);
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(() => {
                         if (marker !== activeMarker) {
@@ -3532,8 +3569,15 @@
                         }
                     }, 350);
                 });
+                
+                // Mouseout: volver al tamaño normal (si no está seleccionado)
+                marker.addListener('mouseout', () => {
+                    if (marker !== activeMarker) {
+                        marker.setIcon(iconoNormal);
+                    }
+                });
 
-                allMarkers.push({ marker, infoWindow, lugar });
+                allMarkers.push({ marker, infoWindow, lugar, iconoNormal, iconoHover });
             });
 
             // Agregar marcadores de empresas
@@ -3562,13 +3606,17 @@
                     activeInfoWindow = infoWindow;
                     activeMarker = marker;
                     
+                    // Hacer el icono más grande al seleccionar
+                    marker.setIcon(iconoGeorreferenciacionGrande);
+                    
                     // Pequeña animación de rebote
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(() => marker.setAnimation(null), 700);
                 });
 
-                // Hover: efecto visual
+                // Hover: efecto visual - icono crece
                 marker.addListener('mouseover', () => {
+                    marker.setIcon(iconoGeorreferenciacionGrande);
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(() => {
                         if (marker !== activeMarker) {
@@ -3576,8 +3624,15 @@
                         }
                     }, 350);
                 });
+                
+                // Mouseout: volver al tamaño normal (si no está seleccionado)
+                marker.addListener('mouseout', () => {
+                    if (marker !== activeMarker) {
+                        marker.setIcon(iconoGeorreferenciacion);
+                    }
+                });
 
-                allMarkers.push({ marker, infoWindow, lugar });
+                allMarkers.push({ marker, infoWindow, lugar, iconoNormal: iconoGeorreferenciacion, iconoHover: iconoGeorreferenciacionGrande });
             });
 
             // Variables para almacenar el marcador y círculo del usuario
