@@ -909,6 +909,233 @@
             gap: 8px;
         }
 
+        /* ===== GALERÍA DE IMÁGENES ===== */
+        .gallery-container {
+            margin: 12px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .gallery-main {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .gallery-nav:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav.prev { left: 8px; }
+        .gallery-nav.next { right: 8px; }
+
+        .gallery-nav svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            gap: 4px;
+            padding: 8px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .gallery-thumbnails::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .gallery-thumbnails::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+
+        .gallery-thumb {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            opacity: 0.6;
+        }
+
+        .gallery-thumb:hover {
+            opacity: 1;
+        }
+
+        .gallery-thumb.active {
+            border-color: #8B1538;
+            opacity: 1;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-fullscreen-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 32px;
+            height: 32px;
+            background: rgba(0,0,0,0.6);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .gallery-fullscreen-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .gallery-fullscreen-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
+        }
+
+        /* Lightbox para pantalla completa */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .lightbox-close svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .lightbox-nav.prev { left: 20px; }
+        .lightbox-nav.next { right: 20px; }
+
+        .lightbox-nav svg {
+            width: 28px;
+            height: 28px;
+            fill: #fff;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 14px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
         .info-window .contact-item {
             display: inline-flex;
             align-items: center;
@@ -2323,7 +2550,17 @@
                     horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
                     telefono: "+52 33 1001 8581",
                     web: "opentable.com.mx",
-                    instagram: "@casadoloresgdl"
+                    instagram: "@casadoloresgdl",
+                    galeria: [
+                        "assets/galeria-casa-dolores/1.jpg",
+                        "assets/galeria-casa-dolores/2.png",
+                        "assets/galeria-casa-dolores/3.png",
+                        "assets/galeria-casa-dolores/4.png",
+                        "assets/galeria-casa-dolores/5.png",
+                        "assets/galeria-casa-dolores/6.png",
+                        "assets/galeria-casa-dolores/7.png",
+                        "assets/galeria-casa-dolores/8.png"
+                    ]
                 },
                 {
                     nombre: "Ex Convento de Santa Teresa",
@@ -2335,7 +2572,18 @@
                     telefono: "+52 33 1989 0373",
                     web: "exconvento.com.mx",
                     facebook: "facebook.com/ExconventoST",
-                    instagram: "@exconventost"
+                    instagram: "@exconventost",
+                    galeria: [
+                        "assets/galeria-ex-convento/1.png",
+                        "assets/galeria-ex-convento/2.png",
+                        "assets/galeria-ex-convento/3.png",
+                        "assets/galeria-ex-convento/4.png",
+                        "assets/galeria-ex-convento/5.png",
+                        "assets/galeria-ex-convento/6.png",
+                        "assets/galeria-ex-convento/7.png",
+                        "assets/galeria-ex-convento/8.png",
+                        "assets/galeria-ex-convento/9.jpg"
+                    ]
                 },
                 {
                     nombre: "Casa Anguiano",
@@ -2347,7 +2595,16 @@
                     horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
                     telefono: "+52 333 614 6880",
                     whatsapp: "+52 331 061 6961",
-                    web: "casaanguiano.com"
+                    web: "casaanguiano.com",
+                    galeria: [
+                        "assets/galeria-casa-anguiano/1.png",
+                        "assets/galeria-casa-anguiano/2.png",
+                        "assets/galeria-casa-anguiano/3.png",
+                        "assets/galeria-casa-anguiano/4.png",
+                        "assets/galeria-casa-anguiano/5.png",
+                        "assets/galeria-casa-anguiano/6.png",
+                        "assets/galeria-casa-anguiano/7.png"
+                    ]
                 },
                 {
                     nombre: "El Pilón de los Arrieros",
@@ -2358,10 +2615,153 @@
                     direccion: "Calle Galeana 388, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
                     horario: "Lunes – Domingo: 9:00 am – 9:00 pm",
                     telefono: "+52 33 3613 2799",
-                    instagram: "@elpilondelosarrieros"
+                    instagram: "@elpilondelosarrieros",
+                    galeria: [
+                        "assets/galeria-pilon-arrieros/1.png",
+                        "assets/galeria-pilon-arrieros/2.png",
+                        "assets/galeria-pilon-arrieros/3.png",
+                        "assets/galeria-pilon-arrieros/4.png",
+                        "assets/galeria-pilon-arrieros/5.png",
+                        "assets/galeria-pilon-arrieros/6.png",
+                        "assets/galeria-pilon-arrieros/7.png"
+                    ]
                 }
             ]
         };
+
+        // ===== FUNCIONES DE GALERÍA =====
+        // Almacenar estado de cada galería
+        const galeriaEstado = {};
+
+        function inicializarGaleria(galeriaId, imagenes) {
+            galeriaEstado[galeriaId] = {
+                imagenes: imagenes,
+                indiceActual: 0
+            };
+        }
+
+        function cambiarImagenGaleria(galeriaId, direccion) {
+            const estado = galeriaEstado[galeriaId];
+            if (!estado) return;
+            
+            estado.indiceActual += direccion;
+            if (estado.indiceActual < 0) estado.indiceActual = estado.imagenes.length - 1;
+            if (estado.indiceActual >= estado.imagenes.length) estado.indiceActual = 0;
+            
+            actualizarGaleria(galeriaId);
+        }
+
+        function irAImagenGaleria(galeriaId, indice) {
+            const estado = galeriaEstado[galeriaId];
+            if (!estado) return;
+            
+            estado.indiceActual = indice;
+            actualizarGaleria(galeriaId);
+        }
+
+        function actualizarGaleria(galeriaId) {
+            const estado = galeriaEstado[galeriaId];
+            if (!estado) return;
+            
+            const mainImg = document.getElementById(galeriaId + '-main');
+            const counter = document.getElementById(galeriaId + '-counter');
+            const thumbs = document.querySelectorAll(`#${galeriaId} .gallery-thumb`);
+            
+            if (mainImg) {
+                mainImg.style.opacity = '0';
+                setTimeout(() => {
+                    mainImg.src = estado.imagenes[estado.indiceActual];
+                    mainImg.style.opacity = '1';
+                }, 150);
+            }
+            
+            if (counter) {
+                counter.textContent = `${estado.indiceActual + 1} / ${estado.imagenes.length}`;
+            }
+            
+            thumbs.forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === estado.indiceActual);
+            });
+        }
+
+        // Lightbox
+        let lightboxActivo = null;
+
+        function abrirLightbox(galeriaId) {
+            const estado = galeriaEstado[galeriaId];
+            if (!estado) return;
+            
+            lightboxActivo = galeriaId;
+            
+            // Crear lightbox si no existe
+            let lightbox = document.getElementById('lightbox-global');
+            if (!lightbox) {
+                lightbox = document.createElement('div');
+                lightbox.id = 'lightbox-global';
+                lightbox.className = 'lightbox';
+                lightbox.innerHTML = `
+                    <button class="lightbox-close" onclick="cerrarLightbox()">
+                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                    <button class="lightbox-nav prev" onclick="cambiarImagenLightbox(-1)">
+                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                    </button>
+                    <img id="lightbox-img" src="" alt="">
+                    <button class="lightbox-nav next" onclick="cambiarImagenLightbox(1)">
+                        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                    </button>
+                    <span class="lightbox-counter" id="lightbox-counter"></span>
+                `;
+                document.body.appendChild(lightbox);
+                
+                // Cerrar con click en fondo
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) cerrarLightbox();
+                });
+                
+                // Cerrar con Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') cerrarLightbox();
+                    if (e.key === 'ArrowLeft') cambiarImagenLightbox(-1);
+                    if (e.key === 'ArrowRight') cambiarImagenLightbox(1);
+                });
+            }
+            
+            actualizarLightbox();
+            lightbox.classList.add('active');
+        }
+
+        function cerrarLightbox() {
+            const lightbox = document.getElementById('lightbox-global');
+            if (lightbox) lightbox.classList.remove('active');
+            lightboxActivo = null;
+        }
+
+        function cambiarImagenLightbox(direccion) {
+            if (!lightboxActivo) return;
+            cambiarImagenGaleria(lightboxActivo, direccion);
+            actualizarLightbox();
+        }
+
+        function actualizarLightbox() {
+            if (!lightboxActivo) return;
+            const estado = galeriaEstado[lightboxActivo];
+            if (!estado) return;
+            
+            const img = document.getElementById('lightbox-img');
+            const counter = document.getElementById('lightbox-counter');
+            
+            if (img) img.src = estado.imagenes[estado.indiceActual];
+            if (counter) counter.textContent = `${estado.indiceActual + 1} / ${estado.imagenes.length}`;
+        }
+
+        // Función para inicializar galería cuando se abre un InfoWindow
+        function setupGaleria(lugar) {
+            if (lugar.galeria && lugar.galeria.length > 0) {
+                const galeriaId = 'gallery-' + lugar.nombre.replace(/\s+/g, '-').toLowerCase();
+                inicializarGaleria(galeriaId, lugar.galeria);
+            }
+        }
 
         // Función para inicializar el mapa
         function initMap() {
@@ -3032,6 +3432,36 @@
                 const routeButtonHTML = createRouteButton(lugar.lat, lugar.lng, lugar.nombre);
                 const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre);
                 
+                // Crear HTML de galería si existe
+                let galeriaHTML = '';
+                if (lugar.galeria && lugar.galeria.length > 0) {
+                    const galeriaId = 'gallery-' + lugar.nombre.replace(/\s+/g, '-').toLowerCase();
+                    galeriaHTML = `
+                        <div class="gallery-container" id="${galeriaId}">
+                            <div class="gallery-main">
+                                <img src="${lugar.galeria[0]}" alt="${lugar.nombre}" id="${galeriaId}-main">
+                                <button class="gallery-nav prev" onclick="cambiarImagenGaleria('${galeriaId}', -1)">
+                                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                                </button>
+                                <button class="gallery-nav next" onclick="cambiarImagenGaleria('${galeriaId}', 1)">
+                                    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                                </button>
+                                <button class="gallery-fullscreen-btn" onclick="abrirLightbox('${galeriaId}')">
+                                    <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                                </button>
+                                <span class="gallery-counter" id="${galeriaId}-counter">1 / ${lugar.galeria.length}</span>
+                            </div>
+                            <div class="gallery-thumbnails">
+                                ${lugar.galeria.map((img, i) => `
+                                    <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="irAImagenGaleria('${galeriaId}', ${i})">
+                                        <img src="${img}" alt="Imagen ${i+1}">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
                 let contenido = `
                     <div class="info-window">
                         <div class="info-window-header ${categoriaClass}">
@@ -3041,6 +3471,7 @@
                         </div>
                         <div class="info-window-body">
                             <p>${lugar.descripcion}</p>
+                            ${galeriaHTML}
                             <div class="address ${categoriaClass}">
                                 <strong>📍 Dirección</strong><br>${lugar.direccion}
                             </div>
@@ -3551,6 +3982,9 @@
                     activeInfoWindow = infoWindow;
                     activeMarker = marker;
                     
+                    // Inicializar galería si existe
+                    setupGaleria(lugar);
+                    
                     // Hacer el icono más grande al seleccionar
                     marker.setIcon(iconoHover);
                     
@@ -3605,6 +4039,9 @@
                     infoWindow.open(map, marker);
                     activeInfoWindow = infoWindow;
                     activeMarker = marker;
+                    
+                    // Inicializar galería si existe
+                    setupGaleria(lugar);
                     
                     // Hacer el icono más grande al seleccionar
                     marker.setIcon(iconoGeorreferenciacionGrande);
