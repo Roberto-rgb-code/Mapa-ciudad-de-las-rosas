@@ -1864,36 +1864,6 @@
             background: transparent;
         }
 
-        /* Panel de información */
-        .info-panel {
-            position: absolute;
-            bottom: 100px;
-            left: 15px;
-            z-index: 999;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            padding: 10px 14px;
-            font-size: 11px;
-            color: #666;
-            max-width: 180px;
-        }
-
-        .info-panel-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-        }
-
-        .info-panel-label {
-            color: #888;
-        }
-
-        .info-panel-value {
-            font-weight: 500;
-            color: #333;
-        }
-
         /* ===== PANEL DE CONTROLES LATERAL DERECHO ===== */
         .controls-panel {
             position: absolute;
@@ -2106,9 +2076,6 @@
                 font-size: 11px;
             }
 
-            .info-panel {
-                display: none;
-            }
         }
 
         /* Móviles pequeños */
@@ -2359,22 +2326,6 @@
                 </svg>
             </div>
             <span>Tu ubicación</span>
-        </div>
-    </div>
-
-    <!-- Panel de información -->
-    <div class="info-panel" id="infoPanel">
-        <div class="info-panel-row">
-            <span class="info-panel-label">Zoom:</span>
-            <span class="info-panel-value" id="zoomLevel">15</span>
-        </div>
-        <div class="info-panel-row">
-            <span class="info-panel-label">Lat:</span>
-            <span class="info-panel-value" id="centerLat">20.678</span>
-        </div>
-        <div class="info-panel-row">
-            <span class="info-panel-label">Lng:</span>
-            <span class="info-panel-value" id="centerLng">-103.346</span>
         </div>
     </div>
 
@@ -3280,22 +3231,6 @@
             document.getElementById('zoomOut').addEventListener('click', function() {
                 map.setZoom(map.getZoom() - 1);
             });
-
-            // ===== PANEL DE INFORMACIÓN (Actualización en tiempo real) =====
-            const zoomLevelEl = document.getElementById('zoomLevel');
-            const centerLatEl = document.getElementById('centerLat');
-            const centerLngEl = document.getElementById('centerLng');
-
-            function updateInfoPanel() {
-                zoomLevelEl.textContent = map.getZoom();
-                const center = map.getCenter();
-                centerLatEl.textContent = center.lat().toFixed(5);
-                centerLngEl.textContent = center.lng().toFixed(5);
-            }
-
-            map.addListener('zoom_changed', updateInfoPanel);
-            map.addListener('center_changed', updateInfoPanel);
-            updateInfoPanel(); // Inicial
 
             // ===== STREET VIEW =====
             const streetViewBtn = document.getElementById('btnStreetView');
