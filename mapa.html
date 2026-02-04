@@ -24,12 +24,83 @@
             overflow: hidden;
         }
 
-        #map {
+        /* ===== MENÚ LATERAL IZQUIERDO - LISTA DE PUNTOS ===== */
+        .sidebar-puntos {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.12);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-puntos-header {
+            flex-shrink: 0;
+            line-height: 0;
+        }
+
+        .sidebar-puntos-header img {
             width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 220px;
+        }
+
+        .sidebar-puntos-list {
+            flex: 1;
+            overflow-y: auto;
+            list-style: none;
+            padding: 12px 0;
+            margin: 0;
+        }
+
+        .sidebar-puntos-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0e6ec;
+            transition: background 0.2s;
+            font-size: 13px;
+        }
+
+        .sidebar-puntos-item:hover {
+            background: #fdf5f9;
+        }
+
+        .sidebar-puntos-item .num {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #f79ed6 0%, #e91e63 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .sidebar-puntos-item .name {
+            flex: 1;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        #map {
+            width: calc(100% - 280px);
             height: 100vh;
             position: absolute;
             top: 0;
-            left: 0;
+            left: 280px;
         }
 
         .info-window {
@@ -76,7 +147,7 @@
         .route-panel {
             position: fixed;
             bottom: 20px;
-            left: 20px;
+            left: 300px;
             width: 360px;
             max-height: calc(100vh - 100px);
             background: white;
@@ -1477,11 +1548,11 @@
 
         /* ===== ELEMENTOS CARTOGRÁFICOS PROFESIONALES ===== */
 
-        /* Barra de búsqueda */
+        /* Barra de búsqueda (sobre el mapa, a la derecha del menú) */
         .search-container {
             position: absolute;
             top: 15px;
-            left: 15px;
+            left: 295px;
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -1639,11 +1710,11 @@
             height: 18px;
         }
 
-        /* Logo del mapa - esquina superior izquierda */
+        /* Logo del mapa - sobre el mapa (a la derecha del menú) */
         .map-logo {
             position: absolute;
             top: 70px;
-            left: 15px;
+            left: 295px;
             z-index: 999;
             display: flex;
             align-items: center;
@@ -1697,7 +1768,7 @@
         .legend {
             position: absolute;
             bottom: 30px;
-            left: 15px;
+            left: 295px;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
@@ -2009,7 +2080,7 @@
 
             .map-logo {
                 top: 70px;
-                left: 10px;
+                left: 290px;
                 padding: 6px 10px;
             }
 
@@ -2043,7 +2114,7 @@
         /* Móviles pequeños */
         @media (max-width: 480px) {
             .search-container {
-                left: 10px;
+                left: 290px;
                 right: 60px;
             }
 
@@ -2062,7 +2133,7 @@
 
             .legend {
                 bottom: 20px;
-                left: 10px;
+                left: 290px;
                 max-width: 140px;
                 padding: 8px 10px;
             }
@@ -2183,6 +2254,13 @@
     </style>
 </head>
 <body>
+    <!-- Menú lateral: lista de puntos con cabecera -->
+    <aside class="sidebar-puntos" id="sidebarPuntos">
+        <div class="sidebar-puntos-header">
+            <img src="assets/Captura de pantalla 2026-02-04 101053.png" alt="Guadalajara Ciudad de las Rosas">
+        </div>
+        <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
+    </aside>
     <div id="map"></div>
     
     <!-- Logo del mapa -->
@@ -4103,6 +4181,25 @@
 
                 allMarkers.push({ marker, infoWindow, lugar, iconoNormal: iconoGeorreferenciacion, iconoHover: iconoGeorreferenciacionGrande });
             });
+
+            // Rellenar menú lateral: lista de todos los puntos (clic = centrar mapa y abrir tooltip)
+            const sidebarPuntosList = document.getElementById('sidebarPuntosList');
+            if (sidebarPuntosList) {
+                allMarkers.forEach((m, i) => {
+                    const li = document.createElement('li');
+                    li.className = 'sidebar-puntos-item';
+                    li.dataset.index = i;
+                    li.innerHTML = '<span class="num">' + (i + 1) + '</span><span class="name">' + (m.lugar.nombre || '') + '</span>';
+                    li.addEventListener('click', () => {
+                        map.panTo(m.marker.getPosition());
+                        map.setZoom(17);
+                        if (m.marker.getMap()) {
+                            google.maps.event.trigger(m.marker, 'click');
+                        }
+                    });
+                    sidebarPuntosList.appendChild(li);
+                });
+            }
 
             // Variables para almacenar el marcador y círculo del usuario
             let userMarker = null;
