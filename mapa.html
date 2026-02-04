@@ -92,7 +92,9 @@
 
         .sidebar-puntos-list {
             flex: 1;
+            min-height: 0;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             list-style: none;
             padding: 12px 0;
             margin: 0;
@@ -133,6 +135,65 @@
             line-height: 1.3;
         }
 
+        /* Overlay y botón menú: ocultos en desktop */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 550;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+        .sidebar-btn-open {
+            display: none;
+            position: fixed;
+            left: 12px;
+            top: 15px;
+            z-index: 601;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 8px;
+            background: #fff;
+            color: #5d4037;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .sidebar-btn-open:hover {
+            background: #fdf5f9;
+            box-shadow: 0 4px 16px rgba(247, 158, 214, 0.35);
+        }
+        .sidebar-btn-close {
+            display: none;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            min-height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #fff;
+            color: #5d4037;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .sidebar-btn-close:hover {
+            background: #f5f5f5;
+        }
+        .sidebar-puntos-header {
+            position: relative;
+        }
+
         /* ===== SIDEBAR DERECHO - LUGARES ICÓNICOS A-I ===== */
         .sidebar-derecho {
             position: fixed;
@@ -163,7 +224,9 @@
 
         .sidebar-derecho-list {
             flex: 1;
+            min-height: 0;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             list-style: none;
             padding: 12px 0;
             margin: 0;
@@ -2171,8 +2234,8 @@
 
         /* ===== DISEÑO RESPONSIVO ===== */
 
-        /* Ocultar sidebar derecho en pantallas medianas/pequeñas para no comprimir el mapa */
-        @media (max-width: 960px) {
+        /* Tablet 769px-960px: ocultar sidebar derecho para dar espacio al mapa */
+        @media (min-width: 769px) and (max-width: 960px) {
             .sidebar-derecho {
                 display: none;
             }
@@ -2190,66 +2253,180 @@
                 right: 50px;
             }
         }
-        
-        /* Tablets y móviles grandes */
+
+        /* Tablets y móviles: sidebar izquierdo como drawer, mapa a ancho completo */
         @media (max-width: 768px) {
+            .sidebar-btn-open {
+                display: flex;
+            }
+            .sidebar-btn-close {
+                display: flex;
+            }
+            .sidebar-puntos {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                width: 280px;
+                max-width: 85vw;
+                box-shadow: 4px 0 24px rgba(0,0,0,0.2);
+                z-index: 600;
+            }
+            .sidebar-puntos.open {
+                transform: translateX(0);
+            }
+            .sidebar-puntos-header {
+                padding-top: 8px;
+            }
+            .sidebar-puntos-header img {
+                max-height: 120px;
+            }
+            /* Ocultar logo y búsqueda sobre el mapa cuando el menú izquierdo está abierto (evitar solapamiento) */
+            body:has(.sidebar-puntos.open) .map-logo,
+            body:has(.sidebar-puntos.open) .search-container {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            #map {
+                left: 0;
+                width: 100%;
+            }
             .map-title {
                 display: none;
             }
-
             .map-logo {
                 top: 70px;
-                left: 290px;
+                left: 112px;
                 padding: 6px 10px;
+                transition: opacity 0.2s, visibility 0.2s;
             }
-
             .map-logo img {
                 max-width: 110px;
             }
-
+            .search-container {
+                left: 112px;
+                right: 50px;
+                transition: opacity 0.2s, visibility 0.2s;
+            }
             .search-box {
-                width: 280px;
+                width: 200px;
+                max-width: calc(100vw - 80px);
             }
-
             .search-box:focus-within {
-                width: 320px;
+                width: 280px;
+                max-width: calc(100vw - 80px);
             }
-
             .legend {
                 max-width: 160px;
                 padding: 10px 12px;
                 bottom: 25px;
+                left: 12px;
             }
-
+            body:has(.sidebar-puntos.open) .legend {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            body:has(.sidebar-derecho.open) .map-logo,
+            body:has(.sidebar-derecho.open) .search-container,
+            body:has(.sidebar-derecho.open) .legend {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
             .legend-item span {
                 font-size: 11px;
             }
-
+            /* Sidebar derecho: en móvil es drawer por la derecha */
+            .sidebar-derecho {
+                display: flex;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                width: 280px;
+                max-width: 90vw;
+                box-shadow: -4px 0 24px rgba(0,0,0,0.2);
+                z-index: 551;
+            }
+            .sidebar-derecho.open {
+                transform: translateX(0);
+            }
+            .sidebar-derecho-btn-open {
+                display: flex;
+                position: fixed;
+                left: 62px;
+                top: 15px;
+                z-index: 601;
+                width: 44px;
+                height: 44px;
+                border: none;
+                border-radius: 8px;
+                background: #fef9f5;
+                color: #5d4037;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+                transition: background 0.2s, box-shadow 0.2s;
+            }
+            .sidebar-derecho-btn-open:hover {
+                background: #f79ed6;
+                color: #fff;
+                box-shadow: 0 4px 16px rgba(247, 158, 214, 0.4);
+            }
+            .sidebar-derecho-btn-close {
+                display: flex;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                z-index: 10;
+                width: 40px;
+                height: 40px;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.95);
+                color: #5d4037;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            }
+            .sidebar-derecho-header {
+                position: relative;
+            }
+        }
+        /* En desktop ocultar botones de drawer del sidebar derecho */
+        @media (min-width: 769px) {
+            .sidebar-derecho-btn-open,
+            .sidebar-derecho-btn-close {
+                display: none !important;
+            }
         }
 
         /* Móviles pequeños */
         @media (max-width: 480px) {
-            .search-container {
-                left: 290px;
-                right: 60px;
+            .sidebar-puntos {
+                width: 260px;
+                max-width: 88vw;
             }
-
+            .search-container {
+                left: 112px;
+                right: 50px;
+            }
+            .map-logo {
+                left: 112px;
+            }
             .search-box {
                 width: 100%;
             }
-
             .search-box:focus-within {
                 width: 100%;
             }
-
             .search-box input {
                 padding: 10px 12px;
                 font-size: 13px;
             }
-
             .legend {
                 bottom: 20px;
-                left: 290px;
+                left: 12px;
                 max-width: 140px;
                 padding: 8px 10px;
             }
@@ -2370,9 +2547,24 @@
     </style>
 </head>
 <body>
+    <!-- Overlay para cerrar sidebar en móvil (solo visible en pantallas pequeñas) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+    <!-- Botón abrir menú lateral izquierdo (solo visible en móvil) -->
+    <button type="button" class="sidebar-btn-open" id="sidebarBtnOpen" title="Abrir lista de lugares" aria-label="Abrir lista de lugares">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+    <!-- Botón abrir sidebar derecho - Lugares A-I (solo visible en móvil) -->
+    <button type="button" class="sidebar-derecho-btn-open" id="sidebarDerechoBtnOpen" title="Lugares icónicos A-I" aria-label="Lugares icónicos A-I">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+    </button>
+
     <!-- Menú lateral: lista de puntos con cabecera -->
     <aside class="sidebar-puntos" id="sidebarPuntos">
         <div class="sidebar-puntos-header">
+            <button type="button" class="sidebar-btn-close" id="sidebarBtnClose" title="Cerrar" aria-label="Cerrar menú">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
             <img id="imgSidebarIzq" src="assets/Captura%20de%20pantalla%202026-02-04%20101053.png" alt="Guadalajara Ciudad de las Rosas">
         </div>
         <div class="sidebar-translate-wrap">
@@ -2386,6 +2578,9 @@
     <!-- Sidebar derecho: lugares icónicos A-I -->
     <aside class="sidebar-derecho" id="sidebarDerecho">
         <div class="sidebar-derecho-header">
+            <button type="button" class="sidebar-derecho-btn-close" id="sidebarDerechoBtnClose" title="Cerrar" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
             <img id="imgSidebarDer" src="assets/Captura%20de%20pantalla%202026-02-04%20101953.png" alt="Guadalajara Ciudad de las Rosas - Lugares icónicos">
         </div>
         <ul class="sidebar-derecho-list" id="sidebarDerechoList">
@@ -2688,10 +2883,60 @@
                 });
                 applyLanguage('es');
             }
+            function initSidebarMobile() {
+                var sidebar = document.getElementById('sidebarPuntos');
+                var sidebarDer = document.getElementById('sidebarDerecho');
+                var overlay = document.getElementById('sidebarOverlay');
+                var btnOpen = document.getElementById('sidebarBtnOpen');
+                var btnClose = document.getElementById('sidebarBtnClose');
+                var btnDerOpen = document.getElementById('sidebarDerechoBtnOpen');
+                var btnDerClose = document.getElementById('sidebarDerechoBtnClose');
+                if (!sidebar || !overlay || !btnOpen || !btnClose) return;
+                function openSidebar() {
+                    if (sidebarDer && sidebarDer.classList.contains('open')) sidebarDer.classList.remove('open');
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                    overlay.setAttribute('aria-hidden', 'false');
+                }
+                function closeSidebar() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    overlay.setAttribute('aria-hidden', 'true');
+                }
+                function openSidebarDerecho() {
+                    if (sidebar.classList.contains('open')) sidebar.classList.remove('open');
+                    if (sidebarDer) {
+                        sidebarDer.classList.add('open');
+                        overlay.classList.add('active');
+                        overlay.setAttribute('aria-hidden', 'false');
+                    }
+                }
+                function closeSidebarDerecho() {
+                    if (sidebarDer) sidebarDer.classList.remove('open');
+                    if (!sidebar.classList.contains('open')) {
+                        overlay.classList.remove('active');
+                        overlay.setAttribute('aria-hidden', 'true');
+                    }
+                }
+                function closeOverlay() {
+                    closeSidebar();
+                    closeSidebarDerecho();
+                }
+                btnOpen.addEventListener('click', openSidebar);
+                btnClose.addEventListener('click', closeSidebar);
+                if (btnDerOpen) btnDerOpen.addEventListener('click', openSidebarDerecho);
+                if (btnDerClose) btnDerClose.addEventListener('click', closeSidebarDerecho);
+                overlay.addEventListener('click', closeOverlay);
+                window.closeSidebarPuntos = closeSidebar;
+            }
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initTranslate);
+                document.addEventListener('DOMContentLoaded', function() {
+                    initTranslate();
+                    initSidebarMobile();
+                });
             } else {
                 initTranslate();
+                initSidebarMobile();
             }
         })();
     </script>
@@ -3248,6 +3493,7 @@
                         opts.map.panTo(m.marker.getPosition());
                         opts.map.setZoom(17);
                         if (m.marker.getMap()) google.maps.event.trigger(m.marker, 'click');
+                        if (window.innerWidth <= 768 && typeof window.closeSidebarPuntos === 'function') window.closeSidebarPuntos();
                     });
                 }
                 list.appendChild(li);
