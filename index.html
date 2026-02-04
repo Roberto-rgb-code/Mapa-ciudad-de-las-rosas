@@ -4717,12 +4717,12 @@
                     m.infoWindow.setContent(crearContenidoInfo(m.lugar, lang));
                 });
                 var list = document.getElementById('sidebarPuntosList');
-                if (list && window.T && window.T[lang] && window.T[lang].sidebarLeftNames) {
-                    var names = window.T[lang].sidebarLeftNames;
+                if (list) {
+                    var names = (lang === 'en' && window.T && window.T.en && window.T.en.sidebarLeftNames) ? window.T.en.sidebarLeftNames : null;
                     list.querySelectorAll('.sidebar-puntos-item').forEach(function(li) {
-                        var key = li.dataset.nombre;
+                        var key = li.dataset.nombre || '';
                         var span = li.querySelector('.name');
-                        if (span) span.textContent = (lang === 'en' && key && names[key]) ? names[key] : (key || '');
+                        if (span) span.textContent = (names && key && names[key]) ? names[key] : key;
                     });
                 }
             };
