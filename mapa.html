@@ -2978,6 +2978,7 @@
                 if (el && !el.querySelector('.map-error-msg')) {
                     el.innerHTML = '<div class="map-error-msg" style="padding:28px 24px;text-align:center;font-family:Segoe UI,sans-serif;color:#5d4037;max-width:420px;margin:60px auto 0;background:#fdf5f9;border-radius:12px;border:2px solid #f79ed6;box-shadow:0 4px 12px rgba(0,0,0,0.08);"><strong style="font-size:16px;">No se pudo cargar el mapa</strong><p style="margin:14px 0;font-size:14px;line-height:1.5;">En producción (GitHub Pages) suele deberse a la <strong>restricción de la API key</strong>.</p><p style="margin:10px 0;font-size:13px;">En <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" rel="noopener">Google Cloud Console</a> → tu API key → Restricciones de aplicación → Referidores HTTP, agrega:</p><code style="background:#fff;padding:8px 12px;display:block;margin:12px 0;word-break:break-all;font-size:12px;border-radius:6px;">https://roberto-rgb-code.github.io/*</code><p style="margin:12px 0 0;font-size:12px;color:#888;">Guarda los cambios y recarga esta página.</p></div>';
                 }
+                if (typeof window.fillSidebarListFromLugares === 'function') window.fillSidebarListFromLugares();
             }
         }, 12000);
 
@@ -3189,6 +3190,48 @@
                 { nombre: "TAKASAMI Clothing", lat: 20.639109, lng: -103.3126873, categoria: "MODA", direccion: "Calle Matamoros 12, Tlaquepaque Centro, Tlaquepaque, Jal." }
             ]
         };
+
+        // Rellenar lista del sidebar izquierdo desde lugares (funciona aunque el mapa no cargue, p. ej. en producción sin API key)
+        function getDisplayNameForSidebar(nombreEspanol) {
+            var lang = window.currentLang || 'es';
+            if (lang === 'en' && window.T && window.T.en && window.T.en.sidebarLeftNames && window.T.en.sidebarLeftNames[nombreEspanol])
+                return window.T.en.sidebarLeftNames[nombreEspanol];
+            return nombreEspanol || '';
+        }
+        window.fillSidebarListFromLugares = function(opts) {
+            opts = opts || {};
+            var list = document.getElementById('sidebarPuntosList');
+            if (!list) return;
+            var todos = (lugares.historicos || []).concat(lugares.empresas || []);
+            list.innerHTML = '';
+            todos.forEach(function(lugar, i) {
+                var li = document.createElement('li');
+                li.className = 'sidebar-puntos-item';
+                li.dataset.index = i;
+                li.dataset.nombre = lugar.nombre || '';
+                var displayName = getDisplayNameForSidebar(lugar.nombre);
+                li.innerHTML = '<span class="num">' + (i + 1) + '</span><span class="name">' + (displayName.replace(/</g, '&lt;').replace(/>/g, '&gt;')) + '</span>';
+                if (opts.map && opts.allMarkers && opts.allMarkers[i]) {
+                    var m = opts.allMarkers[i];
+                    li.addEventListener('click', function() {
+                        opts.map.panTo(m.marker.getPosition());
+                        opts.map.setZoom(17);
+                        if (m.marker.getMap()) google.maps.event.trigger(m.marker, 'click');
+                    });
+                }
+                list.appendChild(li);
+            });
+        };
+
+        // Mostrar lista del sidebar en cuanto el DOM esté listo (así se ve aunque el mapa no cargue)
+        function initSidebarList() {
+            if (typeof window.fillSidebarListFromLugares === 'function') window.fillSidebarListFromLugares();
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSidebarList);
+        } else {
+            initSidebarList();
+        }
 
         // ===== FUNCIONES DE GALERÍA =====
         // Almacenar estado de cada galería
@@ -4633,30 +4676,8 @@
             });
 
             // Rellenar menú lateral: lista de todos los puntos (clic = centrar mapa y abrir tooltip). Nombres traducidos según idioma.
-            function getDisplayNameForSidebar(nombreEspanol) {
-                var lang = window.currentLang || 'es';
-                if (lang === 'en' && window.T && window.T.en && window.T.en.sidebarLeftNames && window.T.en.sidebarLeftNames[nombreEspanol])
-                    return window.T.en.sidebarLeftNames[nombreEspanol];
-                return nombreEspanol || '';
-            }
-            const sidebarPuntosList = document.getElementById('sidebarPuntosList');
-            if (sidebarPuntosList) {
-                allMarkers.forEach((m, i) => {
-                    const li = document.createElement('li');
-                    li.className = 'sidebar-puntos-item';
-                    li.dataset.index = i;
-                    li.dataset.nombre = m.lugar.nombre || '';
-                    const displayName = getDisplayNameForSidebar(m.lugar.nombre);
-                    li.innerHTML = '<span class="num">' + (i + 1) + '</span><span class="name">' + (displayName.replace(/</g, '&lt;').replace(/>/g, '&gt;')) + '</span>';
-                    li.addEventListener('click', () => {
-                        map.panTo(m.marker.getPosition());
-                        map.setZoom(17);
-                        if (m.marker.getMap()) {
-                            google.maps.event.trigger(m.marker, 'click');
-                        }
-                    });
-                    sidebarPuntosList.appendChild(li);
-                });
+            if (window.fillSidebarListFromLugares) {
+                window.fillSidebarListFromLugares({ map: map, allMarkers: allMarkers });
             }
 
             // Al cambiar idioma: actualizar contenido de todos los InfoWindows y los nombres del sidebar izquierdo
