@@ -2747,8 +2747,7 @@
                     lng: -103.3479,
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Construcción original en 1650, destruido por un terremoto y reconstruido. Sede del Palacio de la Real Audiencia. Alberga murales de José Clemente Orozco.",
-                    direccion: "Av. Corona, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/catedral-removebg-preview.png"
+                    direccion: "Av. Corona, Zona Centro, Guadalajara, Jal."
                 },
                 {
                     nombre: "Teatro Degollado",
@@ -2756,8 +2755,7 @@
                     lng: -103.3467,
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Inaugurado en 1866, arquitectura neoclásica. Sede de la Orquesta Filarmónica de Jalisco y de festivales; capacidad 1027 butacas.",
-                    direccion: "Plaza de la Liberación, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/rotonda-removebg-preview.png"
+                    direccion: "Plaza de la Liberación, Zona Centro, Guadalajara, Jal."
                 },
                 {
                     nombre: "Museo Regional de Guadalajara",
@@ -2765,8 +2763,7 @@
                     lng: -103.3488,
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "De cuartel militar (1810) a biblioteca pública (1857); desde 1976 Museo Regional de Guadalajara.",
-                    direccion: "Calle Liceo 60, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/catedral-removebg-preview.png"
+                    direccion: "Calle Liceo 60, Zona Centro, Guadalajara, Jal."
                 },
                 {
                     nombre: "Hospicio Cabañas",
@@ -2774,8 +2771,7 @@
                     lng: -103.3382,
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Patrimonio de la Humanidad (UNESCO). Diseño del arquitecto Manuel Tolsá; murales de José Clemente Orozco. Originalmente hospicio fundado por el obispo Juan Cruz Ruiz de Cabañas.",
-                    direccion: "Cabañas 8, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/catedral-removebg-preview.png"
+                    direccion: "Cabañas 8, Zona Centro, Guadalajara, Jal."
                 },
                 {
                     nombre: "Glorieta Minerva",
@@ -2783,8 +2779,7 @@
                     lng: -103.3800,
                     categoria: "MONUMENTO",
                     descripcion: "Monumento icónico inaugurado en 1956, obra del escultor Joaquín Arias. Representa a la diosa romana Minerva; fuente circular con inscripciones.",
-                    direccion: "Av. López Mateos y Av. Vallarta, Guadalajara, Jal.",
-                    imagen: "assets/rotonda-removebg-preview.png"
+                    direccion: "Av. López Mateos y Av. Vallarta, Guadalajara, Jal."
                 },
                 {
                     nombre: "Arcos de Guadalajara",
@@ -2792,8 +2787,7 @@
                     lng: -103.3645,
                     categoria: "MONUMENTO",
                     descripcion: "Ubicados en Av. Vallarta; construidos entre 1939 y 1942 por Aurelio Aceves para conmemorar el 400 aniversario de la ciudad.",
-                    direccion: "Av. Vallarta, Col. Americana, Guadalajara, Jal.",
-                    imagen: "assets/rotonda-removebg-preview.png"
+                    direccion: "Av. Vallarta, Col. Americana, Guadalajara, Jal."
                 }
             ],
             empresas: [
@@ -4226,10 +4220,10 @@
             lugares.historicos.forEach(lugar => {
                 const iconoNormal = lugar.imagen 
                     ? crearIconoPersonalizado(lugar.imagen, tamañoNormal)
-                    : iconoEmpresa;
+                    : iconoGeorreferenciacion;
                 const iconoHover = lugar.imagen 
                     ? crearIconoPersonalizado(lugar.imagen, tamañoGrande)
-                    : iconoEmpresa;
+                    : iconoGeorreferenciacionGrande;
 
                 const marker = new google.maps.Marker({
                     position: { lat: lugar.lat, lng: lugar.lng },
