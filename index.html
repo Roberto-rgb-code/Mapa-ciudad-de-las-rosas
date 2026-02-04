@@ -95,8 +95,89 @@
             line-height: 1.3;
         }
 
+        /* ===== SIDEBAR DERECHO - LUGARES ICÓNICOS A-I ===== */
+        .sidebar-derecho {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: #fef9f5;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.12);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-derecho-header {
+            flex-shrink: 0;
+            line-height: 0;
+        }
+
+        .sidebar-derecho-header img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 200px;
+        }
+
+        .sidebar-derecho-list {
+            flex: 1;
+            overflow-y: auto;
+            list-style: none;
+            padding: 12px 0;
+            margin: 0;
+        }
+
+        .sidebar-derecho-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0e6ec;
+            transition: background 0.2s;
+            font-size: 12px;
+        }
+
+        .sidebar-derecho-item:hover {
+            background: #fdf5f9;
+        }
+
+        .sidebar-derecho-item .letra {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, #d4a574 0%, #b8860b 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .sidebar-derecho-item .texto {
+            flex: 1;
+        }
+
+        .sidebar-derecho-item .titulo {
+            font-weight: 600;
+            color: #5d4037;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-derecho-item .desc {
+            color: #666;
+            line-height: 1.35;
+            font-size: 11px;
+        }
+
         #map {
-            width: calc(100% - 280px);
+            width: calc(100% - 560px);
             height: 100vh;
             position: absolute;
             top: 0;
@@ -1747,7 +1828,7 @@
         .north-indicator {
             position: absolute;
             top: 15px;
-            right: 10px;
+            right: 290px;
             z-index: 1000;
             background: white;
             border-radius: 4px;
@@ -1868,7 +1949,7 @@
         .controls-panel {
             position: absolute;
             top: 70px;
-            right: 10px;
+            right: 290px;
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -2041,6 +2122,26 @@
         }
 
         /* ===== DISEÑO RESPONSIVO ===== */
+
+        /* Ocultar sidebar derecho en pantallas medianas/pequeñas para no comprimir el mapa */
+        @media (max-width: 960px) {
+            .sidebar-derecho {
+                display: none;
+            }
+            #map {
+                width: calc(100% - 280px);
+            }
+            .north-indicator {
+                right: 10px;
+            }
+            .controls-panel {
+                right: 10px;
+            }
+            .layers-menu,
+            .map-type-menu {
+                right: 50px;
+            }
+        }
         
         /* Tablets y móviles grandes */
         @media (max-width: 768px) {
@@ -2125,7 +2226,7 @@
             }
 
             .controls-panel {
-                right: 8px;
+                right: 10px;
                 top: 60px;
                 gap: 6px;
             }
@@ -2141,7 +2242,7 @@
             }
 
             .north-indicator {
-                right: 8px;
+                right: 10px;
                 width: 36px;
                 height: 36px;
             }
@@ -2228,6 +2329,79 @@
         </div>
         <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
     </aside>
+
+    <!-- Sidebar derecho: lugares icónicos A-I -->
+    <aside class="sidebar-derecho" id="sidebarDerecho">
+        <div class="sidebar-derecho-header">
+            <img src="assets/Captura de pantalla 2026-02-04 101953.png" alt="Guadalajara Ciudad de las Rosas - Lugares icónicos">
+        </div>
+        <ul class="sidebar-derecho-list" id="sidebarDerechoList">
+            <li class="sidebar-derecho-item" data-marker-index="1">
+                <span class="letra">A</span>
+                <div class="texto">
+                    <div class="titulo">Guadalajara Cathedral</div>
+                    <div class="desc">Seat of the Archdiocese, main Catholic temple, crypts of archbishops and notable religious images.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="4">
+                <span class="letra">B</span>
+                <div class="texto">
+                    <div class="titulo">Government Palace</div>
+                    <div class="desc">Original construction 1650, rebuilt after earthquake; Palace of the Royal Audiencia.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="2">
+                <span class="letra">C</span>
+                <div class="texto">
+                    <div class="titulo">Rotonda of Illustrious Jaliscienses</div>
+                    <div class="desc">Built 1952: 17 fluted columns, ceremonial brazier, 98 niches honoring notable people from Jalisco.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="5">
+                <span class="letra">D</span>
+                <div class="texto">
+                    <div class="titulo">Degollado Theatre</div>
+                    <div class="desc">Inaugurated 1866, neoclassical; home to Jalisco Philharmonic Orchestra, capacity 1027.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="6">
+                <span class="letra">E</span>
+                <div class="texto">
+                    <div class="titulo">Regional Museum</div>
+                    <div class="desc">From military barracks (1810) to public library (1857), Regional Museum of Guadalajara since 1976.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="7">
+                <span class="letra">F</span>
+                <div class="texto">
+                    <div class="titulo">Cabañas Museum</div>
+                    <div class="desc">UNESCO World Heritage; designed by Manuel Tolsá, frescoes by José Clemente Orozco.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="3">
+                <span class="letra">G</span>
+                <div class="texto">
+                    <div class="titulo">San Juan de Dios Market</div>
+                    <div class="desc">Largest covered market in Latin America, inaugurated 1958, on the San Juan de Dios River.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="8">
+                <span class="letra">H</span>
+                <div class="texto">
+                    <div class="titulo">Minerva</div>
+                    <div class="desc">Iconic monument (1956) by Joaquín Arias; Roman goddess Minerva, circular fountain.</div>
+                </div>
+            </li>
+            <li class="sidebar-derecho-item" data-marker-index="9">
+                <span class="letra">I</span>
+                <div class="texto">
+                    <div class="titulo">The Guadalajara Arches</div>
+                    <div class="desc">Along Av. Vallarta (1939-1942), by Aurelio Aceves; 400th anniversary of the city.</div>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
     <div id="map"></div>
     
     <!-- Logo del mapa -->
@@ -2566,6 +2740,60 @@
                     descripcion: "Es el mercado techado más grande de América Latina. Obra del arquitecto Alejandro Zohn, se inauguró el 30 de diciembre de 1958. Se encuentra ubicado en lo que una vez fue la orilla oriental del río San Juan de Dios, cercano a la capital de la entonces Nueva Galicia. La zona era la entrada de los abastecimientos provenientes de la Ciudad de México. Hacia 1880, Mariano Bárcena da cuenta de la existencia del mercado como uno de los tres principales de Guadalajara, junto al de la plaza de Venegas o de la Independencia (actual mercado Corona) y el de plaza de Toros o plaza Alcalde. Para esas fechas y hasta principios del siglo xx, el mercado poseía la estructura del tianguis mexicano: tablados, lonas, mesas y tendidos sobre el suelo, todo esto al aire libre.",
                     direccion: "Calle Javier Mina, Zona Centro, Guadalajara, Jal.",
                     imagen: "assets/mercadosanjuandedios-removebg-preview.png"
+                },
+                {
+                    nombre: "Palacio de Gobierno",
+                    lat: 20.6764,
+                    lng: -103.3479,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Construcción original en 1650, destruido por un terremoto y reconstruido. Sede del Palacio de la Real Audiencia. Alberga murales de José Clemente Orozco.",
+                    direccion: "Av. Corona, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/catedral-removebg-preview.png"
+                },
+                {
+                    nombre: "Teatro Degollado",
+                    lat: 20.6769,
+                    lng: -103.3467,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Inaugurado en 1866, arquitectura neoclásica. Sede de la Orquesta Filarmónica de Jalisco y de festivales; capacidad 1027 butacas.",
+                    direccion: "Plaza de la Liberación, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/rotonda-removebg-preview.png"
+                },
+                {
+                    nombre: "Museo Regional de Guadalajara",
+                    lat: 20.6772,
+                    lng: -103.3488,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "De cuartel militar (1810) a biblioteca pública (1857); desde 1976 Museo Regional de Guadalajara.",
+                    direccion: "Calle Liceo 60, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/catedral-removebg-preview.png"
+                },
+                {
+                    nombre: "Hospicio Cabañas",
+                    lat: 20.6764,
+                    lng: -103.3382,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Patrimonio de la Humanidad (UNESCO). Diseño del arquitecto Manuel Tolsá; murales de José Clemente Orozco. Originalmente hospicio fundado por el obispo Juan Cruz Ruiz de Cabañas.",
+                    direccion: "Cabañas 8, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/catedral-removebg-preview.png"
+                },
+                {
+                    nombre: "Glorieta Minerva",
+                    lat: 20.6700,
+                    lng: -103.3800,
+                    categoria: "MONUMENTO",
+                    descripcion: "Monumento icónico inaugurado en 1956, obra del escultor Joaquín Arias. Representa a la diosa romana Minerva; fuente circular con inscripciones.",
+                    direccion: "Av. López Mateos y Av. Vallarta, Guadalajara, Jal.",
+                    imagen: "assets/rotonda-removebg-preview.png"
+                },
+                {
+                    nombre: "Arcos de Guadalajara",
+                    lat: 20.6740,
+                    lng: -103.3645,
+                    categoria: "MONUMENTO",
+                    descripcion: "Ubicados en Av. Vallarta; construidos entre 1939 y 1942 por Aurelio Aceves para conmemorar el 400 aniversario de la ciudad.",
+                    direccion: "Av. Vallarta, Col. Americana, Guadalajara, Jal.",
+                    imagen: "assets/rotonda-removebg-preview.png"
                 }
             ],
             empresas: [
@@ -4135,6 +4363,21 @@
                     sidebarPuntosList.appendChild(li);
                 });
             }
+
+            // Sidebar derecho: clic en A, C o G centra y abre el marcador histórico
+            document.querySelectorAll('#sidebarDerechoList .sidebar-derecho-item[data-marker-index]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.getAttribute('data-marker-index'), 10);
+                    if (allMarkers[idx]) {
+                        const m = allMarkers[idx];
+                        map.panTo(m.marker.getPosition());
+                        map.setZoom(17);
+                        if (m.marker.getMap()) {
+                            google.maps.event.trigger(m.marker, 'click');
+                        }
+                    }
+                });
+            });
 
             // Variables para almacenar el marcador y círculo del usuario
             let userMarker = null;
