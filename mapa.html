@@ -64,6 +64,32 @@
             max-height: 220px;
         }
 
+        .sidebar-translate-wrap {
+            flex-shrink: 0;
+            padding: 10px 16px;
+            border-bottom: 1px solid #f0e6ec;
+            background: #fdf9fc;
+        }
+        .sidebar-translate-btn {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #5d4037;
+            background: linear-gradient(135deg, #fff 0%, #fdf5f9 100%);
+            border: 2px solid #f79ed6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px rgba(247, 158, 214, 0.25);
+        }
+        .sidebar-translate-btn:hover {
+            background: linear-gradient(135deg, #fdf5f9 0%, #f79ed6 20%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(247, 158, 214, 0.4);
+        }
+
         .sidebar-puntos-list {
             flex: 1;
             overflow-y: auto;
@@ -1966,6 +1992,9 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+            overflow-x: visible;
         }
 
         .control-btn {
@@ -2346,6 +2375,11 @@
         <div class="sidebar-puntos-header">
             <img id="imgSidebarIzq" src="assets/Captura%20de%20pantalla%202026-02-04%20101053.png" alt="Guadalajara Ciudad de las Rosas">
         </div>
+        <div class="sidebar-translate-wrap">
+            <button type="button" class="sidebar-translate-btn js-btn-translate" title="Traducir al inglés" aria-label="Traducir al inglés">
+                <span class="js-btn-translate-text">EN</span>
+            </button>
+        </div>
         <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
     </aside>
 
@@ -2620,10 +2654,8 @@
                 if (btnStreetView) btnStreetView.title = t.streetView;
                 var btnGeolocation = document.getElementById('btnGeolocation');
                 if (btnGeolocation) btnGeolocation.title = t.myLocation;
-                var btnTranslate = document.getElementById('btnTranslate');
-                if (btnTranslate) { btnTranslate.title = t.translateBtn; }
-                var btnTranslateText = document.getElementById('btnTranslateText');
-                if (btnTranslateText) btnTranslateText.textContent = t.translateBtnLabel;
+                document.querySelectorAll('.js-btn-translate').forEach(function(btn) { btn.title = t.translateBtn; });
+                document.querySelectorAll('.js-btn-translate-text').forEach(function(span) { span.textContent = t.translateBtnLabel; });
                 var legendHeader = document.getElementById('legendHeader');
                 if (legendHeader) legendHeader.textContent = t.legend;
                 var legendHistoric = document.getElementById('legendHistoric');
@@ -2646,15 +2678,14 @@
             window.currentLang = currentLang;
             window.T = T;
             function initTranslate() {
-                var btn = document.getElementById('btnTranslate');
-                if (btn) {
+                document.querySelectorAll('.js-btn-translate').forEach(function(btn) {
                     btn.addEventListener('click', function() {
                         currentLang = currentLang === 'es' ? 'en' : 'es';
                         window.currentLang = currentLang;
                         applyLanguage(currentLang);
                         if (typeof window.onMapLanguageChange === 'function') window.onMapLanguageChange(currentLang);
                     });
-                }
+                });
                 applyLanguage('es');
             }
             if (document.readyState === 'loading') {
@@ -2731,9 +2762,9 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
         </button>
 
-        <!-- Traducir idioma -->
-        <button id="btnTranslate" class="control-btn control-btn-translate" title="Traducir al inglés">
-            <span id="btnTranslateText">EN</span>
+        <!-- Traducir idioma (debajo de los demás controles) -->
+        <button id="btnTranslate" class="control-btn control-btn-translate js-btn-translate" title="Traducir al inglés">
+            <span id="btnTranslateText" class="js-btn-translate-text">EN</span>
         </button>
     </div>
 

@@ -64,6 +64,32 @@
             max-height: 220px;
         }
 
+        .sidebar-translate-wrap {
+            flex-shrink: 0;
+            padding: 10px 16px;
+            border-bottom: 1px solid #f0e6ec;
+            background: #fdf9fc;
+        }
+        .sidebar-translate-btn {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #5d4037;
+            background: linear-gradient(135deg, #fff 0%, #fdf5f9 100%);
+            border: 2px solid #f79ed6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px rgba(247, 158, 214, 0.25);
+        }
+        .sidebar-translate-btn:hover {
+            background: linear-gradient(135deg, #fdf5f9 0%, #f79ed6 20%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(247, 158, 214, 0.4);
+        }
+
         .sidebar-puntos-list {
             flex: 1;
             overflow-y: auto;
@@ -1966,6 +1992,9 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+            overflow-x: visible;
         }
 
         .control-btn {
@@ -2000,6 +2029,13 @@
         .control-btn svg {
             width: 22px;
             height: 22px;
+        }
+
+        .control-btn-translate {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #5d4037;
         }
 
         /* Grupo de zoom */
@@ -2339,6 +2375,11 @@
         <div class="sidebar-puntos-header">
             <img id="imgSidebarIzq" src="assets/Captura%20de%20pantalla%202026-02-04%20101053.png" alt="Guadalajara Ciudad de las Rosas">
         </div>
+        <div class="sidebar-translate-wrap">
+            <button type="button" class="sidebar-translate-btn js-btn-translate" title="Traducir al inglés" aria-label="Traducir al inglés">
+                <span class="js-btn-translate-text">EN</span>
+            </button>
+        </div>
         <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
     </aside>
 
@@ -2351,64 +2392,64 @@
             <li class="sidebar-derecho-item" data-marker-index="1">
                 <span class="letra">A</span>
                 <div class="texto">
-                    <div class="titulo">Guadalajara Cathedral</div>
-                    <div class="desc">Seat of the Archdiocese, main Catholic temple, crypts of archbishops and notable religious images.</div>
+                    <div class="titulo">Catedral de Guadalajara</div>
+                    <div class="desc">Sede de la arquidiócesis, principal templo católico; criptas de arzobispos e imágenes religiosas notables.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="4">
                 <span class="letra">B</span>
                 <div class="texto">
-                    <div class="titulo">Government Palace</div>
-                    <div class="desc">Original construction 1650, rebuilt after earthquake; Palace of the Royal Audiencia.</div>
+                    <div class="titulo">Palacio de Gobierno</div>
+                    <div class="desc">Construcción original 1650, reconstruido tras terremoto; Palacio de la Real Audiencia.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="2">
                 <span class="letra">C</span>
                 <div class="texto">
-                    <div class="titulo">Rotonda of Illustrious Jaliscienses</div>
-                    <div class="desc">Built 1952: 17 fluted columns, ceremonial brazier, 98 niches honoring notable people from Jalisco.</div>
+                    <div class="titulo">Rotonda de los Jaliscienses Ilustres</div>
+                    <div class="desc">Construida 1952: 17 columnas estriadas, pebetero ceremonial, 98 nichos en honor a jaliscienses ilustres.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="5">
                 <span class="letra">D</span>
                 <div class="texto">
-                    <div class="titulo">Degollado Theatre</div>
-                    <div class="desc">Inaugurated 1866, neoclassical; home to Jalisco Philharmonic Orchestra, capacity 1027.</div>
+                    <div class="titulo">Teatro Degollado</div>
+                    <div class="desc">Inaugurado 1866, neoclásico; sede de la Orquesta Filarmónica de Jalisco, aforo 1027.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="6">
                 <span class="letra">E</span>
                 <div class="texto">
-                    <div class="titulo">Regional Museum</div>
-                    <div class="desc">From military barracks (1810) to public library (1857), Regional Museum of Guadalajara since 1976.</div>
+                    <div class="titulo">Museo Regional</div>
+                    <div class="desc">De cuartel militar (1810) a biblioteca pública (1857); Museo Regional de Guadalajara desde 1976.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="7">
                 <span class="letra">F</span>
                 <div class="texto">
-                    <div class="titulo">Cabañas Museum</div>
-                    <div class="desc">UNESCO World Heritage; designed by Manuel Tolsá, frescoes by José Clemente Orozco.</div>
+                    <div class="titulo">Hospicio Cabañas</div>
+                    <div class="desc">Patrimonio UNESCO; diseño de Manuel Tolsá, murales de José Clemente Orozco.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="3">
                 <span class="letra">G</span>
                 <div class="texto">
-                    <div class="titulo">San Juan de Dios Market</div>
-                    <div class="desc">Largest covered market in Latin America, inaugurated 1958, on the San Juan de Dios River.</div>
+                    <div class="titulo">Mercado San Juan de Dios</div>
+                    <div class="desc">Mercado techado más grande de Latinoamérica, inaugurado 1958, junto al río San Juan de Dios.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="8">
                 <span class="letra">H</span>
                 <div class="texto">
                     <div class="titulo">Minerva</div>
-                    <div class="desc">Iconic monument (1956) by Joaquín Arias; Roman goddess Minerva, circular fountain.</div>
+                    <div class="desc">Monumento icónico (1956) de Joaquín Arias; diosa romana Minerva, fuente circular.</div>
                 </div>
             </li>
             <li class="sidebar-derecho-item" data-marker-index="9">
                 <span class="letra">I</span>
                 <div class="texto">
-                    <div class="titulo">The Guadalajara Arches</div>
-                    <div class="desc">Along Av. Vallarta (1939-1942), by Aurelio Aceves; 400th anniversary of the city.</div>
+                    <div class="titulo">Los Arcos de Guadalajara</div>
+                    <div class="desc">En Av. Vallarta (1939-1942), Aurelio Aceves; 400 aniversario de la ciudad.</div>
                 </div>
             </li>
         </ul>
@@ -2423,6 +2464,235 @@
             var imgDer = document.getElementById('imgSidebarDer');
             if (imgIzq) imgIzq.src = base + 'assets/Captura%20de%20pantalla%202026-02-04%20101053.png';
             if (imgDer) imgDer.src = base + 'assets/Captura%20de%20pantalla%202026-02-04%20101953.png';
+        })();
+    </script>
+
+    <script>
+        (function() {
+            var currentLang = 'es';
+            var T = {
+                es: {
+                    searchPlaceholder: 'Buscar lugares...',
+                    searchTitle: 'Buscar',
+                    zoomIn: 'Acercar',
+                    zoomOut: 'Alejar',
+                    mapType: 'Tipo de mapa',
+                    layers: 'Capas del mapa',
+                    streetView: 'Vista de calle',
+                    myLocation: 'Mi ubicación',
+                    translateBtn: 'Traducir al inglés',
+                    translateBtnLabel: 'EN',
+                    legend: 'LEYENDA',
+                    legendHistoric: 'Edificio Histórico',
+                    legendBusiness: 'Empresa / Comercio',
+                    legendLocation: 'Tu ubicación',
+                    tooltipLabels: {
+                        direccion: 'Dirección',
+                        verRuta: 'Cómo llegar',
+                        streetView: 'Street View',
+                        verStreetView: 'Ver Street View',
+                        whatsapp: 'WhatsApp',
+                        web: 'Web',
+                        instagram: 'Instagram',
+                        facebook: 'Facebook'
+                    },
+                    sidebar: [
+                        { titulo: 'Catedral de Guadalajara', desc: 'Sede de la arquidiócesis, principal templo católico; criptas de arzobispos e imágenes religiosas notables.' },
+                        { titulo: 'Palacio de Gobierno', desc: 'Construcción original 1650, reconstruido tras terremoto; Palacio de la Real Audiencia.' },
+                        { titulo: 'Rotonda de los Jaliscienses Ilustres', desc: 'Construida 1952: 17 columnas estriadas, pebetero ceremonial, 98 nichos en honor a jaliscienses ilustres.' },
+                        { titulo: 'Teatro Degollado', desc: 'Inaugurado 1866, neoclásico; sede de la Orquesta Filarmónica de Jalisco, aforo 1027.' },
+                        { titulo: 'Museo Regional', desc: 'De cuartel militar (1810) a biblioteca pública (1857); Museo Regional de Guadalajara desde 1976.' },
+                        { titulo: 'Hospicio Cabañas', desc: 'Patrimonio UNESCO; diseño de Manuel Tolsá, murales de José Clemente Orozco.' },
+                        { titulo: 'Mercado San Juan de Dios', desc: 'Mercado techado más grande de Latinoamérica, inaugurado 1958, junto al río San Juan de Dios.' },
+                        { titulo: 'Minerva', desc: 'Monumento icónico (1956) de Joaquín Arias; diosa romana Minerva, fuente circular.' },
+                        { titulo: 'Los Arcos de Guadalajara', desc: 'En Av. Vallarta (1939-1942), Aurelio Aceves; 400 aniversario de la ciudad.' }
+                    ]
+                },
+                en: {
+                    searchPlaceholder: 'Search places...',
+                    searchTitle: 'Search',
+                    zoomIn: 'Zoom in',
+                    zoomOut: 'Zoom out',
+                    mapType: 'Map type',
+                    layers: 'Map layers',
+                    streetView: 'Street View',
+                    myLocation: 'My location',
+                    translateBtn: 'Translate to Spanish',
+                    translateBtnLabel: 'ES',
+                    legend: 'LEGEND',
+                    legendHistoric: 'Historic Building',
+                    legendBusiness: 'Business / Commerce',
+                    legendLocation: 'Your location',
+                    tooltipLabels: {
+                        direccion: 'Address',
+                        verRuta: 'Get directions',
+                        streetView: 'Street View',
+                        verStreetView: 'View Street View',
+                        whatsapp: 'WhatsApp',
+                        web: 'Web',
+                        instagram: 'Instagram',
+                        facebook: 'Facebook'
+                    },
+                    sidebarLeftNames: {
+                        'Santuario de Nuestra Señora de Guadalupe': 'Shrine of Our Lady of Guadalupe',
+                        'Catedral de Guadalajara': 'Guadalajara Cathedral',
+                        'Rotonda de los Jaliscienses Ilustres': 'Rotonda of Illustrious Jaliscienses',
+                        'Mercado San Juan de Dios': 'San Juan de Dios Market',
+                        'Palacio de Gobierno': 'Government Palace',
+                        'Teatro Degollado': 'Degollado Theatre',
+                        'Museo Regional de Guadalajara': 'Regional Museum of Guadalajara',
+                        'Hospicio Cabañas': 'Hospicio Cabañas',
+                        'Glorieta Minerva': 'Minerva Roundabout',
+                        'Arcos de Guadalajara': 'Guadalajara Arches',
+                        'Restaurante Casa Dolores': 'Casa Dolores Restaurant',
+                        'Ex Convento de Santa Teresa': 'Ex Convent of Santa Teresa',
+                        'Casa Anguiano': 'Casa Anguiano',
+                        'El Pilón de los Arrieros': 'El Pilón de los Arrieros',
+                        'GUARDIÁN Café Galería': 'GUARDIAN Café Gallery',
+                        'TORTAS AHOGAS Las Famosas': 'Las Famosas Drowned Tortas',
+                        'HOTEL Aló': 'Aló Hotel',
+                        'HOTEL Holá': 'Holá Hotel',
+                        'RESTAURANT Los Paceños': 'Los Paceños Restaurant',
+                        'TARASKA Helados y Paletas': 'TARASKA Ice Cream and Popsicles',
+                        'EX-CONVENTO DE SANTA TERESA': 'Ex Convent of Santa Teresa',
+                        'HOTEL ONE Guadalajara Centro': 'ONE Hotel Guadalajara Downtown',
+                        'RAGAZZA Fashion': 'RAGAZZA Fashion',
+                        'CASA Dolores Restaurant': 'Casa Dolores Restaurant',
+                        'ALMA JALISCO Restaurant': 'ALMA JALISCO Restaurant',
+                        'CONOCE JALISCO Tours': 'CONOCE JALISCO Tours',
+                        'CASA ANGUIANO Artículos Religiosos': 'Casa Anguiano Religious Articles',
+                        'EL MESÓN Restaurant Bar': 'El Mesón Restaurant Bar',
+                        'BIRRIERÍA El Pilón de los Arrieros': 'El Pilón de los Arrieros Birria',
+                        'CARNITAS Uruapan': 'Carnitas Uruapan',
+                        'BOTICA Toledo': 'Toledo Pharmacy (Botica)',
+                        'FARMACIA Toledo': 'Toledo Pharmacy',
+                        'MERCADO de las Flores': 'Flower Market',
+                        'CALANDRIA Eléctricas': 'CALANDRIA Electric Streetcars',
+                        'LA GLORIA Artículos Religiosos': 'La Gloria Religious Articles',
+                        'CASA CARRANZA Hotel Airbnb': 'Casa Carranza Hotel Airbnb',
+                        'RESTAURANT Guasanga': 'Guasanga Restaurant',
+                        'LOS FAMOSOS Equipales - Cantina': 'Los Famosos Equipales - Cantina',
+                        'MARIACHI México en la Piel': 'MARIACHI México en la Piel',
+                        'ACADEMIA Nuevo Jalisco': 'Nuevo Jalisco Academy',
+                        'MIMOSA Artículos Promocionales': 'MIMOSA Promotional Items',
+                        'TAKASAMI Clothing': 'TAKASAMI Clothing'
+                    },
+                    places: {
+                        'Santuario de Nuestra Señora de Guadalupe': { nombre: 'Shrine of Our Lady of Guadalupe', categoria: 'HISTORIC BUILDING', direccion: 'Barrio del Santuario, Guadalajara, Jal.', descripcion: 'The first stone was laid on January 7, 1777 and after four years of construction, the church was inaugurated in 1781. The building was promoted and paid for by the Spanish philanthropist and then bishop of the diocese, Antonio Alcalde y Barriga, who had the idea of building a church in the northern part of Guadalajara, which was then practically uninhabited. Bishop Alcalde himself paid for the construction of the temple and several houses that would be rented at low cost to poor people who wanted to live in them, called "las cuadritas" in the Barrio del Santuario. The image of Our Lady of Guadalupe is in the main altar, a painting from 1779 by Don José de Alcíbar.' },
+                        'Catedral de Guadalajara': { nombre: 'Guadalajara Cathedral', categoria: 'HISTORIC BUILDING', direccion: 'Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.', descripcion: 'Officially the Cathedral Basilica of the Assumption of Mary, it is the seat of the Archdiocese of Guadalajara and one of the main Catholic temples in Mexico. Among the crypts, below what was the royal chapel, are those of the archbishops of Guadalajara dating from the 16th century. Notable dedications include La Virgen de las Rosas, Santiago el Mayor (patron of New Spain), La Virgen de Guadalupe, and Nuestra Señora de Zapopan, among others.' },
+                        'Rotonda de los Jaliscienses Ilustres': { nombre: 'Rotonda of Illustrious Jaliscienses', categoria: 'HISTORIC BUILDING', direccion: 'Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.', descripcion: 'A tribute to the people of Jalisco who have made their mark on history. The monument, built in 1952 by architect Vicente Mendiola at the initiative of then governor José de Jesús González Gallo, consists of seventeen fluted columns without base or capital supporting a stone ring engraved with the legend "Jalisco to its distinguished children"; in the center is a brazier and 98 niches for the remains of the most illustrious men and women born in Jalisco.' },
+                        'Mercado San Juan de Dios': { nombre: 'San Juan de Dios Market', categoria: 'HISTORIC BUILDING', direccion: 'Calle Javier Mina, Zona Centro, Guadalajara, Jal.', descripcion: 'The largest covered market in Latin America. Designed by architect Alejandro Zohn, it opened on December 30, 1958. It is located on what was once the eastern bank of the San Juan de Dios River, near the capital of the former Nueva Galicia. The area was the entrance for supplies from Mexico City. Around 1880, Mariano Bárcena documented the market as one of Guadalajara\'s three main markets. It originally had the structure of a Mexican tianguis: wooden stands, canvas, tables and goods on the ground, all in the open air.' },
+                        'Palacio de Gobierno': { nombre: 'Government Palace', categoria: 'HISTORIC BUILDING', direccion: 'Av. Corona, Zona Centro, Guadalajara, Jal.', descripcion: 'Original construction in 1650, destroyed by an earthquake and rebuilt. Seat of the Palace of the Royal Audiencia. It houses murals by José Clemente Orozco.' },
+                        'Teatro Degollado': { nombre: 'Degollado Theatre', categoria: 'HISTORIC BUILDING', direccion: 'Plaza de la Liberación, Zona Centro, Guadalajara, Jal.', descripcion: 'Inaugurated in 1866, neoclassical architecture. Home to the Jalisco Philharmonic Orchestra and festivals; capacity 1,027 seats.' },
+                        'Museo Regional de Guadalajara': { nombre: 'Regional Museum of Guadalajara', categoria: 'HISTORIC BUILDING', direccion: 'Calle Liceo 60, Zona Centro, Guadalajara, Jal.', descripcion: 'From military barracks (1810) to public library (1857); Regional Museum of Guadalajara since 1976.' },
+                        'Hospicio Cabañas': { nombre: 'Hospicio Cabañas', categoria: 'HISTORIC BUILDING', direccion: 'Cabañas 8, Zona Centro, Guadalajara, Jal.', descripcion: 'UNESCO World Heritage Site. Designed by architect Manuel Tolsá; murals by José Clemente Orozco. Originally an orphanage founded by Bishop Juan Cruz Ruiz de Cabañas.' },
+                        'Glorieta Minerva': { nombre: 'Minerva Roundabout', categoria: 'MONUMENT', direccion: 'Av. López Mateos y Av. Vallarta, Guadalajara, Jal.', descripcion: 'Iconic monument inaugurated in 1956, work of sculptor Joaquín Arias. It represents the Roman goddess Minerva; circular fountain with inscriptions.' },
+                        'Arcos de Guadalajara': { nombre: 'Guadalajara Arches', categoria: 'MONUMENT', direccion: 'Av. Vallarta, Col. Americana, Guadalajara, Jal.', descripcion: 'Located on Av. Vallarta; built between 1939 and 1942 by Aurelio Aceves to commemorate the 400th anniversary of the city.' },
+                        'Restaurante Casa Dolores': { nombre: 'Casa Dolores Restaurant', categoria: 'RESTAURANT', direccion: 'Paseo Alcalde 22, Col. Centro. Guadalajara, Jal.', descripcion: 'MEXICAN FOOD - Inspired by the aroma of Mexico\'s history. We are a restaurant that celebrates the best of Mexico, transforming its traditional flavors, textures and aromas into the most exquisite Mexican cuisine dishes, the result of a careful selection of ingredients, keeping our legacy of being proudly Mexican very present.' },
+                        'Ex Convento de Santa Teresa': { nombre: 'Ex Convent of Santa Teresa', categoria: 'EVENT VENUE', direccion: 'Donato Guerra 25, Zona Centro, 44100 Guadalajara, Jal.', descripcion: 'Where every corner is a beautiful historic space that will make your event stand out. A venue with 400 years of history that is part of the city\'s architectural heritage, to make your event the most memorable and exclusive experience. Founded in the 17th century by the order of the Discalced Carmelites as the first cloister in Guadalajara. "Our history is the ideal setting for your new stories."' },
+                        'Casa Anguiano': { nombre: 'Casa Anguiano', categoria: 'RELIGIOUS ARTICLES', direccion: 'Av. Fray Antonio Alcalde 113, Col. Centro. Guadalajara, Jal.', descripcion: 'Founded in 1942. Leaders in the commercialization of religious articles in Mexico. Our company has a retail store in the center of beautiful Guadalajara, a few blocks from our emblematic Cathedral, as well as our own workshop where we manufacture various articles and provide services such as restoration of images and sacred metals, to name a few.' },
+                        'El Pilón de los Arrieros': { nombre: 'El Pilón de los Arrieros', categoria: 'ARTISAN DINING', direccion: 'Calle Galeana 388, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.', descripcion: 'Over 40 years of tradition. Lupita Figueroa owns all the recipes, serving excellent dishes with goat birria as the specialty, as well as lamb barbacoa, exquisite marinated pork shanks and cochinita pibil. Come and enjoy a feast of Mexican flavors. Artists, singers, actors and national and international radio and television personalities have dined at these tables.' },
+                        'GUARDIÁN Café Galería': { nombre: 'GUARDIAN Café Gallery', categoria: 'CAFÉ GALLERY' },
+                        'TORTAS AHOGAS Las Famosas': { nombre: 'Las Famosas Drowned Tortas', categoria: 'DINING' },
+                        'HOTEL Aló': { nombre: 'Aló Hotel', categoria: 'HOTEL' },
+                        'HOTEL Holá': { nombre: 'Holá Hotel', categoria: 'HOTEL' },
+                        'RESTAURANT Los Paceños': { nombre: 'Los Paceños Restaurant', categoria: 'RESTAURANT' },
+                        'TARASKA Helados y Paletas': { nombre: 'TARASKA Ice Cream and Popsicles', categoria: 'ICE CREAM' },
+                        'EX-CONVENTO DE SANTA TERESA': { nombre: 'Ex Convent of Santa Teresa', categoria: 'EVENT VENUE' },
+                        'HOTEL ONE Guadalajara Centro': { nombre: 'ONE Hotel Guadalajara Downtown', categoria: 'HOTEL' },
+                        'RAGAZZA Fashion': { nombre: 'RAGAZZA Fashion', categoria: 'FASHION' },
+                        'CASA Dolores Restaurant': { nombre: 'Casa Dolores Restaurant', categoria: 'RESTAURANT' },
+                        'ALMA JALISCO Restaurant': { nombre: 'ALMA JALISCO Restaurant', categoria: 'RESTAURANT' },
+                        'CONOCE JALISCO Tours': { nombre: 'CONOCE JALISCO Tours', categoria: 'TOURS' },
+                        'CASA ANGUIANO Artículos Religiosos': { nombre: 'Casa Anguiano Religious Articles', categoria: 'RELIGIOUS ARTICLES' },
+                        'EL MESÓN Restaurant Bar': { nombre: 'El Mesón Restaurant Bar', categoria: 'RESTAURANT BAR' },
+                        'BIRRIERÍA El Pilón de los Arrieros': { nombre: 'El Pilón de los Arrieros Birria', categoria: 'DINING' },
+                        'CARNITAS Uruapan': { nombre: 'Carnitas Uruapan', categoria: 'DINING' },
+                        'BOTICA Toledo': { nombre: 'Toledo Pharmacy (Botica)', categoria: 'PHARMACY' },
+                        'FARMACIA Toledo': { nombre: 'Toledo Pharmacy', categoria: 'PHARMACY' },
+                        'MERCADO de las Flores': { nombre: 'Flower Market', categoria: 'MARKET' },
+                        'CALANDRIA Eléctricas': { nombre: 'CALANDRIA Electric Streetcars', categoria: 'TOURIST TRANSPORT' },
+                        'LA GLORIA Artículos Religiosos': { nombre: 'La Gloria Religious Articles', categoria: 'RELIGIOUS ARTICLES' },
+                        'CASA CARRANZA Hotel Airbnb': { nombre: 'Casa Carranza Hotel Airbnb', categoria: 'HOTEL' },
+                        'RESTAURANT Guasanga': { nombre: 'Guasanga Restaurant', categoria: 'RESTAURANT' },
+                        'LOS FAMOSOS Equipales - Cantina': { nombre: 'Los Famosos Equipales - Cantina', categoria: 'CANTINA' },
+                        'MARIACHI México en la Piel': { nombre: 'MARIACHI México en la Piel', categoria: 'MARIACHI / EVENTS' },
+                        'ACADEMIA Nuevo Jalisco': { nombre: 'Nuevo Jalisco Academy', categoria: 'ACADEMY' },
+                        'MIMOSA Artículos Promocionales': { nombre: 'MIMOSA Promotional Items', categoria: 'PROMOTIONAL' },
+                        'TAKASAMI Clothing': { nombre: 'TAKASAMI Clothing', categoria: 'FASHION' }
+                    },
+                    sidebar: [
+                        { titulo: 'Guadalajara Cathedral', desc: 'Seat of the Archdiocese, main Catholic temple; crypts of archbishops and notable religious images.' },
+                        { titulo: 'Government Palace', desc: 'Original construction 1650, rebuilt after earthquake; Palace of the Royal Audiencia.' },
+                        { titulo: 'Rotonda of Illustrious Jaliscienses', desc: 'Built 1952: 17 fluted columns, ceremonial brazier, 98 niches honoring notable people from Jalisco.' },
+                        { titulo: 'Degollado Theatre', desc: 'Inaugurated 1866, neoclassical; home to Jalisco Philharmonic Orchestra, capacity 1027.' },
+                        { titulo: 'Regional Museum', desc: 'From military barracks (1810) to public library (1857); Regional Museum of Guadalajara since 1976.' },
+                        { titulo: 'Cabañas Museum', desc: 'UNESCO World Heritage; designed by Manuel Tolsá, frescoes by José Clemente Orozco.' },
+                        { titulo: 'San Juan de Dios Market', desc: 'Largest covered market in Latin America, inaugurated 1958, on the San Juan de Dios River.' },
+                        { titulo: 'Minerva', desc: 'Iconic monument (1956) by Joaquín Arias; Roman goddess Minerva, circular fountain.' },
+                        { titulo: 'The Guadalajara Arches', desc: 'Along Av. Vallarta (1939-1942), by Aurelio Aceves; 400th anniversary of the city.' }
+                    ]
+                }
+            };
+
+            function applyLanguage(lang) {
+                var t = T[lang];
+                if (!t) return;
+                var searchInput = document.getElementById('searchInput');
+                if (searchInput) searchInput.placeholder = t.searchPlaceholder;
+                var searchBtn = document.getElementById('searchBtn');
+                if (searchBtn) searchBtn.title = t.searchTitle;
+                var zoomIn = document.getElementById('zoomIn');
+                if (zoomIn) zoomIn.title = t.zoomIn;
+                var zoomOut = document.getElementById('zoomOut');
+                if (zoomOut) zoomOut.title = t.zoomOut;
+                var btnMapType = document.getElementById('btnMapType');
+                if (btnMapType) btnMapType.title = t.mapType;
+                var btnLayers = document.getElementById('btnLayers');
+                if (btnLayers) btnLayers.title = t.layers;
+                var btnStreetView = document.getElementById('btnStreetView');
+                if (btnStreetView) btnStreetView.title = t.streetView;
+                var btnGeolocation = document.getElementById('btnGeolocation');
+                if (btnGeolocation) btnGeolocation.title = t.myLocation;
+                document.querySelectorAll('.js-btn-translate').forEach(function(btn) { btn.title = t.translateBtn; });
+                document.querySelectorAll('.js-btn-translate-text').forEach(function(span) { span.textContent = t.translateBtnLabel; });
+                var legendHeader = document.getElementById('legendHeader');
+                if (legendHeader) legendHeader.textContent = t.legend;
+                var legendHistoric = document.getElementById('legendHistoric');
+                if (legendHistoric) legendHistoric.textContent = t.legendHistoric;
+                var legendBusiness = document.getElementById('legendBusiness');
+                if (legendBusiness) legendBusiness.textContent = t.legendBusiness;
+                var legendLocation = document.getElementById('legendLocation');
+                if (legendLocation) legendLocation.textContent = t.legendLocation;
+                var items = document.querySelectorAll('#sidebarDerechoList .sidebar-derecho-item');
+                if (t.sidebar && items.length === t.sidebar.length) {
+                    items.forEach(function(el, i) {
+                        var tit = el.querySelector('.titulo');
+                        var desc = el.querySelector('.desc');
+                        if (tit) tit.textContent = t.sidebar[i].titulo;
+                        if (desc) desc.textContent = t.sidebar[i].desc;
+                    });
+                }
+            }
+
+            window.currentLang = currentLang;
+            window.T = T;
+            function initTranslate() {
+                document.querySelectorAll('.js-btn-translate').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        currentLang = currentLang === 'es' ? 'en' : 'es';
+                        window.currentLang = currentLang;
+                        applyLanguage(currentLang);
+                        if (typeof window.onMapLanguageChange === 'function') window.onMapLanguageChange(currentLang);
+                    });
+                });
+                applyLanguage('es');
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initTranslate);
+            } else {
+                initTranslate();
+            }
         })();
     </script>
 
@@ -2491,6 +2761,11 @@
         <button id="btnGeolocation" class="control-btn" title="Mi ubicación">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
         </button>
+
+        <!-- Traducir idioma (debajo de los demás controles) -->
+        <button id="btnTranslate" class="control-btn control-btn-translate js-btn-translate" title="Traducir al inglés">
+            <span id="btnTranslateText" class="js-btn-translate-text">EN</span>
+        </button>
     </div>
 
     <!-- Leyenda -->
@@ -2499,7 +2774,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
             </svg>
-            LEYENDA
+            <span id="legendHeader">LEYENDA</span>
         </div>
         <div class="legend-item">
             <div class="legend-symbol historical">
@@ -2507,7 +2782,7 @@
                     <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
                 </svg>
             </div>
-            <span>Edificio Histórico</span>
+            <span id="legendHistoric">Edificio Histórico</span>
         </div>
         <div class="legend-item">
             <div class="legend-symbol business">
@@ -2515,7 +2790,7 @@
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
             </div>
-            <span>Empresa / Comercio</span>
+            <span id="legendBusiness">Empresa / Comercio</span>
         </div>
         <div class="legend-item">
             <div class="legend-symbol user">
@@ -2523,7 +2798,7 @@
                     <circle cx="12" cy="12" r="6"/>
                 </svg>
             </div>
-            <span>Tu ubicación</span>
+            <span id="legendLocation">Tu ubicación</span>
         </div>
     </div>
 
@@ -2734,6 +3009,7 @@
                 if (el && !el.querySelector('.map-error-msg')) {
                     el.innerHTML = '<div class="map-error-msg" style="padding:28px 24px;text-align:center;font-family:Segoe UI,sans-serif;color:#5d4037;max-width:420px;margin:60px auto 0;background:#fdf5f9;border-radius:12px;border:2px solid #f79ed6;box-shadow:0 4px 12px rgba(0,0,0,0.08);"><strong style="font-size:16px;">No se pudo cargar el mapa</strong><p style="margin:14px 0;font-size:14px;line-height:1.5;">En producción (GitHub Pages) suele deberse a la <strong>restricción de la API key</strong>.</p><p style="margin:10px 0;font-size:13px;">En <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" rel="noopener">Google Cloud Console</a> → tu API key → Restricciones de aplicación → Referidores HTTP, agrega:</p><code style="background:#fff;padding:8px 12px;display:block;margin:12px 0;word-break:break-all;font-size:12px;border-radius:6px;">https://roberto-rgb-code.github.io/*</code><p style="margin:12px 0 0;font-size:12px;color:#888;">Guarda los cambios y recarga esta página.</p></div>';
                 }
+                if (typeof window.fillSidebarListFromLugares === 'function') window.fillSidebarListFromLugares();
             }
         }, 12000);
 
@@ -2945,6 +3221,48 @@
                 { nombre: "TAKASAMI Clothing", lat: 20.639109, lng: -103.3126873, categoria: "MODA", direccion: "Calle Matamoros 12, Tlaquepaque Centro, Tlaquepaque, Jal." }
             ]
         };
+
+        // Rellenar lista del sidebar izquierdo desde lugares (funciona aunque el mapa no cargue, p. ej. en producción sin API key)
+        function getDisplayNameForSidebar(nombreEspanol) {
+            var lang = window.currentLang || 'es';
+            if (lang === 'en' && window.T && window.T.en && window.T.en.sidebarLeftNames && window.T.en.sidebarLeftNames[nombreEspanol])
+                return window.T.en.sidebarLeftNames[nombreEspanol];
+            return nombreEspanol || '';
+        }
+        window.fillSidebarListFromLugares = function(opts) {
+            opts = opts || {};
+            var list = document.getElementById('sidebarPuntosList');
+            if (!list) return;
+            var todos = (lugares.historicos || []).concat(lugares.empresas || []);
+            list.innerHTML = '';
+            todos.forEach(function(lugar, i) {
+                var li = document.createElement('li');
+                li.className = 'sidebar-puntos-item';
+                li.dataset.index = i;
+                li.dataset.nombre = lugar.nombre || '';
+                var displayName = getDisplayNameForSidebar(lugar.nombre);
+                li.innerHTML = '<span class="num">' + (i + 1) + '</span><span class="name">' + (displayName.replace(/</g, '&lt;').replace(/>/g, '&gt;')) + '</span>';
+                if (opts.map && opts.allMarkers && opts.allMarkers[i]) {
+                    var m = opts.allMarkers[i];
+                    li.addEventListener('click', function() {
+                        opts.map.panTo(m.marker.getPosition());
+                        opts.map.setZoom(17);
+                        if (m.marker.getMap()) google.maps.event.trigger(m.marker, 'click');
+                    });
+                }
+                list.appendChild(li);
+            });
+        };
+
+        // Mostrar lista del sidebar en cuanto el DOM esté listo (así se ve aunque el mapa no cargue)
+        function initSidebarList() {
+            if (typeof window.fillSidebarListFromLugares === 'function') window.fillSidebarListFromLugares();
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSidebarList);
+        } else {
+            initSidebarList();
+        }
 
         // ===== FUNCIONES DE GALERÍA =====
         // Almacenar estado de cada galería
@@ -3727,28 +4045,34 @@
                 anchor: new google.maps.Point(16, 16)
             };
 
-            // Función para crear contenido del info window mejorado
-            function crearContenidoInfo(lugar) {
-                const esHistorico = lugar.categoria.includes('HISTÓRICO');
+            // Función para crear contenido del info window mejorado. lang opcional (usa window.currentLang si no se pasa).
+            function crearContenidoInfo(lugar, lang) {
+                const lang_ = lang || (window.currentLang || 'es');
+                const t = (window.T && window.T[lang_] && window.T[lang_].tooltipLabels) ? window.T[lang_].tooltipLabels : { direccion: 'Dirección', verRuta: 'Cómo llegar', streetView: 'Street View', verStreetView: 'Ver Street View', whatsapp: 'WhatsApp', web: 'Web', instagram: 'Instagram', facebook: 'Facebook' };
+                const tr = (window.T && window.T[lang_] && window.T[lang_].places && window.T[lang_].places[lugar.nombre]) ? window.T[lang_].places[lugar.nombre] : {};
+                const nombre = tr.nombre !== undefined ? tr.nombre : lugar.nombre;
+                const descripcion = tr.descripcion !== undefined ? tr.descripcion : (lugar.descripcion || '');
+                const categoria = tr.categoria !== undefined ? tr.categoria : lugar.categoria;
+                const direccion = tr.direccion !== undefined ? tr.direccion : (lugar.direccion || '');
+
+                const esHistorico = (categoria || '').toUpperCase().includes('HISTORIC') || (lugar.categoria || '').includes('HISTÓRICO');
                 const categoriaClass = esHistorico ? 'historical' : 'business';
                 
-                // Imagen del lugar (si existe)
                 const imagenHTML = lugar.imagen 
-                    ? `<img src="${lugar.imagen}" alt="${lugar.nombre}" class="info-window-image">` 
+                    ? `<img src="${lugar.imagen}" alt="${nombre.replace(/"/g, '&quot;')}" class="info-window-image">` 
                     : '';
                 
-                // Crear botones de ruta y Street View
-                const routeButtonHTML = createRouteButton(lugar.lat, lugar.lng, lugar.nombre);
-                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre);
+                const routeButtonHTML = createRouteButton(lugar.lat, lugar.lng, lugar.nombre, t.verRuta);
+                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView);
                 
-                // Crear HTML de galería si existe
                 let galeriaHTML = '';
                 if (lugar.galeria && lugar.galeria.length > 0) {
-                    const galeriaId = 'gallery-' + lugar.nombre.replace(/\s+/g, '-').toLowerCase();
+                    const galeriaId = 'gallery-' + (lugar.nombre || '').replace(/\s+/g, '-').toLowerCase();
+                    const imgAlt = lang_ === 'en' ? 'Image' : 'Imagen';
                     galeriaHTML = `
                         <div class="gallery-container" id="${galeriaId}">
                             <div class="gallery-main">
-                                <img src="${lugar.galeria[0]}" alt="${lugar.nombre}" id="${galeriaId}-main">
+                                <img src="${lugar.galeria[0]}" alt="${nombre.replace(/"/g, '&quot;')}" id="${galeriaId}-main">
                                 <button class="gallery-nav prev" onclick="cambiarImagenGaleria('${galeriaId}', -1)">
                                     <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                                 </button>
@@ -3763,7 +4087,7 @@
                             <div class="gallery-thumbnails">
                                 ${lugar.galeria.map((img, i) => `
                                     <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="irAImagenGaleria('${galeriaId}', ${i})">
-                                        <img src="${img}" alt="Imagen ${i+1}">
+                                        <img src="${img}" alt="${imgAlt} ${i+1}">
                                     </div>
                                 `).join('')}
                             </div>
@@ -3775,14 +4099,14 @@
                     <div class="info-window">
                         <div class="info-window-header ${categoriaClass}">
                             ${imagenHTML}
-                            <span class="category">${lugar.categoria}</span>
-                            <h3>${lugar.nombre}</h3>
+                            <span class="category">${categoria}</span>
+                            <h3>${nombre}</h3>
                         </div>
                         <div class="info-window-body">
-                            <p>${lugar.descripcion}</p>
+                            ${descripcion ? '<p>' + descripcion + '</p>' : ''}
                             ${galeriaHTML}
                             <div class="address ${categoriaClass}">
-                                <strong>📍 Dirección</strong><br>${lugar.direccion}
+                                <strong>📍 ${t.direccion}</strong><br>${direccion}
                             </div>
                             <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
                                 ${routeButtonHTML}
@@ -3791,7 +4115,6 @@
                         </div>
                 `;
 
-                // Agregar footer con contactos si existen
                 const tieneContacto = lugar.horario || lugar.telefono || lugar.whatsapp || lugar.web || lugar.instagram || lugar.facebook;
                 
                 if (tieneContacto) {
@@ -3816,7 +4139,7 @@
                         const waNum = lugar.whatsapp.replace(/[^0-9]/g, '');
                         contenido += `<a href="https://wa.me/${waNum}" class="contact-item" target="_blank">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            WhatsApp
+                            ${t.whatsapp}
                         </a>`;
                     }
 
@@ -3824,7 +4147,7 @@
                         const webUrl = lugar.web.startsWith('http') ? lugar.web : 'https://' + lugar.web;
                         contenido += `<a href="${webUrl}" class="contact-item" target="_blank">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                            Web
+                            ${t.web}
                         </a>`;
                     }
 
@@ -3832,7 +4155,7 @@
                         const igUser = lugar.instagram.replace('@', '');
                         contenido += `<a href="https://instagram.com/${igUser}" class="contact-item" target="_blank">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                            Instagram
+                            ${t.instagram}
                         </a>`;
                     }
 
@@ -3840,7 +4163,7 @@
                         const fbUrl = lugar.facebook.startsWith('http') ? lugar.facebook : 'https://' + lugar.facebook;
                         contenido += `<a href="${fbUrl}" class="contact-item" target="_blank">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                            Facebook
+                            ${t.facebook}
                         </a>`;
                     }
 
@@ -4137,35 +4460,37 @@
                 }
             });
 
-            // Función para crear el botón de ruta (se usa en InfoWindows)
-            // El botón siempre está activo, la verificación de ubicación se hace al hacer clic
-            function createRouteButton(lat, lng, nombre) {
-                const nombreEscapado = nombre.replace(/'/g, "\\'");
+            // Función para crear el botón de ruta (se usa en InfoWindows). label opcional para i18n.
+            function createRouteButton(lat, lng, nombre, label) {
+                const nombreEscapado = (nombre || '').replace(/'/g, "\\'");
+                const text = label || 'Cómo llegar';
                 return `
                     <button class="route-btn" 
                             onclick="event.stopPropagation(); calculateRoute({lat: ${lat}, lng: ${lng}}, '${nombreEscapado}')" 
-                            title="Cómo llegar">
+                            title="${text.replace(/"/g, '&quot;')}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
                         </svg>
-                        Cómo llegar
+                        ${text}
                     </button>
                 `;
             }
 
-            // Función para crear el botón de Street View
-            function createStreetViewButton(lat, lng, nombre) {
-                const nombreEscapado = nombre.replace(/'/g, "\\'");
+            // Función para crear el botón de Street View. label = texto del botón, titleLabel = title (opcional).
+            function createStreetViewButton(lat, lng, nombre, label, titleLabel) {
+                const nombreEscapado = (nombre || '').replace(/'/g, "\\'");
+                const text = label || 'Street View';
+                const title = (titleLabel != null ? titleLabel : text).replace(/"/g, '&quot;');
                 return `
                     <button class="streetview-btn" 
                             onclick="event.stopPropagation(); openStreetView(${lat}, ${lng}, '${nombreEscapado}')" 
-                            title="Ver Street View">
+                            title="${title}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                             <circle cx="18" cy="6" r="5"/>
                             <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
                         </svg>
-                        Street View
+                        ${text}
                     </button>
                 `;
             }
@@ -4381,24 +4706,26 @@
                 allMarkers.push({ marker, infoWindow, lugar, iconoNormal: iconoGeorreferenciacion, iconoHover: iconoGeorreferenciacionGrande });
             });
 
-            // Rellenar menú lateral: lista de todos los puntos (clic = centrar mapa y abrir tooltip)
-            const sidebarPuntosList = document.getElementById('sidebarPuntosList');
-            if (sidebarPuntosList) {
-                allMarkers.forEach((m, i) => {
-                    const li = document.createElement('li');
-                    li.className = 'sidebar-puntos-item';
-                    li.dataset.index = i;
-                    li.innerHTML = '<span class="num">' + (i + 1) + '</span><span class="name">' + (m.lugar.nombre || '') + '</span>';
-                    li.addEventListener('click', () => {
-                        map.panTo(m.marker.getPosition());
-                        map.setZoom(17);
-                        if (m.marker.getMap()) {
-                            google.maps.event.trigger(m.marker, 'click');
-                        }
-                    });
-                    sidebarPuntosList.appendChild(li);
-                });
+            // Rellenar menú lateral: lista de todos los puntos (clic = centrar mapa y abrir tooltip). Nombres traducidos según idioma.
+            if (window.fillSidebarListFromLugares) {
+                window.fillSidebarListFromLugares({ map: map, allMarkers: allMarkers });
             }
+
+            // Al cambiar idioma: actualizar contenido de todos los InfoWindows y los nombres del sidebar izquierdo
+            window.onMapLanguageChange = function(lang) {
+                allMarkers.forEach(function(m) {
+                    m.infoWindow.setContent(crearContenidoInfo(m.lugar, lang));
+                });
+                var list = document.getElementById('sidebarPuntosList');
+                if (list && window.T && window.T[lang] && window.T[lang].sidebarLeftNames) {
+                    var names = window.T[lang].sidebarLeftNames;
+                    list.querySelectorAll('.sidebar-puntos-item').forEach(function(li) {
+                        var key = li.dataset.nombre;
+                        var span = li.querySelector('.name');
+                        if (span) span.textContent = (lang === 'en' && key && names[key]) ? names[key] : (key || '');
+                    });
+                }
+            };
 
             // Sidebar derecho: clic en A, C o G centra y abre el marcador histórico
             document.querySelectorAll('#sidebarDerechoList .sidebar-derecho-item[data-marker-index]').forEach(el => {
