@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa - Guadalajara Ciudad de las Rosas</title>
+    <!-- Base URL para que assets carguen bien en GitHub Pages y en local -->
+    <base id="baseUrl" href="">
+    <script>
+        (function() {
+            var base = document.getElementById('baseUrl');
+            if (base) {
+                var path = location.pathname;
+                if (!path.endsWith('/')) path = path.replace(/[^/]+$/, '') || '/';
+                base.href = location.protocol + '//' + location.host + path;
+            }
+        })();
+    </script>
     <!-- Google Fonts - Fuente estilo mapa ilustrado condensada -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2325,7 +2337,7 @@
     <!-- Menú lateral: lista de puntos con cabecera -->
     <aside class="sidebar-puntos" id="sidebarPuntos">
         <div class="sidebar-puntos-header">
-            <img src="assets/Captura de pantalla 2026-02-04 101053.png" alt="Guadalajara Ciudad de las Rosas">
+            <img src="assets/Captura%20de%20pantalla%202026-02-04%20101053.png" alt="Guadalajara Ciudad de las Rosas">
         </div>
         <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
     </aside>
@@ -2333,7 +2345,7 @@
     <!-- Sidebar derecho: lugares icónicos A-I -->
     <aside class="sidebar-derecho" id="sidebarDerecho">
         <div class="sidebar-derecho-header">
-            <img src="assets/Captura de pantalla 2026-02-04 101953.png" alt="Guadalajara Ciudad de las Rosas - Lugares icónicos">
+            <img src="assets/Captura%20de%20pantalla%202026-02-04%20101953.png" alt="Guadalajara Ciudad de las Rosas - Lugares icónicos">
         </div>
         <ul class="sidebar-derecho-list" id="sidebarDerechoList">
             <li class="sidebar-derecho-item" data-marker-index="1">
