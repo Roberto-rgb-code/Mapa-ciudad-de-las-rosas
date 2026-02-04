@@ -2702,6 +2702,17 @@
     </div>
 
     <script>
+        // Si el mapa no carga en 12s (ej. API key con restricción de referrer en producción), mostrar ayuda
+        window._mapLoaded = false;
+        window._mapLoadTimeout = setTimeout(function() {
+            if (!window._mapLoaded) {
+                var el = document.getElementById('map');
+                if (el && !el.querySelector('.map-error-msg')) {
+                    el.innerHTML = '<div class="map-error-msg" style="padding:28px 24px;text-align:center;font-family:Segoe UI,sans-serif;color:#5d4037;max-width:420px;margin:60px auto 0;background:#fdf5f9;border-radius:12px;border:2px solid #f79ed6;box-shadow:0 4px 12px rgba(0,0,0,0.08);"><strong style="font-size:16px;">No se pudo cargar el mapa</strong><p style="margin:14px 0;font-size:14px;line-height:1.5;">En producción (GitHub Pages) suele deberse a la <strong>restricción de la API key</strong>.</p><p style="margin:10px 0;font-size:13px;">En <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" rel="noopener">Google Cloud Console</a> → tu API key → Restricciones de aplicación → Referidores HTTP, agrega:</p><code style="background:#fff;padding:8px 12px;display:block;margin:12px 0;word-break:break-all;font-size:12px;border-radius:6px;">https://roberto-rgb-code.github.io/*</code><p style="margin:12px 0 0;font-size:12px;color:#888;">Guarda los cambios y recarga esta página.</p></div>';
+                }
+            }
+        }, 12000);
+
         // Coordenadas de los lugares
         const lugares = {
             historicos: [
@@ -3047,6 +3058,11 @@
 
         // Función para inicializar el mapa
         function initMap() {
+            if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+                var el = document.getElementById('map');
+                if (el) el.innerHTML = '<div class="map-error-msg" style="padding:24px;text-align:center;font-family:sans-serif;color:#666;">No se pudo cargar la API de Google Maps. Revisa la consola del navegador (F12).</div>';
+                return;
+            }
             // Calcular el centro óptimo basado en todos los puntos
             const todosLosPuntos = [...lugares.historicos, ...lugares.empresas];
             const sumaLat = todosLosPuntos.reduce((acc, p) => acc + p.lat, 0);
@@ -3185,6 +3201,8 @@
                 }
             });
 
+            window._mapLoaded = true;
+            if (window._mapLoadTimeout) clearTimeout(window._mapLoadTimeout);
 
             // ===== ETIQUETAS DE ZONAS ESTILO VINTAGE =====
             // Clase personalizada para crear etiquetas sobre el mapa

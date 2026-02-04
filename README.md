@@ -57,11 +57,18 @@ Para desplegar en GitHub Pages:
   - `rotonda.png`
   - `mercadosanjuandedios.png`
 
-## API Key
+## API Key y producción (GitHub Pages)
 
-Este proyecto usa una API key de Google Maps. Asegúrate de:
-- Configurar restricciones de dominio en Google Cloud Console
-- Limitar el uso para evitar costos inesperados
+Este proyecto usa una API key de Google Maps. **Si el mapa se ve en blanco en producción** (por ejemplo en `https://roberto-rgb-code.github.io/Mapa-ciudad-de-las-rosas/`):
+
+1. Entra en [Google Cloud Console → Credenciales](https://console.cloud.google.com/google/maps-apis/credentials).
+2. Abre tu API key.
+3. En **Restricciones de aplicación** → **Referidores HTTP**, agrega:
+   - `https://roberto-rgb-code.github.io/*`
+   - (y opcionalmente `http://localhost/*` para desarrollo).
+4. Guarda y recarga la página del mapa.
+
+Si no autorizas esta URL como referrer, la API rechaza las peticiones y el mapa no carga.
 
 ## Licencia
 
