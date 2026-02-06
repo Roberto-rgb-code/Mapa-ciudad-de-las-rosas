@@ -371,7 +371,7 @@
             max-width: 380px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 0;
-            overflow: hidden;
+            overflow: visible;
             border-radius: 12px;
             animation: fadeInUp 0.3s ease-out;
         }
@@ -387,9 +387,10 @@
             }
         }
 
-        /* Mejorar el botón de cerrar de Google Maps InfoWindow */
+        /* Tooltip sin scroll: contenido compacto para que todo quepa */
         .gm-style-iw-d {
-            overflow: hidden !important;
+            max-height: 90vh !important;
+            overflow: visible !important;
         }
 
         .gm-style-iw-c {
@@ -1157,7 +1158,7 @@
         .info-window-header {
             position: relative;
             background: linear-gradient(135deg, #f79ed6 0%, #f9c4e2 100%);
-            padding: 16px;
+            padding: 10px 12px;
             color: #8B1538;
         }
 
@@ -1183,10 +1184,10 @@
 
         .info-window h3 {
             color: #8B1538;
-            margin: 0 0 8px 0;
-            font-size: 17px;
+            margin: 0 0 4px 0;
+            font-size: 15px;
             font-weight: 600;
-            line-height: 1.3;
+            line-height: 1.25;
         }
 
         .info-window .category {
@@ -1202,26 +1203,26 @@
         }
 
         .info-window-body {
-            padding: 16px;
+            padding: 10px 12px;
             background: #fff;
         }
 
         .info-window p {
             color: #444;
-            font-size: 13px;
-            line-height: 1.6;
-            margin: 0 0 12px 0;
+            font-size: 12px;
+            line-height: 1.45;
+            margin: 0 0 8px 0;
             display: -webkit-box;
-            -webkit-line-clamp: 4;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
         .info-window .address {
             color: #555;
-            font-size: 13px;
-            margin-top: 12px;
-            padding: 12px;
+            font-size: 12px;
+            margin-top: 8px;
+            padding: 8px 10px;
             background: #f8f9fa;
             border-radius: 8px;
             border-left: 3px solid #8B1538;
@@ -1236,18 +1237,18 @@
         }
 
         .info-window-footer {
-            padding: 12px 16px;
+            padding: 8px 12px;
             background: #f8f9fa;
             border-top: 1px solid #eee;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
-        /* ===== GALERÍA DE IMÁGENES ===== */
+        /* ===== GALERÍA DE IMÁGENES (compacta para no scroll en tooltip) ===== */
         .gallery-container {
-            margin: 12px 0;
-            border-radius: 12px;
+            margin: 8px 0;
+            border-radius: 10px;
             overflow: hidden;
             background: #f5f5f5;
         }
@@ -1255,7 +1256,7 @@
         .gallery-main {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 140px;
             overflow: hidden;
             background: #000;
         }
@@ -1330,8 +1331,8 @@
 
         .gallery-thumb {
             flex-shrink: 0;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
@@ -2631,9 +2632,23 @@
                 font-size: 11px;
             }
         }
+
+        /* Responsivo cuando la página está embebida en iframe (ej. WordPress) */
+        html.embedded,
+        html.embedded body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        html.embedded body {
+            min-height: 100%;
+        }
     </style>
 </head>
 <body>
+    <script>
+        (function(){ if (window.self !== window.top) document.documentElement.classList.add('embedded'); })();
+    </script>
     <!-- Overlay para cerrar sidebar en móvil (solo visible en pantallas pequeñas) -->
     <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
 
@@ -3644,7 +3659,7 @@
                 { nombre: "TORTAS AHOGAS Las Famosas", lat: 20.6772053, lng: -103.3435073, categoria: "GASTRONOMÍA", direccion: "Paseo Degollado 128, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 20.59.47.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.00.26.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.01.28.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.03.20.png"] },
                 { nombre: "HOTEL Aló", lat: 20.6772869, lng: -103.3421337, categoria: "HOTEL", direccion: "Paseo Degollado 56, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.13.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.29.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.48.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.06.04.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.06.19.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.07.18.png"] },
                 { nombre: "HOTEL Holá", lat: 20.6728966, lng: -103.3689122, categoria: "HOTEL", direccion: "Av. Chapultepec 204, Col. Americana, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.08.51.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.23.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.46.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.10.59.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.11.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.40.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.45.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.52.png"] },
-                { nombre: "RESTAURANT Los Paceños", lat: 20.6767769, lng: -103.3433889, categoria: "RESTAURANTE", direccion: "Morelos 126, Col. Centro, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.46.26.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.46.53.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.47.04.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.47.24.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.47.59.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.49.17.png"] },
+                { nombre: "RESTAURANT Los Paceños", lat: 20.6767769, lng: -103.3433889, categoria: "RESTAURANTE", direccion: "Morelos 126, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.46.26.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.46.53.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.04.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.24.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.59.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.49.17.png"] },
                 { nombre: "TARASKA Helados y Paletas", lat: 20.6765762, lng: -103.3428047, categoria: "HELADOS", direccion: "Morelos 99, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.08.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.33.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.45.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.57.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.56.14.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.56.24.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.56.37.png"] },
                 { nombre: "TARASKA Helados y Paletas", lat: 20.674271, lng: -103.3465643, categoria: "HELADOS", direccion: "Av. Ramón Corona 156, Col. Centro, Guadalajara, Jal." },
                 { nombre: "EX-CONVENTO DE SANTA TERESA", lat: 20.6759382, lng: -103.3504487, categoria: "SALÓN DE EVENTOS", direccion: "Donato Guerra 25, Centro Histórico, Guadalajara, Jal." },
@@ -4561,7 +4576,7 @@
                             <div class="address ${categoriaClass}">
                                 <strong>📍 ${t.direccion}</strong><br>${direccion}
                             </div>
-                            <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+                            <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
                                 ${routeButtonHTML}
                                 ${streetViewButtonHTML}
                             </div>
