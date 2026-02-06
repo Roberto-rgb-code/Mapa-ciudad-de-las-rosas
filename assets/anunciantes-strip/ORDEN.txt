@@ -1,0 +1,12 @@
+Carrusel: cada panel usa esta imagen (assets/anunciantes-strip/1.png ... 8.png).
+
+1.png = GUARDIÁN Café Galería     <- Fotos de anunciantes\GUARDIÁN CAFÉ GALERÍA\Captura...20.23.46.png
+2.png = TORTAS AHOGADAS           <- Fotos de anunciantes\TORTAS AHOGADAS LAS FAMOSAS\Captura...21.03.20.png
+3.png = HOTEL Aló                 <- Fotos de anunciantes\HOTEL ALÓ\Captura...21.07.18.png
+4.png = HOTEL Holá                 <- Fotos de anunciantes\HOTEL OLÁ\Captura...21.08.51.png
+5.png = RESTAURANT Los Paceños     <- Fotos de anunciantes\RESTAURANT LOS PACEÑOS\Captura...20.46.53.png
+6.png = TARASKA Helados y Paletas  <- Fotos de anunciantes\TARASKAS PALETAS Y NIEVES\Captura...20.55.08.png
+7.png = RAGAZZA Fashion            <- Fotos de anunciantes\RAGAZZA FASHION\Captura...21.16.38.png
+8.png = Ex Convento Santa Teresa   <- galeria-ex-convento\1.png
+
+Si alguna foto no coincide: cierra los PNG abiertos en el editor y copia manualmente cada archivo de la columna derecha al número de la izquierda.
