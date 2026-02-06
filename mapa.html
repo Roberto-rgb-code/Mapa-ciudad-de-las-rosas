@@ -2643,6 +2643,49 @@
         html.embedded body {
             min-height: 100%;
         }
+        /* Tooltip más compacto cuando está embebido: que quepa todo sin scroll (Cómo llegar, Street View) */
+        html.embedded .gm-style-iw-d {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+        html.embedded .info-window-header {
+            padding: 8px 10px;
+        }
+        html.embedded .info-window h3 {
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        html.embedded .info-window-body {
+            padding: 8px 10px;
+        }
+        html.embedded .info-window p {
+            margin-bottom: 6px;
+            -webkit-line-clamp: 1;
+        }
+        html.embedded .gallery-container {
+            margin: 6px 0;
+        }
+        html.embedded .gallery-main {
+            height: 100px;
+        }
+        html.embedded .gallery-thumb {
+            width: 34px;
+            height: 34px;
+        }
+        html.embedded .gallery-thumbnails {
+            padding: 6px;
+        }
+        html.embedded .info-window .address {
+            margin-top: 6px;
+            padding: 6px 8px;
+            font-size: 11px;
+        }
+        html.embedded .info-window-footer {
+            padding: 6px 10px;
+        }
+        html.embedded .info-window-actions {
+            margin-top: 6px !important;
+        }
     </style>
 </head>
 <body>
@@ -4576,7 +4619,7 @@
                             <div class="address ${categoriaClass}">
                                 <strong>📍 ${t.direccion}</strong><br>${direccion}
                             </div>
-                            <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+                            <div class="info-window-actions" style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
                                 ${routeButtonHTML}
                                 ${streetViewButtonHTML}
                             </div>
