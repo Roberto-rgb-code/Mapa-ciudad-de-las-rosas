@@ -4973,40 +4973,59 @@
             });
 
             // Función para crear el botón de ruta (se usa en InfoWindows). label opcional para i18n.
+            // Botones sin onclick inline para que funcionen cuando el mapa está embebido (CSP de WordPress puede bloquear inline)
             function createRouteButton(lat, lng, nombre, label) {
-                const nombreEscapado = (nombre || '').replace(/'/g, "\\'");
-                const text = label || 'Cómo llegar';
+                const text = (label || 'Cómo llegar').replace(/"/g, '&quot;');
+                const nombreEscapado = (nombre || '').replace(/"/g, '&quot;');
                 return `
-                    <button class="route-btn" 
-                            onclick="event.stopPropagation(); calculateRoute({lat: ${lat}, lng: ${lng}}, '${nombreEscapado}')" 
-                            title="${text.replace(/"/g, '&quot;')}">
+                    <button type="button" class="route-btn" data-lat="${lat}" data-lng="${lng}" data-nombre="${nombreEscapado}" title="${text}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
                         </svg>
-                        ${text}
+                        ${(label || 'Cómo llegar')}
                     </button>
                 `;
             }
 
-            // Función para crear el botón de Street View. label = texto del botón, titleLabel = title (opcional).
             function createStreetViewButton(lat, lng, nombre, label, titleLabel) {
-                const nombreEscapado = (nombre || '').replace(/'/g, "\\'");
-                const text = label || 'Street View';
+                const text = (label || 'Street View').replace(/"/g, '&quot;');
                 const title = (titleLabel != null ? titleLabel : text).replace(/"/g, '&quot;');
+                const nombreEscapado = (nombre || '').replace(/"/g, '&quot;');
                 return `
-                    <button class="streetview-btn" 
-                            onclick="event.stopPropagation(); openStreetView(${lat}, ${lng}, '${nombreEscapado}')" 
-                            title="${title}">
+                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-nombre="${nombreEscapado}" title="${title}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                             <circle cx="18" cy="6" r="5"/>
                             <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
                         </svg>
-                        ${text}
+                        ${(label || 'Street View')}
                     </button>
                 `;
             }
             window.createStreetViewButton = createStreetViewButton;
+
+            // Delegación: clics en botones del tooltip (funciona en embed cuando CSP bloquea onclick inline)
+            document.addEventListener('click', function(e) {
+                var routeBtn = e.target && e.target.closest && e.target.closest('.info-window .route-btn');
+                if (routeBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var lat = parseFloat(routeBtn.getAttribute('data-lat'));
+                    var lng = parseFloat(routeBtn.getAttribute('data-lng'));
+                    var nom = (routeBtn.getAttribute('data-nombre') || '').replace(/&quot;/g, '"');
+                    if (typeof window.calculateRoute === 'function') window.calculateRoute({ lat: lat, lng: lng }, nom);
+                    return;
+                }
+                var svBtn = e.target && e.target.closest && e.target.closest('.info-window .streetview-btn');
+                if (svBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var lat = parseFloat(svBtn.getAttribute('data-lat'));
+                    var lng = parseFloat(svBtn.getAttribute('data-lng'));
+                    var nom = (svBtn.getAttribute('data-nombre') || '').replace(/&quot;/g, '"');
+                    if (typeof window.openStreetView === 'function') window.openStreetView(lat, lng, nom);
+                }
+            });
 
             // ===== SISTEMA DE STREET VIEW =====
             const streetviewModal = document.getElementById('streetviewModal');
