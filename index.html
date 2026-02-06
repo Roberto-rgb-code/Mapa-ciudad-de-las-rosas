@@ -42,7 +42,7 @@
             left: 0;
             top: 0;
             width: 280px;
-            height: 100vh;
+            height: calc(100vh - 200px);
             background: #fff;
             box-shadow: 4px 0 20px rgba(0,0,0,0.12);
             z-index: 500;
@@ -200,7 +200,7 @@
             right: 0;
             top: 0;
             width: 280px;
-            height: 100vh;
+            height: calc(100vh - 200px);
             background: #fef9f5;
             box-shadow: -4px 0 20px rgba(0,0,0,0.12);
             z-index: 500;
@@ -279,10 +279,90 @@
 
         #map {
             width: calc(100% - 560px);
-            height: 100vh;
+            height: calc(100vh - 200px);
             position: absolute;
             top: 0;
             left: 280px;
+        }
+
+        /* ===== FRANJA ANUNCIANTES DEBAJO DEL MAPA ===== */
+        .anunciantes-strip {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: #f5f0eb;
+            z-index: 400;
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            scrollbar-width: thin;
+        }
+        .anunciantes-strip .anuncio-panel {
+            flex: 0 0 260px;
+            min-width: 220px;
+            height: 100%;
+            display: block;
+            background: transparent;
+            border-right: 1px solid rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+        }
+        .anunciantes-strip .anuncio-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        /* Franja responsive: paneles más estrechos en móvil para mejor touch */
+        @media (max-width: 768px) {
+            .anunciantes-strip {
+                height: 180px;
+                padding-bottom: env(safe-area-inset-bottom, 0);
+            }
+            .anunciantes-strip .anuncio-panel {
+                flex: 0 0 200px;
+                min-width: 160px;
+            }
+        }
+        @media (max-width: 480px) {
+            .anunciantes-strip {
+                height: 160px;
+            }
+            .anunciantes-strip .anuncio-panel {
+                flex: 0 0 180px;
+                min-width: 140px;
+            }
+            #map {
+                height: calc(100vh - 160px);
+            }
+            .sidebar-puntos,
+            .sidebar-derecho {
+                height: calc(100vh - 160px);
+            }
+            .legend {
+                bottom: 180px;
+            }
+        }
+        .anunciantes-strip .anuncio-content {
+            display: none;
+        }
+        .anunciantes-strip .anuncio-img-wrap {
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            overflow: hidden;
+            background: #f0ebe6;
+        }
+        .anunciantes-strip .anuncio-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .info-window {
@@ -1946,10 +2026,10 @@
             height: 24px;
         }
 
-        /* Leyenda - estilo Ciudad de las Rosas */
+        /* Leyenda - estilo Ciudad de las Rosas (dentro del mapa, sobre el carrusel) */
         .legend {
             position: absolute;
-            bottom: 30px;
+            bottom: 220px;
             left: 295px;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
@@ -1997,8 +2077,8 @@
         }
 
         .legend-symbol.business {
-            background: #fff3e0;
-            border: 2px solid #E65100;
+            background: #fdf2f5;
+            border: 2px solid #8B1538;
         }
 
         .legend-symbol.user {
@@ -2289,6 +2369,11 @@
             #map {
                 left: 0;
                 width: 100%;
+                height: calc(100vh - 180px);
+            }
+            .sidebar-puntos,
+            .sidebar-derecho {
+                height: calc(100vh - 180px);
             }
             .map-title {
                 display: none;
@@ -2318,7 +2403,7 @@
             .legend {
                 max-width: 160px;
                 padding: 10px 12px;
-                bottom: 25px;
+                bottom: 200px;
                 left: 12px;
             }
             body:has(.sidebar-puntos.open) .legend {
@@ -2425,7 +2510,7 @@
                 font-size: 13px;
             }
             .legend {
-                bottom: 20px;
+                bottom: 180px;
                 left: 12px;
                 max-width: 140px;
                 padding: 8px 10px;
@@ -2650,6 +2735,90 @@
         </ul>
     </aside>
 
+    <!-- Franja de anunciantes debajo del mapa y sidebars -->
+    <section class="anunciantes-strip" id="anunciantesStrip" aria-label="Comercios destacados">
+        <a class="anuncio-panel" href="#" data-marker-index="14" title="GUARDIÁN Café Galería">
+            <div class="anuncio-content">
+                <span class="anuncio-num">1</span>
+                <span class="anuncio-titulo">GUARDIÁN Café Galería</span>
+                <span class="anuncio-direccion">Av. Alcalde 207, Centro Histórico</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/fotos-anunciantes/guardian/Captura de Pantalla 2026-02-03 a la(s) 20.23.46.png" alt="GUARDIÁN Café Galería">
+            </div>
+        </a>
+        <a class="anuncio-panel" href="#" data-marker-index="15" title="TORTAS AHOGAS Las Famosas">
+            <div class="anuncio-content">
+                <span class="anuncio-num">2</span>
+                <span class="anuncio-titulo">TORTAS AHOGADAS Las Famosas</span>
+                <span class="anuncio-direccion">Paseo Degollado 128, Centro Histórico</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.03.20.png" alt="Tortas Ahogadas">
+            </div>
+        </a>
+        <a class="anuncio-panel" href="#" data-marker-index="16" title="HOTEL Aló">
+            <div class="anuncio-content">
+                <span class="anuncio-num">3</span>
+                <span class="anuncio-titulo">HOTEL Aló</span>
+                <span class="anuncio-direccion">Paseo Degollado 56, Col. Centro</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.07.18.png" alt="Hotel Aló">
+            </div>
+        </a>
+        <a class="anuncio-panel" href="#" data-marker-index="17" title="HOTEL Holá">
+            <div class="anuncio-content">
+                <span class="anuncio-num">4</span>
+                <span class="anuncio-titulo">HOTEL Holá</span>
+                <span class="anuncio-direccion">Av. Chapultepec 204, Col. Americana</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.08.51.png" alt="Hotel Holá">
+            </div>
+        </a>
+        <a class="anuncio-panel" href="#" data-marker-index="18" title="RESTAURANT Los Paceños">
+            <div class="anuncio-content">
+                <span class="anuncio-num">5</span>
+                <span class="anuncio-titulo">RESTAURANT Los Paceños</span>
+                <span class="anuncio-direccion">Morelos 126, Col. Centro</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.46.53.png" alt="Los Paceños">
+            </div>
+        </a>
+        <a class="anuncio-panel" href="#" data-marker-index="19" title="TARASKA Helados y Paletas">
+            <div class="anuncio-content">
+                <span class="anuncio-num">6</span>
+                <span class="anuncio-titulo">TARASKA Helados y Paletas</span>
+                <span class="anuncio-direccion">Paletería y nevería, Centro</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.33.png" alt="Taraska">
+            </div>
+        </a>
+        <a class="anuncio-panel" href="#" data-marker-index="23" title="RAGAZZA Fashion">
+            <div class="anuncio-content">
+                <span class="anuncio-num">7</span>
+                <span class="anuncio-titulo">RAGAZZA Fashion</span>
+                <span class="anuncio-direccion">Av. Juárez 210, Col. Centro</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.38.png" alt="Ragazza Fashion">
+            </div>
+        </a>
+        <a class="anuncio-panel" href="#" data-marker-index="11" title="Ex Convento de Santa Teresa">
+            <div class="anuncio-content">
+                <span class="anuncio-num">8</span>
+                <span class="anuncio-titulo">Ex Convento de Santa Teresa</span>
+                <span class="anuncio-direccion">Eventos con historia, Donato Guerra 25</span>
+            </div>
+            <div class="anuncio-img-wrap">
+                <img src="assets/galeria-ex-convento/1.png" alt="Ex Convento Santa Teresa">
+            </div>
+        </a>
+    </section>
+
     <script>
         (function() {
             var path = location.pathname;
@@ -2659,6 +2828,41 @@
             var imgDer = document.getElementById('imgSidebarDer');
             if (imgIzq) imgIzq.src = base + 'assets/Captura%20de%20pantalla%202026-02-04%20101053.png';
             if (imgDer) imgDer.src = base + 'assets/Captura%20de%20pantalla%202026-02-04%20101953.png';
+        })();
+    </script>
+
+    <script>
+        (function() {
+            var strip = document.getElementById('anunciantesStrip');
+            if (!strip) return;
+            var panels = strip.querySelectorAll('.anuncio-panel');
+            var n = panels.length;
+            if (n === 0) return;
+            for (var i = 0; i < n; i++) strip.appendChild(panels[i].cloneNode(true));
+            var firstSetWidth = 0;
+            var step = 2;
+            var intervalMs = 20;
+            function run() {
+                if (window._stripPaused || firstSetWidth <= 0) return;
+                strip.scrollLeft += step;
+                if (strip.scrollLeft >= firstSetWidth - 1) strip.scrollLeft = 0;
+            }
+            strip.addEventListener('touchstart', function() { window._stripPaused = true; });
+            strip.addEventListener('touchend', function() { setTimeout(function() { window._stripPaused = false; }, 3000); });
+            strip.addEventListener('mouseenter', function() { window._stripPaused = true; });
+            strip.addEventListener('mouseleave', function() { window._stripPaused = false; });
+            function startCarousel() {
+                var first = strip.querySelector('.anuncio-panel');
+                if (first) {
+                    firstSetWidth = n * first.offsetWidth;
+                }
+                setInterval(run, intervalMs);
+            }
+            if (document.readyState === 'loading') {
+                window.addEventListener('load', startCarousel);
+            } else {
+                startCarousel();
+            }
         })();
     </script>
 
@@ -3031,7 +3235,7 @@
         </div>
         <div class="legend-item">
             <div class="legend-symbol business">
-                <svg viewBox="0 0 24 24" fill="#E65100">
+                <svg viewBox="0 0 24 24" fill="#8B1538">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
             </div>
@@ -3433,16 +3637,16 @@
                         "assets/galeria-pilon-arrieros/7.png"
                     ]
                 },
-                { nombre: "GUARDIÁN Café Galería", lat: 20.6797854, lng: -103.3477979, categoria: "CAFÉ GALERÍA", direccion: "Av. Alcalde 207, Paseo Alcalde, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/GUARDIÁN CAFÉ GALERÍA/Captura de Pantalla 2026-02-03 a la(s) 20.21.11.png", "assets/Fotos de anunciantes/GUARDIÁN CAFÉ GALERÍA/Captura de Pantalla 2026-02-03 a la(s) 20.21.23.png", "assets/Fotos de anunciantes/GUARDIÁN CAFÉ GALERÍA/Captura de Pantalla 2026-02-03 a la(s) 20.21.31.png", "assets/Fotos de anunciantes/GUARDIÁN CAFÉ GALERÍA/Captura de Pantalla 2026-02-03 a la(s) 20.21.40.png", "assets/Fotos de anunciantes/GUARDIÁN CAFÉ GALERÍA/Captura de Pantalla 2026-02-03 a la(s) 20.23.46.png"] },
-                { nombre: "TORTAS AHOGAS Las Famosas", lat: 20.6772053, lng: -103.3435073, categoria: "GASTRONOMÍA", direccion: "Paseo Degollado 128, Col. Centro, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/TORTAS AHOGADAS LAS FAMOSAS/Captura de Pantalla 2026-02-03 a la(s) 20.59.47.png", "assets/Fotos de anunciantes/TORTAS AHOGADAS LAS FAMOSAS/Captura de Pantalla 2026-02-03 a la(s) 21.00.26.png", "assets/Fotos de anunciantes/TORTAS AHOGADAS LAS FAMOSAS/Captura de Pantalla 2026-02-03 a la(s) 21.01.28.png", "assets/Fotos de anunciantes/TORTAS AHOGADAS LAS FAMOSAS/Captura de Pantalla 2026-02-03 a la(s) 21.03.20.png"] },
-                { nombre: "HOTEL Aló", lat: 20.6772869, lng: -103.3421337, categoria: "HOTEL", direccion: "Paseo Degollado 56, Col. Centro, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/HOTEL ALÓ/Captura de Pantalla 2026-02-03 a la(s) 21.05.13.png", "assets/Fotos de anunciantes/HOTEL ALÓ/Captura de Pantalla 2026-02-03 a la(s) 21.05.29.png", "assets/Fotos de anunciantes/HOTEL ALÓ/Captura de Pantalla 2026-02-03 a la(s) 21.05.48.png", "assets/Fotos de anunciantes/HOTEL ALÓ/Captura de Pantalla 2026-02-03 a la(s) 21.06.04.png", "assets/Fotos de anunciantes/HOTEL ALÓ/Captura de Pantalla 2026-02-03 a la(s) 21.06.19.png", "assets/Fotos de anunciantes/HOTEL ALÓ/Captura de Pantalla 2026-02-03 a la(s) 21.07.18.png"] },
-                { nombre: "HOTEL Holá", lat: 20.6728966, lng: -103.3689122, categoria: "HOTEL", direccion: "Av. Chapultepec 204, Col. Americana, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.08.51.png", "assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.09.23.png", "assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.09.46.png", "assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.10.59.png", "assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.11.11.png", "assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.11.40.png", "assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.11.45.png", "assets/Fotos de anunciantes/HOTEL OLÁ/Captura de Pantalla 2026-02-03 a la(s) 21.11.52.png"] },
-                { nombre: "RESTAURANT Los Paceños", lat: 20.6767769, lng: -103.3433889, categoria: "RESTAURANTE", direccion: "Morelos 126, Col. Centro, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.46.26.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.46.53.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.47.04.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.47.24.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.47.59.png", "assets/Fotos de anunciantes/RESTAURANT LOS PACEÑOS/Captura de Pantalla 2026-02-03 a la(s) 20.49.17.png"] },
-                { nombre: "TARASKA Helados y Paletas", lat: 20.6765762, lng: -103.3428047, categoria: "HELADOS", direccion: "Morelos 99, Col. Centro, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/TARASKAS PALETAS Y NIEVES/Captura de Pantalla 2026-02-03 a la(s) 20.55.08.png", "assets/Fotos de anunciantes/TARASKAS PALETAS Y NIEVES/Captura de Pantalla 2026-02-03 a la(s) 20.55.33.png", "assets/Fotos de anunciantes/TARASKAS PALETAS Y NIEVES/Captura de Pantalla 2026-02-03 a la(s) 20.55.45.png", "assets/Fotos de anunciantes/TARASKAS PALETAS Y NIEVES/Captura de Pantalla 2026-02-03 a la(s) 20.55.57.png", "assets/Fotos de anunciantes/TARASKAS PALETAS Y NIEVES/Captura de Pantalla 2026-02-03 a la(s) 20.56.14.png", "assets/Fotos de anunciantes/TARASKAS PALETAS Y NIEVES/Captura de Pantalla 2026-02-03 a la(s) 20.56.24.png", "assets/Fotos de anunciantes/TARASKAS PALETAS Y NIEVES/Captura de Pantalla 2026-02-03 a la(s) 20.56.37.png"] },
+                { nombre: "GUARDIÁN Café Galería", lat: 20.6797854, lng: -103.3477979, categoria: "CAFÉ GALERÍA", direccion: "Av. Alcalde 207, Paseo Alcalde, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/guardian/Captura de Pantalla 2026-02-03 a la(s) 20.21.11.png", "assets/fotos-anunciantes/guardian/Captura de Pantalla 2026-02-03 a la(s) 20.21.23.png", "assets/fotos-anunciantes/guardian/Captura de Pantalla 2026-02-03 a la(s) 20.21.31.png", "assets/fotos-anunciantes/guardian/Captura de Pantalla 2026-02-03 a la(s) 20.21.40.png", "assets/fotos-anunciantes/guardian/Captura de Pantalla 2026-02-03 a la(s) 20.23.46.png"] },
+                { nombre: "TORTAS AHOGAS Las Famosas", lat: 20.6772053, lng: -103.3435073, categoria: "GASTRONOMÍA", direccion: "Paseo Degollado 128, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 20.59.47.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.00.26.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.01.28.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.03.20.png"] },
+                { nombre: "HOTEL Aló", lat: 20.6772869, lng: -103.3421337, categoria: "HOTEL", direccion: "Paseo Degollado 56, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.13.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.29.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.48.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.06.04.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.06.19.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.07.18.png"] },
+                { nombre: "HOTEL Holá", lat: 20.6728966, lng: -103.3689122, categoria: "HOTEL", direccion: "Av. Chapultepec 204, Col. Americana, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.08.51.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.23.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.46.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.10.59.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.11.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.40.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.45.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.52.png"] },
+                { nombre: "RESTAURANT Los Paceños", lat: 20.6767769, lng: -103.3433889, categoria: "RESTAURANTE", direccion: "Morelos 126, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.46.26.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.46.53.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.04.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.24.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.59.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.49.17.png"] },
+                { nombre: "TARASKA Helados y Paletas", lat: 20.6765762, lng: -103.3428047, categoria: "HELADOS", direccion: "Morelos 99, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.08.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.33.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.45.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.55.57.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.56.14.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.56.24.png", "assets/fotos-anunciantes/taraskas/Captura de Pantalla 2026-02-03 a la(s) 20.56.37.png"] },
                 { nombre: "TARASKA Helados y Paletas", lat: 20.674271, lng: -103.3465643, categoria: "HELADOS", direccion: "Av. Ramón Corona 156, Col. Centro, Guadalajara, Jal." },
                 { nombre: "EX-CONVENTO DE SANTA TERESA", lat: 20.6759382, lng: -103.3504487, categoria: "SALÓN DE EVENTOS", direccion: "Donato Guerra 25, Centro Histórico, Guadalajara, Jal." },
                 { nombre: "HOTEL ONE Guadalajara Centro", lat: 20.6760064, lng: -103.3478317, categoria: "HOTEL", direccion: "Av. 16 de Septiembre 16, Centro Histórico, Guadalajara, Jal." },
-                { nombre: "RAGAZZA Fashion", lat: 20.6753489, lng: -103.345839, categoria: "MODA", direccion: "Av. Juárez 210, Col. Centro, Guadalajara, Jal.", galeria: ["assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.14.15.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.14.33.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.14.45.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.15.28.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.15.43.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.15.52.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.16.02.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.16.26.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.16.38.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.17.01.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.17.13.png", "assets/Fotos de anunciantes/RAGAZZA FASHION/Captura de Pantalla 2026-02-03 a la(s) 21.17.26.png"] },
+                { nombre: "RAGAZZA Fashion", lat: 20.6753489, lng: -103.345839, categoria: "MODA", direccion: "Av. Juárez 210, Col. Centro, Guadalajara, Jal.", galeria: ["assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.14.15.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.14.33.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.14.45.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.15.28.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.15.43.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.15.52.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.02.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.26.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.38.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.17.01.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.17.13.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.17.26.png"] },
                 { nombre: "RAGAZZA Fashion", lat: 20.67442, lng: -103.3648253, categoria: "MODA", direccion: "Av. Vallarta 1291, Col. Americana, Guadalajara, Jal." },
                 { nombre: "CASA Dolores Restaurant", lat: 20.676684, lng: -103.3471716, categoria: "RESTAURANTE", direccion: "Av. Alcalde 22, Paseo Alcalde, Guadalajara, Jal." },
                 { nombre: "CASA Dolores Restaurant", lat: 20.6691209, lng: -103.3681815, categoria: "RESTAURANTE", direccion: "Av. Chapultepec Sur 451, Americana, Guadalajara, Jal." },
@@ -4977,6 +5181,22 @@
             document.querySelectorAll('#sidebarDerechoList .sidebar-derecho-item[data-marker-index]').forEach(el => {
                 el.addEventListener('click', () => {
                     const idx = parseInt(el.getAttribute('data-marker-index'), 10);
+                    if (allMarkers[idx]) {
+                        const m = allMarkers[idx];
+                        map.panTo(m.marker.getPosition());
+                        map.setZoom(17);
+                        if (m.marker.getMap()) {
+                            google.maps.event.trigger(m.marker, 'click');
+                        }
+                    }
+                });
+            });
+
+            // Franja de anunciantes: clic en un panel centra el mapa y abre el tooltip del marcador
+            document.querySelectorAll('#anunciantesStrip .anuncio-panel[data-marker-index]').forEach(panel => {
+                panel.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const idx = parseInt(this.getAttribute('data-marker-index'), 10);
                     if (allMarkers[idx]) {
                         const m = allMarkers[idx];
                         map.panTo(m.marker.getPosition());
