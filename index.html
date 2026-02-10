@@ -336,16 +336,12 @@
         .gm-style-iw-c {
             border-radius: 12px !important;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+            padding: 0 !important;
+            overflow: hidden !important;
         }
-
-        .gm-ui-hover-effect {
-            opacity: 0.7;
-            transition: opacity 0.2s, transform 0.2s !important;
-        }
-
-        .gm-ui-hover-effect:hover {
-            opacity: 1;
-            transform: scale(1.1);
+        /* Solo ocultar la X por defecto de Google; la franja blanca se oculta en domready por JS */
+        .gm-style-iw-c .gm-ui-hover-effect {
+            display: none !important;
         }
 
         /* ===== PANEL DE RUTAS ===== */
@@ -1098,8 +1094,31 @@
         .info-window-header {
             position: relative;
             background: linear-gradient(135deg, #f79ed6 0%, #f9c4e2 100%);
-            padding: 10px 12px;
+            padding: 10px 36px 10px 12px;
             color: #8B1538;
+        }
+        .info-window-close-btn {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(139, 21, 56, 0.25);
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: background 0.2s;
+        }
+        .info-window-close-btn:hover {
+            background: rgba(139, 21, 56, 0.5);
         }
 
         .info-window-header.historical {
@@ -4875,6 +4894,7 @@
                 let contenido = `
                     <div class="info-window">
                         <div class="info-window-header ${categoriaClass}">
+                            <button type="button" class="info-window-close-btn" aria-label="Cerrar">×</button>
                             ${imagenHTML}
                             <span class="category">${categoria}</span>
                             <h3>${nombre}</h3>
@@ -4978,6 +4998,7 @@
                     activeMarker = null;
                 }
             }
+            window.closeActiveInfoWindow = closeActiveInfoWindow;
 
             // Cerrar InfoWindow al hacer clic en el mapa (fuera de marcadores)
             map.addListener('click', () => {
@@ -5277,6 +5298,13 @@
 
             // Delegación: clics en botones del tooltip (funciona en embed cuando CSP bloquea onclick inline)
             document.addEventListener('click', function(e) {
+                var closeBtn = e.target && e.target.closest && e.target.closest('.info-window .info-window-close-btn');
+                if (closeBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (typeof window.closeActiveInfoWindow === 'function') window.closeActiveInfoWindow();
+                    return;
+                }
                 var routeBtn = e.target && e.target.closest && e.target.closest('.info-window .route-btn');
                 if (routeBtn) {
                     e.preventDefault();
@@ -5407,6 +5435,12 @@
                     content: crearContenidoInfo(lugar),
                     maxWidth: 400
                 });
+                google.maps.event.addListener(infoWindow, 'domready', function() {
+                    var iw = document.querySelector('.gm-style-iw');
+                    if (iw && iw.previousElementSibling) iw.previousElementSibling.style.setProperty('display', 'none', 'important');
+                    var closeBtn = document.querySelector('.gm-style-iw-c .gm-ui-hover-effect');
+                    if (closeBtn) closeBtn.style.setProperty('display', 'none', 'important');
+                });
 
                 // Click en marcador: cerrar anterior y abrir nuevo
                 marker.addListener('click', () => {
@@ -5464,6 +5498,12 @@
                 const infoWindow = new google.maps.InfoWindow({
                     content: crearContenidoInfo(lugar),
                     maxWidth: 400
+                });
+                google.maps.event.addListener(infoWindow, 'domready', function() {
+                    var iw = document.querySelector('.gm-style-iw');
+                    if (iw && iw.previousElementSibling) iw.previousElementSibling.style.setProperty('display', 'none', 'important');
+                    var closeBtn = document.querySelector('.gm-style-iw-c .gm-ui-hover-effect');
+                    if (closeBtn) closeBtn.style.setProperty('display', 'none', 'important');
                 });
 
                 // Click en marcador: cerrar anterior y abrir nuevo
