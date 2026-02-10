@@ -1934,18 +1934,19 @@
             height: 18px;
         }
 
-        /* Logo del mapa - sobre el mapa (a la derecha del menú) */
+        /* Logo del mapa - más vertical y pequeño, sobre el mapa */
         .map-logo {
             position: absolute;
             top: 70px;
             left: 295px;
             z-index: 999;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             background: rgba(255, 255, 255, 0.95);
-            padding: 8px 12px;
-            border-radius: 12px;
+            padding: 6px 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 15px rgba(136, 14, 79, 0.2);
             border: 2px solid #f79ed6;
             transition: all 0.3s ease;
@@ -1957,8 +1958,10 @@
         }
 
         .map-logo img {
-            max-width: 140px;
+            max-width: 72px;
+            width: auto;
             height: auto;
+            max-height: 52px;
             display: block;
         }
 
@@ -2336,11 +2339,12 @@
             .map-logo {
                 top: 70px;
                 left: 112px;
-                padding: 6px 10px;
+                padding: 5px 6px;
                 transition: opacity 0.2s, visibility 0.2s;
             }
             .map-logo img {
-                max-width: 110px;
+                max-width: 58px;
+                max-height: 42px;
             }
             .search-container {
                 left: 112px;
@@ -2383,6 +2387,10 @@
             }
             .map-logo {
                 left: 112px;
+            }
+            .map-logo img {
+                max-width: 52px;
+                max-height: 38px;
             }
             .search-box {
                 width: 100%;
@@ -4769,8 +4777,8 @@
                 }
             });
 
-            // Función para crear icono personalizado desde imagen con marco elegante
-            function crearIconoPersonalizado(rutaImagen, tamaño = 80) {
+            // Función para crear icono personalizado desde imagen (tamaño tipo Google Maps)
+            function crearIconoPersonalizado(rutaImagen, tamaño = 40) {
                 return {
                     url: rutaImagen,
                     scaledSize: new google.maps.Size(tamaño, tamaño),
@@ -4795,11 +4803,11 @@
                         <circle cx="20" cy="20" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(50, 65),
-                anchor: new google.maps.Point(25, 65)
+                scaledSize: new google.maps.Size(26, 34),
+                anchor: new google.maps.Point(13, 34)
             };
             
-            // Icono de georreferenciación GRANDE para hover
+            // Icono de georreferenciación GRANDE para hover (tamaño tipo Google Maps)
             const iconoGeorreferenciacionGrande = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
                     <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
@@ -4815,8 +4823,8 @@
                         <circle cx="20" cy="20" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(70, 91),
-                anchor: new google.maps.Point(35, 91)
+                scaledSize: new google.maps.Size(34, 44),
+                anchor: new google.maps.Point(17, 44)
             };
 
             // Icono para la ubicación actual del usuario - estilo moderno con pulso
@@ -5410,9 +5418,9 @@
                 }
             });
 
-            // Agregar marcadores históricos con imágenes personalizadas
-            const tamañoNormal = 80;
-            const tamañoGrande = 110;
+            // Agregar marcadores históricos (tamaño tipo Google Maps)
+            const tamañoNormal = 40;
+            const tamañoGrande = 52;
             
             lugares.historicos.forEach(lugar => {
                 const iconoNormal = lugar.imagen 
