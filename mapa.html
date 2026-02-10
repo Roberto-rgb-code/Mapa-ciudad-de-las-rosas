@@ -194,91 +194,8 @@
             position: relative;
         }
 
-        /* ===== SIDEBAR DERECHO - LUGARES ICÓNICOS A-I ===== */
-        .sidebar-derecho {
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 280px;
-            height: calc(100vh - 200px);
-            background: #fef9f5;
-            box-shadow: -4px 0 20px rgba(0,0,0,0.12);
-            z-index: 500;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .sidebar-derecho-header {
-            flex-shrink: 0;
-            line-height: 0;
-        }
-
-        .sidebar-derecho-header img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            max-height: 200px;
-        }
-
-        .sidebar-derecho-list {
-            flex: 1;
-            min-height: 0;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            list-style: none;
-            padding: 12px 0;
-            margin: 0;
-        }
-
-        .sidebar-derecho-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid #f0e6ec;
-            transition: background 0.2s;
-            font-size: 12px;
-        }
-
-        .sidebar-derecho-item:hover {
-            background: #fdf5f9;
-        }
-
-        .sidebar-derecho-item .letra {
-            flex-shrink: 0;
-            width: 26px;
-            height: 26px;
-            background: linear-gradient(135deg, #d4a574 0%, #b8860b 100%);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        .sidebar-derecho-item .texto {
-            flex: 1;
-        }
-
-        .sidebar-derecho-item .titulo {
-            font-weight: 600;
-            color: #5d4037;
-            margin-bottom: 4px;
-        }
-
-        .sidebar-derecho-item .desc {
-            color: #666;
-            line-height: 1.35;
-            font-size: 11px;
-        }
-
         #map {
-            width: calc(100% - 560px);
+            width: calc(100% - 280px);
             height: calc(100vh - 200px);
             position: absolute;
             top: 0;
@@ -343,8 +260,7 @@
             #map {
                 height: calc(100vh - 160px);
             }
-            .sidebar-puntos,
-            .sidebar-derecho {
+            .sidebar-puntos {
                 height: calc(100vh - 160px);
             }
             .legend {
@@ -2317,14 +2233,8 @@
 
         /* ===== DISEÑO RESPONSIVO ===== */
 
-        /* Tablet 769px-960px: ocultar sidebar derecho para dar espacio al mapa */
+        /* Tablet 769px-960px */
         @media (min-width: 769px) and (max-width: 960px) {
-            .sidebar-derecho {
-                display: none;
-            }
-            #map {
-                width: calc(100% - 280px);
-            }
             .north-indicator {
                 right: 10px;
             }
@@ -2374,8 +2284,7 @@
                 width: 100%;
                 height: calc(100vh - 180px);
             }
-            .sidebar-puntos,
-            .sidebar-derecho {
+            .sidebar-puntos {
                 height: calc(100vh - 180px);
             }
             .map-title {
@@ -2414,78 +2323,8 @@
                 visibility: hidden;
                 pointer-events: none;
             }
-            body:has(.sidebar-derecho.open) .map-logo,
-            body:has(.sidebar-derecho.open) .search-container,
-            body:has(.sidebar-derecho.open) .legend {
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-            }
             .legend-item span {
                 font-size: 11px;
-            }
-            /* Sidebar derecho: en móvil es drawer por la derecha */
-            .sidebar-derecho {
-                display: flex;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                width: 280px;
-                max-width: 90vw;
-                box-shadow: -4px 0 24px rgba(0,0,0,0.2);
-                z-index: 551;
-            }
-            .sidebar-derecho.open {
-                transform: translateX(0);
-            }
-            .sidebar-derecho-btn-open {
-                display: flex;
-                position: fixed;
-                left: 62px;
-                top: 15px;
-                z-index: 601;
-                width: 44px;
-                height: 44px;
-                border: none;
-                border-radius: 8px;
-                background: #fef9f5;
-                color: #5d4037;
-                cursor: pointer;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-                transition: background 0.2s, box-shadow 0.2s;
-            }
-            .sidebar-derecho-btn-open:hover {
-                background: #f79ed6;
-                color: #fff;
-                box-shadow: 0 4px 16px rgba(247, 158, 214, 0.4);
-            }
-            .sidebar-derecho-btn-close {
-                display: flex;
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                z-index: 10;
-                width: 40px;
-                height: 40px;
-                border: none;
-                border-radius: 50%;
-                background: rgba(255,255,255,0.95);
-                color: #5d4037;
-                cursor: pointer;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            }
-            .sidebar-derecho-header {
-                position: relative;
-            }
-        }
-        /* En desktop ocultar botones de drawer del sidebar derecho */
-        @media (min-width: 769px) {
-            .sidebar-derecho-btn-open,
-            .sidebar-derecho-btn-close {
-                display: none !important;
             }
         }
 
@@ -2699,11 +2538,6 @@
     <button type="button" class="sidebar-btn-open" id="sidebarBtnOpen" title="Abrir lista de lugares" aria-label="Abrir lista de lugares">
         <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
     </button>
-    <!-- Botón abrir sidebar derecho - Lugares A-I (solo visible en móvil) -->
-    <button type="button" class="sidebar-derecho-btn-open" id="sidebarDerechoBtnOpen" title="Lugares icónicos A-I" aria-label="Lugares icónicos A-I">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-    </button>
-
     <!-- Menú lateral: lista de puntos con cabecera -->
     <aside class="sidebar-puntos" id="sidebarPuntos">
         <div class="sidebar-puntos-header">
@@ -2718,81 +2552,6 @@
             </button>
         </div>
         <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
-    </aside>
-
-    <!-- Sidebar derecho: lugares icónicos A-I -->
-    <aside class="sidebar-derecho" id="sidebarDerecho">
-        <div class="sidebar-derecho-header">
-            <button type="button" class="sidebar-derecho-btn-close" id="sidebarDerechoBtnClose" title="Cerrar" aria-label="Cerrar">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-            </button>
-            <img id="imgSidebarDer" src="assets/Captura%20de%20pantalla%202026-02-04%20101953.png" alt="Guadalajara Ciudad de las Rosas - Lugares icónicos">
-        </div>
-        <ul class="sidebar-derecho-list" id="sidebarDerechoList">
-            <li class="sidebar-derecho-item" data-marker-index="1">
-                <span class="letra">A</span>
-                <div class="texto">
-                    <div class="titulo">Catedral de Guadalajara</div>
-                    <div class="desc">Sede de la arquidiócesis, principal templo católico; criptas de arzobispos e imágenes religiosas notables.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="4">
-                <span class="letra">B</span>
-                <div class="texto">
-                    <div class="titulo">Palacio de Gobierno</div>
-                    <div class="desc">Construcción original 1650, reconstruido tras terremoto; Palacio de la Real Audiencia.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="2">
-                <span class="letra">C</span>
-                <div class="texto">
-                    <div class="titulo">Rotonda de los Jaliscienses Ilustres</div>
-                    <div class="desc">Construida 1952: 17 columnas estriadas, pebetero ceremonial, 98 nichos en honor a jaliscienses ilustres.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="5">
-                <span class="letra">D</span>
-                <div class="texto">
-                    <div class="titulo">Teatro Degollado</div>
-                    <div class="desc">Inaugurado 1866, neoclásico; sede de la Orquesta Filarmónica de Jalisco, aforo 1027.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="6">
-                <span class="letra">E</span>
-                <div class="texto">
-                    <div class="titulo">Museo Regional</div>
-                    <div class="desc">De cuartel militar (1810) a biblioteca pública (1857); Museo Regional de Guadalajara desde 1976.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="7">
-                <span class="letra">F</span>
-                <div class="texto">
-                    <div class="titulo">Hospicio Cabañas</div>
-                    <div class="desc">Patrimonio UNESCO; diseño de Manuel Tolsá, murales de José Clemente Orozco.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="3">
-                <span class="letra">G</span>
-                <div class="texto">
-                    <div class="titulo">Mercado San Juan de Dios</div>
-                    <div class="desc">Mercado techado más grande de Latinoamérica, inaugurado 1958, junto al río San Juan de Dios.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="8">
-                <span class="letra">H</span>
-                <div class="texto">
-                    <div class="titulo">Minerva</div>
-                    <div class="desc">Monumento icónico (1956) de Joaquín Arias; diosa romana Minerva, fuente circular.</div>
-                </div>
-            </li>
-            <li class="sidebar-derecho-item" data-marker-index="9">
-                <span class="letra">I</span>
-                <div class="texto">
-                    <div class="titulo">Los Arcos de Guadalajara</div>
-                    <div class="desc">En Av. Vallarta (1939-1942), Aurelio Aceves; 400 aniversario de la ciudad.</div>
-                </div>
-            </li>
-        </ul>
     </aside>
 
     <!-- Franja de anunciantes: fotos en assets/Anuncios; data-marker-index = índice en lista (historicos + empresas) -->
@@ -3116,17 +2875,6 @@
                         instagram: 'Instagram',
                         facebook: 'Facebook'
                     },
-                    sidebar: [
-                        { titulo: 'Catedral de Guadalajara', desc: 'Sede de la arquidiócesis, principal templo católico; criptas de arzobispos e imágenes religiosas notables.' },
-                        { titulo: 'Palacio de Gobierno', desc: 'Construcción original 1650, reconstruido tras terremoto; Palacio de la Real Audiencia.' },
-                        { titulo: 'Rotonda de los Jaliscienses Ilustres', desc: 'Construida 1952: 17 columnas estriadas, pebetero ceremonial, 98 nichos en honor a jaliscienses ilustres.' },
-                        { titulo: 'Teatro Degollado', desc: 'Inaugurado 1866, neoclásico; sede de la Orquesta Filarmónica de Jalisco, aforo 1027.' },
-                        { titulo: 'Museo Regional', desc: 'De cuartel militar (1810) a biblioteca pública (1857); Museo Regional de Guadalajara desde 1976.' },
-                        { titulo: 'Hospicio Cabañas', desc: 'Patrimonio UNESCO; diseño de Manuel Tolsá, murales de José Clemente Orozco.' },
-                        { titulo: 'Mercado San Juan de Dios', desc: 'Mercado techado más grande de Latinoamérica, inaugurado 1958, junto al río San Juan de Dios.' },
-                        { titulo: 'Minerva', desc: 'Monumento icónico (1956) de Joaquín Arias; diosa romana Minerva, fuente circular.' },
-                        { titulo: 'Los Arcos de Guadalajara', desc: 'En Av. Vallarta (1939-1942), Aurelio Aceves; 400 aniversario de la ciudad.' }
-                    ]
                 },
                 en: {
                     searchPlaceholder: 'Search places...',
@@ -3294,18 +3042,7 @@
                         'MIMOSA PROMOCIONALES': { nombre: 'MIMOSA Promotional Items', categoria: 'PROMOTIONAL' },
                         'TAKASAMI Clothing': { nombre: 'TAKASAMI Clothing', categoria: 'FASHION' },
                         'TAKASAMI': { nombre: 'TAKASAMI', categoria: 'FASHION' }
-                    },
-                    sidebar: [
-                        { titulo: 'Guadalajara Cathedral', desc: 'Seat of the Archdiocese, main Catholic temple; crypts of archbishops and notable religious images.' },
-                        { titulo: 'Government Palace', desc: 'Original construction 1650, rebuilt after earthquake; Palace of the Royal Audiencia.' },
-                        { titulo: 'Rotonda of Illustrious Jaliscienses', desc: 'Built 1952: 17 fluted columns, ceremonial brazier, 98 niches honoring notable people from Jalisco.' },
-                        { titulo: 'Degollado Theatre', desc: 'Inaugurated 1866, neoclassical; home to Jalisco Philharmonic Orchestra, capacity 1027.' },
-                        { titulo: 'Regional Museum', desc: 'From military barracks (1810) to public library (1857); Regional Museum of Guadalajara since 1976.' },
-                        { titulo: 'Cabañas Museum', desc: 'UNESCO World Heritage; designed by Manuel Tolsá, frescoes by José Clemente Orozco.' },
-                        { titulo: 'San Juan de Dios Market', desc: 'Largest covered market in Latin America, inaugurated 1958, on the San Juan de Dios River.' },
-                        { titulo: 'Minerva', desc: 'Iconic monument (1956) by Joaquín Arias; Roman goddess Minerva, circular fountain.' },
-                        { titulo: 'The Guadalajara Arches', desc: 'Along Av. Vallarta (1939-1942), by Aurelio Aceves; 400th anniversary of the city.' }
-                    ]
+                    }
                 }
             };
 
@@ -3338,15 +3075,6 @@
                 if (legendBusiness) legendBusiness.textContent = t.legendBusiness;
                 var legendLocation = document.getElementById('legendLocation');
                 if (legendLocation) legendLocation.textContent = t.legendLocation;
-                var items = document.querySelectorAll('#sidebarDerechoList .sidebar-derecho-item');
-                if (t.sidebar && items.length === t.sidebar.length) {
-                    items.forEach(function(el, i) {
-                        var tit = el.querySelector('.titulo');
-                        var desc = el.querySelector('.desc');
-                        if (tit) tit.textContent = t.sidebar[i].titulo;
-                        if (desc) desc.textContent = t.sidebar[i].desc;
-                    });
-                }
             }
 
             window.currentLang = currentLang;
@@ -3364,15 +3092,11 @@
             }
             function initSidebarMobile() {
                 var sidebar = document.getElementById('sidebarPuntos');
-                var sidebarDer = document.getElementById('sidebarDerecho');
                 var overlay = document.getElementById('sidebarOverlay');
                 var btnOpen = document.getElementById('sidebarBtnOpen');
                 var btnClose = document.getElementById('sidebarBtnClose');
-                var btnDerOpen = document.getElementById('sidebarDerechoBtnOpen');
-                var btnDerClose = document.getElementById('sidebarDerechoBtnClose');
                 if (!sidebar || !overlay || !btnOpen || !btnClose) return;
                 function openSidebar() {
-                    if (sidebarDer && sidebarDer.classList.contains('open')) sidebarDer.classList.remove('open');
                     sidebar.classList.add('open');
                     overlay.classList.add('active');
                     overlay.setAttribute('aria-hidden', 'false');
@@ -3382,29 +3106,11 @@
                     overlay.classList.remove('active');
                     overlay.setAttribute('aria-hidden', 'true');
                 }
-                function openSidebarDerecho() {
-                    if (sidebar.classList.contains('open')) sidebar.classList.remove('open');
-                    if (sidebarDer) {
-                        sidebarDer.classList.add('open');
-                        overlay.classList.add('active');
-                        overlay.setAttribute('aria-hidden', 'false');
-                    }
-                }
-                function closeSidebarDerecho() {
-                    if (sidebarDer) sidebarDer.classList.remove('open');
-                    if (!sidebar.classList.contains('open')) {
-                        overlay.classList.remove('active');
-                        overlay.setAttribute('aria-hidden', 'true');
-                    }
-                }
                 function closeOverlay() {
                     closeSidebar();
-                    closeSidebarDerecho();
                 }
                 btnOpen.addEventListener('click', openSidebar);
                 btnClose.addEventListener('click', closeSidebar);
-                if (btnDerOpen) btnDerOpen.addEventListener('click', openSidebarDerecho);
-                if (btnDerClose) btnDerClose.addEventListener('click', closeSidebarDerecho);
                 overlay.addEventListener('click', closeOverlay);
                 window.closeSidebarPuntos = closeSidebar;
             }
@@ -5811,21 +5517,6 @@
                     });
                 }
             };
-
-            // Sidebar derecho: clic en A, C o G centra y abre el marcador histórico
-            document.querySelectorAll('#sidebarDerechoList .sidebar-derecho-item[data-marker-index]').forEach(el => {
-                el.addEventListener('click', () => {
-                    const idx = parseInt(el.getAttribute('data-marker-index'), 10);
-                    if (allMarkers[idx]) {
-                        const m = allMarkers[idx];
-                        map.panTo(m.marker.getPosition());
-                        map.setZoom(17);
-                        if (m.marker.getMap()) {
-                            google.maps.event.trigger(m.marker, 'click');
-                        }
-                    }
-                });
-            });
 
             // Franja de anunciantes: clic en un panel centra el mapa y abre el tooltip del marcador
             document.querySelectorAll('#anunciantesStrip .anuncio-panel[data-marker-index]').forEach(panel => {
