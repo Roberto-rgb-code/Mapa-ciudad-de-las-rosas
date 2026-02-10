@@ -42,7 +42,7 @@
             left: 0;
             top: 0;
             width: 280px;
-            height: calc(100vh - 200px);
+            height: calc(100vh - 120px);
             background: #fff;
             box-shadow: 4px 0 20px rgba(0,0,0,0.12);
             z-index: 500;
@@ -135,6 +135,19 @@
             line-height: 1.3;
         }
 
+        .sidebar-puntos-sep {
+            list-style: none;
+            padding: 12px 16px 6px;
+            margin-top: 8px;
+            border-top: 1px solid #f0e6ec;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #880e4f;
+            pointer-events: none;
+        }
+
         /* Overlay y botón menú: ocultos en desktop */
         .sidebar-overlay {
             display: none;
@@ -196,75 +209,83 @@
 
         #map {
             width: calc(100% - 280px);
-            height: calc(100vh - 200px);
+            height: calc(100vh - 120px);
             position: absolute;
             top: 0;
             left: 280px;
         }
 
-        /* ===== FRANJA ANUNCIANTES DEBAJO DEL MAPA ===== */
+        /* ===== FRANJA LOGOS ANUNCIANTES (solo logos, redirigen al punto en el mapa) ===== */
         .anunciantes-strip {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 200px;
+            height: 120px;
             background: #f5f0eb;
             z-index: 400;
             display: flex;
             flex-direction: row;
-            gap: 8px;
+            align-items: center;
+            gap: 10px;
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
             scrollbar-width: thin;
-            padding: 0 8px;
+            padding: 0 12px;
         }
         .anunciantes-strip .anuncio-panel {
-            flex: 0 0 260px;
-            min-width: 220px;
-            height: 100%;
-            display: block;
-            background: transparent;
-            border-radius: 6px;
+            flex: 0 0 100px;
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 10px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             text-decoration: none;
             color: inherit;
             overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         .anunciantes-strip .anuncio-panel:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
         }
-        /* Franja responsive: paneles más estrechos en móvil para mejor touch */
         @media (max-width: 768px) {
             .anunciantes-strip {
-                height: 180px;
+                height: 110px;
                 padding-bottom: env(safe-area-inset-bottom, 0);
             }
             .anunciantes-strip .anuncio-panel {
-                flex: 0 0 200px;
-                min-width: 160px;
+                flex: 0 0 88px;
+                width: 88px;
+                height: 88px;
+                min-width: 88px;
             }
         }
         @media (max-width: 480px) {
             .anunciantes-strip {
-                height: 160px;
+                height: 100px;
             }
             .anunciantes-strip .anuncio-panel {
-                flex: 0 0 180px;
-                min-width: 140px;
+                flex: 0 0 76px;
+                width: 76px;
+                height: 76px;
+                min-width: 76px;
             }
             #map {
-                height: calc(100vh - 160px);
+                height: calc(100vh - 100px);
             }
             .sidebar-puntos {
-                height: calc(100vh - 160px);
+                height: calc(100vh - 100px);
             }
             .legend {
-                bottom: 180px;
+                bottom: 110px;
             }
         }
         .anunciantes-strip .anuncio-content {
@@ -273,14 +294,17 @@
         .anunciantes-strip .anuncio-img-wrap {
             width: 100%;
             height: 100%;
-            min-width: 0;
-            overflow: hidden;
-            background: #f0ebe6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            box-sizing: border-box;
+            background: transparent;
         }
         .anunciantes-strip .anuncio-img-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .info-window {
@@ -330,7 +354,7 @@
             bottom: 20px;
             left: 300px;
             width: 360px;
-            max-height: calc(100vh - 100px);
+            max-height: calc(100vh - 120px);
             background: white;
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.2);
@@ -1948,7 +1972,7 @@
         /* Leyenda - estilo Ciudad de las Rosas */
         .legend {
             position: absolute;
-            bottom: 220px;
+            bottom: 140px;
             left: 295px;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
@@ -2282,10 +2306,10 @@
             #map {
                 left: 0;
                 width: 100%;
-                height: calc(100vh - 180px);
+                height: calc(100vh - 110px);
             }
             .sidebar-puntos {
-                height: calc(100vh - 180px);
+                height: calc(100vh - 110px);
             }
             .map-title {
                 display: none;
@@ -2315,7 +2339,7 @@
             .legend {
                 max-width: 160px;
                 padding: 10px 12px;
-                bottom: 200px;
+                bottom: 120px;
                 left: 12px;
             }
             body:has(.sidebar-puntos.open) .legend {
@@ -2554,7 +2578,7 @@
         <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
     </aside>
 
-    <!-- Franja de anunciantes: fotos en assets/Anuncios; data-marker-index = índice en lista (historicos + empresas) -->
+    <!-- Franja de logos: solo logos de negocios, cada uno redirige a su punto en el mapa -->
     <section class="anunciantes-strip" id="anunciantesStrip" aria-label="Comercios destacados">
         <a class="anuncio-panel" href="#" data-marker-index="14" title="GUARDIÁN CAFÉ-GALERÍA">
             <div class="anuncio-content">
@@ -3196,40 +3220,6 @@
         <button id="btnTranslate" class="control-btn control-btn-translate js-btn-translate" title="Traducir al inglés">
             <span id="btnTranslateText" class="js-btn-translate-text">EN</span>
         </button>
-    </div>
-
-    <!-- Leyenda -->
-    <div class="legend">
-        <div class="legend-header">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
-            </svg>
-            <span id="legendHeader">LEYENDA</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-symbol historical">
-                <svg viewBox="0 0 24 24" fill="#1565C0">
-                    <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
-                </svg>
-            </div>
-            <span id="legendHistoric">Edificio Histórico</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-symbol business">
-                <svg viewBox="0 0 24 24" fill="#8B1538">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-            </div>
-            <span id="legendBusiness">Empresa / Comercio</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-symbol user">
-                <svg viewBox="0 0 24 24" fill="#4285F4">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-            </div>
-            <span id="legendLocation">Tu ubicación</span>
-        </div>
     </div>
 
     <!-- Menús desplegables -->
@@ -3998,17 +3988,19 @@
             opts = opts || {};
             var list = document.getElementById('sidebarPuntosList');
             if (!list) return;
-            var todos = (lugares.historicos || []).concat(lugares.empresas || []);
+            var historicos = lugares.historicos || [];
+            var empresas = (lugares.empresas || []).slice(0, 31);
             list.innerHTML = '';
-            todos.forEach(function(lugar, i) {
+
+            function addItem(label, nombre, markerIndex) {
                 var li = document.createElement('li');
                 li.className = 'sidebar-puntos-item';
-                li.dataset.index = i;
-                li.dataset.nombre = lugar.nombre || '';
-                var displayName = getDisplayNameForSidebar(lugar.nombre);
-                li.innerHTML = '<span class="num">' + (i + 1) + '</span><span class="name">' + (displayName.replace(/</g, '&lt;').replace(/>/g, '&gt;')) + '</span>';
-                if (opts.map && opts.allMarkers && opts.allMarkers[i]) {
-                    var m = opts.allMarkers[i];
+                li.dataset.markerIndex = markerIndex;
+                li.dataset.nombre = nombre || '';
+                var displayName = getDisplayNameForSidebar(nombre);
+                li.innerHTML = '<span class="num">' + (label + '').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span><span class="name">' + (displayName.replace(/</g, '&lt;').replace(/>/g, '&gt;')) + '</span>';
+                if (opts.map && opts.allMarkers && opts.allMarkers[markerIndex]) {
+                    var m = opts.allMarkers[markerIndex];
                     li.addEventListener('click', function() {
                         opts.map.panTo(m.marker.getPosition());
                         opts.map.setZoom(17);
@@ -4017,6 +4009,25 @@
                     });
                 }
                 list.appendChild(li);
+            }
+
+            // 1. Anunciantes: números 1 a 31 (conforme al mapa)
+            empresas.forEach(function(lugar, i) {
+                var markerIndex = historicos.length + i;
+                addItem(i + 1, lugar.nombre, markerIndex);
+            });
+
+            // 2. Separador: Edificios históricos (solo nombre, sin redacción)
+            var sep = document.createElement('li');
+            sep.className = 'sidebar-puntos-sep';
+            sep.setAttribute('aria-hidden', 'true');
+            sep.textContent = 'Edificios históricos';
+            list.appendChild(sep);
+
+            // 3. Edificios históricos: letras A, B, C...
+            historicos.forEach(function(lugar, i) {
+                var letra = String.fromCharCode(65 + i);
+                addItem(letra, lugar.nombre, i);
             });
         };
 
