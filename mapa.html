@@ -4777,8 +4777,8 @@
                 }
             });
 
-            // Función para crear icono personalizado desde imagen (tamaño tipo Google Maps)
-            function crearIconoPersonalizado(rutaImagen, tamaño = 40) {
+            // Función para crear icono personalizado desde imagen
+            function crearIconoPersonalizado(rutaImagen, tamaño = 34) {
                 return {
                     url: rutaImagen,
                     scaledSize: new google.maps.Size(tamaño, tamaño),
@@ -4803,11 +4803,11 @@
                         <circle cx="20" cy="20" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(26, 34),
-                anchor: new google.maps.Point(13, 34)
+                scaledSize: new google.maps.Size(22, 29),
+                anchor: new google.maps.Point(11, 29)
             };
             
-            // Icono de georreferenciación GRANDE para hover (tamaño tipo Google Maps)
+            // Icono de georreferenciación GRANDE para hover
             const iconoGeorreferenciacionGrande = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
                     <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
@@ -4823,8 +4823,8 @@
                         <circle cx="20" cy="20" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(34, 44),
-                anchor: new google.maps.Point(17, 44)
+                scaledSize: new google.maps.Size(28, 36),
+                anchor: new google.maps.Point(14, 36)
             };
 
             // Icono para la ubicación actual del usuario - estilo moderno con pulso
@@ -5418,9 +5418,9 @@
                 }
             });
 
-            // Agregar marcadores históricos (tamaño tipo Google Maps)
-            const tamañoNormal = 40;
-            const tamañoGrande = 52;
+            // Agregar marcadores históricos
+            const tamañoNormal = 34;
+            const tamañoGrande = 44;
             
             lugares.historicos.forEach(lugar => {
                 const iconoNormal = lugar.imagen 
