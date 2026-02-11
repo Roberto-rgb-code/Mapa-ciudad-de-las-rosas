@@ -2140,9 +2140,12 @@
         }
 
         .control-btn-translate {
-            font-size: 11px;
+            width: auto;
+            min-width: 40px;
+            padding: 0 8px;
+            font-size: 10px;
             font-weight: 700;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
             color: #5d4037;
         }
 
@@ -2381,6 +2384,10 @@
                 width: 260px;
                 max-width: 88vw;
             }
+            .sidebar-translate-btn {
+                font-size: 12px;
+                padding: 10px 12px;
+            }
             .search-container {
                 left: 112px;
                 right: 50px;
@@ -2599,7 +2606,7 @@
         </div>
         <div class="sidebar-translate-wrap">
             <button type="button" class="sidebar-translate-btn js-btn-translate" title="Traducir al inglés" aria-label="Traducir al inglés">
-                <span class="js-btn-translate-text">EN</span>
+                <span class="js-btn-translate-text">English</span>
             </button>
         </div>
         <ul class="sidebar-puntos-list" id="sidebarPuntosList"></ul>
@@ -2911,7 +2918,7 @@
                     streetView: 'Vista de calle',
                     myLocation: 'Mi ubicación',
                     translateBtn: 'Traducir al inglés',
-                    translateBtnLabel: 'EN',
+                    translateBtnLabel: 'English',
                     legend: 'LEYENDA',
                     legendHistoric: 'Edificio Histórico',
                     legendBusiness: 'Empresa / Comercio',
@@ -2962,7 +2969,12 @@
                         'Museo Regional de Guadalajara': 'Regional Museum of Guadalajara',
                         'Hospicio Cabañas': 'Hospicio Cabañas',
                         'Glorieta Minerva': 'Minerva Roundabout',
+                        'Glorieta de la Minerva': 'Minerva Roundabout',
                         'Arcos de Guadalajara': 'Guadalajara Arches',
+                        'Los Arcos de Guadalajara': 'Guadalajara Arches',
+                        'Museo Regional': 'Regional Museum of Guadalajara',
+                        'Museo Cabañas': 'Cabañas Museum',
+                        'Mercado de San Juan de Dios': 'San Juan de Dios Market',
                         'Restaurante Casa Dolores': 'Casa Dolores Restaurant',
                         'Ex Convento de Santa Teresa': 'Ex Convent of Santa Teresa',
                         'Casa Anguiano': 'Casa Anguiano',
@@ -2996,7 +3008,9 @@
                         'EL MESÓN Restaurant Bar': 'El Mesón Restaurant Bar',
                         'EL MESÓN': 'El Mesón Restaurant Bar',
                         'BIRRIERÍA El Pilón de los Arrieros': 'El Pilón de los Arrieros Birria',
+                        'BIRRIERIA El Pilón de los Arrieros': 'El Pilón de los Arrieros Birria',
                         'EL PILÓN DE LOS ARRIEROS': 'El Pilón de los Arrieros',
+                        'RESTAURANT BAR El Mesón': 'El Mesón Restaurant Bar',
                         'CARNITAS Uruapan': 'Carnitas Uruapan',
                         'CARNITAS URUAPAN': 'Carnitas Uruapan',
                         'BOTICA Toledo': 'Toledo Pharmacy (Botica)',
@@ -3006,6 +3020,7 @@
                         'MERCADO DE LAS FLORES': 'Flower Market',
                         'CALANDRIA Eléctricas': 'CALANDRIA Electric Streetcars',
                         'CALANDRIAS ELÉCTRICAS': 'CALANDRIA Electric Streetcars',
+                        'CALANDRIAS eléctricas': 'CALANDRIA Electric Streetcars',
                         'LA GLORIA Artículos Religiosos': 'La Gloria Religious Articles',
                         'ARTÍCULOS RELIGIOSOS LA GLORIA': 'La Gloria Religious Articles',
                         'CASA CARRANZA Hotel Airbnb': 'Casa Carranza Hotel Airbnb',
@@ -3014,11 +3029,13 @@
                         'GUASANGA RESTAURANT': 'Guasanga Restaurant',
                         'LOS FAMOSOS Equipales - Cantina': 'Los Famosos Equipales - Cantina',
                         'LOS FAMOSOS EQUIPALES': 'Los Famosos Equipales Cantina',
+                        'CANTINA Los Famosos Equipales': 'Los Famosos Equipales Cantina',
                         'MARIACHI México en la Piel': 'MARIACHI México en la Piel',
                         'MARIACHI MÉXICO EN LA PIEL': 'MARIACHI México en la Piel',
                         'ACADEMIA Nuevo Jalisco': 'Nuevo Jalisco Academy',
                         'ACADEMIA NUEVO JALISCO': 'Nuevo Jalisco Academy',
                         'MIMOSA Artículos Promocionales': 'MIMOSA Promotional Items',
+                        'MIMOSA Artículos Religiosos': 'MIMOSA Religious Articles',
                         'MIMOSA PROMOCIONALES': 'MIMOSA Promotional Items',
                         'TAKASAMI Clothing': 'TAKASAMI Clothing',
                         'TAKASAMI': 'TAKASAMI'
@@ -3033,7 +3050,12 @@
                         'Museo Regional de Guadalajara': { nombre: 'Regional Museum of Guadalajara', categoria: 'HISTORIC BUILDING', direccion: 'Calle Liceo 60, Zona Centro, Guadalajara, Jal.', descripcion: 'From military barracks (1810) to public library (1857); Regional Museum of Guadalajara since 1976.' },
                         'Hospicio Cabañas': { nombre: 'Hospicio Cabañas', categoria: 'HISTORIC BUILDING', direccion: 'Cabañas 8, Zona Centro, Guadalajara, Jal.', descripcion: 'UNESCO World Heritage Site. Designed by architect Manuel Tolsá; murals by José Clemente Orozco. Originally an orphanage founded by Bishop Juan Cruz Ruiz de Cabañas.' },
                         'Glorieta Minerva': { nombre: 'Minerva Roundabout', categoria: 'MONUMENT', direccion: 'Av. López Mateos y Av. Vallarta, Guadalajara, Jal.', descripcion: 'Iconic monument inaugurated in 1956, work of sculptor Joaquín Arias. It represents the Roman goddess Minerva; circular fountain with inscriptions.' },
+                        'Glorieta de la Minerva': { nombre: 'Minerva Roundabout', categoria: 'MONUMENT', direccion: 'Av. López Mateos y Av. Vallarta, Guadalajara, Jal.', descripcion: 'Iconic monument inaugurated in 1956, work of sculptor Joaquín Arias. It represents the Roman goddess Minerva; circular fountain with inscriptions.' },
                         'Arcos de Guadalajara': { nombre: 'Guadalajara Arches', categoria: 'MONUMENT', direccion: 'Av. Vallarta, Col. Americana, Guadalajara, Jal.', descripcion: 'Located on Av. Vallarta; built between 1939 and 1942 by Aurelio Aceves to commemorate the 400th anniversary of the city.' },
+                        'Los Arcos de Guadalajara': { nombre: 'Guadalajara Arches', categoria: 'MONUMENT', direccion: 'Av. Vallarta, Col. Americana, Guadalajara, Jal.', descripcion: 'Located on Av. Vallarta; built between 1939 and 1942 by Aurelio Aceves to commemorate the 400th anniversary of the city.' },
+                        'Museo Regional': { nombre: 'Regional Museum of Guadalajara', categoria: 'HISTORIC BUILDING', direccion: 'Calle Liceo 60, Zona Centro, Guadalajara, Jal.', descripcion: 'From military barracks (1810) to public library (1857); Regional Museum of Guadalajara since 1976.' },
+                        'Museo Cabañas': { nombre: 'Cabañas Museum', categoria: 'HISTORIC BUILDING', direccion: 'Cabañas 8, Zona Centro, Guadalajara, Jal.', descripcion: 'UNESCO World Heritage Site. Designed by architect Manuel Tolsá; murals by José Clemente Orozco. Originally an orphanage founded by Bishop Juan Cruz Ruiz de Cabañas.' },
+                        'Mercado de San Juan de Dios': { nombre: 'San Juan de Dios Market', categoria: 'HISTORIC BUILDING', direccion: 'Calle Javier Mina, Zona Centro, Guadalajara, Jal.', descripcion: 'The largest covered market in Latin America. Designed by architect Alejandro Zohn, it opened on December 30, 1958.' },
                         'Restaurante Casa Dolores': { nombre: 'Casa Dolores Restaurant', categoria: 'RESTAURANT', direccion: 'Paseo Alcalde 22, Col. Centro. Guadalajara, Jal.', descripcion: 'MEXICAN FOOD - Inspired by the aroma of Mexico\'s history. We are a restaurant that celebrates the best of Mexico, transforming its traditional flavors, textures and aromas into the most exquisite Mexican cuisine dishes, the result of a careful selection of ingredients, keeping our legacy of being proudly Mexican very present.' },
                         'Ex Convento de Santa Teresa': { nombre: 'Ex Convent of Santa Teresa', categoria: 'EVENT VENUE', direccion: 'Donato Guerra 25, Zona Centro, 44100 Guadalajara, Jal.', descripcion: 'Where every corner is a beautiful historic space that will make your event stand out. A venue with 400 years of history that is part of the city\'s architectural heritage, to make your event the most memorable and exclusive experience. Founded in the 17th century by the order of the Discalced Carmelites as the first cloister in Guadalajara. "Our history is the ideal setting for your new stories."' },
                         'Casa Anguiano': { nombre: 'Casa Anguiano', categoria: 'RELIGIOUS ARTICLES', direccion: 'Av. Fray Antonio Alcalde 113, Col. Centro. Guadalajara, Jal.', descripcion: 'Founded in 1942. Leaders in the commercialization of religious articles in Mexico. Our company has a retail store in the center of beautiful Guadalajara, a few blocks from our emblematic Cathedral, as well as our own workshop where we manufacture various articles and provide services such as restoration of images and sacred metals, to name a few.' },
@@ -3245,7 +3267,7 @@
 
         <!-- Traducir idioma (debajo de los demás controles) -->
         <button id="btnTranslate" class="control-btn control-btn-translate js-btn-translate" title="Traducir al inglés">
-            <span id="btnTranslateText" class="js-btn-translate-text">EN</span>
+            <span id="btnTranslateText" class="js-btn-translate-text">English</span>
         </button>
     </div>
 
@@ -3464,15 +3486,6 @@
         const lugares = {
             historicos: [
                 {
-                    nombre: "Santuario de Nuestra Señora de Guadalupe",
-                    lat: 20.68482,
-                    lng: -103.34825,
-                    categoria: "EDIFICIO HISTÓRICO",
-                    descripcion: "La primera piedra se colocó el 7 de enero de 1777 y tras cuatro años de obras, la iglesia se inauguró en 1781. La construcción fue promovida y costeada por el filántropo español y entonces obispo de la diócesis, Antonio Alcalde y Barriga, quien tuvo la idea de edificar una iglesia en la parte norte de la ciudad de Guadalajara, que en aquel entonces estaba prácticamente deshabitada. Fue el mismo obispo Alcalde quien costeó los gastos de la construcción del templo, así como la construcción de varias casas que se rentarían a bajo precio para las personas pobres que quisieran habitarlas, llamadas \"las cuadritas\" del Barrio del Santuario. La imagen de Nuestra Señora de Guadalupe se encuentra en el altar principal, pintura que data de 1779 realizada por Don José de Alcíbar.",
-                    direccion: "Barrio del Santuario, Guadalajara, Jal.",
-                    imagen: "assets/santuario-removebg-preview.png"
-                },
-                {
                     nombre: "Catedral de Guadalajara",
                     lat: 20.67672,
                     lng: -103.34764,
@@ -3480,6 +3493,14 @@
                     descripcion: "Oficialmente Catedral Basílica de la Asunción de María Santísima, es la sede de la arquidiócesis de Guadalajara y uno de los principales templos de la Iglesia católica en México. Entre las criptas, debajo de lo que fue la capilla real, se encuentra la de los arzobispos de Guadalajara que datan del siglo XVI. Destacan los dedicados a La Virgen de las Rosas, Santiago el Mayor (patrono de la Nueva España), La Virgen de Guadalupe, Nuestra Señora de Zapopan entre otros.",
                     direccion: "Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.",
                     imagen: "assets/catedral-removebg-preview.png"
+                },
+                {
+                    nombre: "Palacio de Gobierno",
+                    lat: 20.6764,
+                    lng: -103.3479,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Construcción original en 1650, destruido por un terremoto y reconstruido. Sede del Palacio de la Real Audiencia. Alberga murales de José Clemente Orozco.",
+                    direccion: "Av. Corona, Zona Centro, Guadalajara, Jal."
                 },
                 {
                     nombre: "Rotonda de los Jaliscienses Ilustres",
@@ -3491,23 +3512,6 @@
                     imagen: "assets/rotonda-removebg-preview.png"
                 },
                 {
-                    nombre: "Mercado San Juan de Dios",
-                    lat: 20.675562,
-                    lng: -103.33986,
-                    categoria: "EDIFICIO HISTÓRICO",
-                    descripcion: "Es el mercado techado más grande de América Latina. Obra del arquitecto Alejandro Zohn, se inauguró el 30 de diciembre de 1958. Se encuentra ubicado en lo que una vez fue la orilla oriental del río San Juan de Dios, cercano a la capital de la entonces Nueva Galicia. La zona era la entrada de los abastecimientos provenientes de la Ciudad de México. Hacia 1880, Mariano Bárcena da cuenta de la existencia del mercado como uno de los tres principales de Guadalajara, junto al de la plaza de Venegas o de la Independencia (actual mercado Corona) y el de plaza de Toros o plaza Alcalde. Para esas fechas y hasta principios del siglo xx, el mercado poseía la estructura del tianguis mexicano: tablados, lonas, mesas y tendidos sobre el suelo, todo esto al aire libre.",
-                    direccion: "Calle Javier Mina, Zona Centro, Guadalajara, Jal.",
-                    imagen: "assets/mercadosanjuandedios-removebg-preview.png"
-                },
-                {
-                    nombre: "Palacio de Gobierno",
-                    lat: 20.6764,
-                    lng: -103.3479,
-                    categoria: "EDIFICIO HISTÓRICO",
-                    descripcion: "Construcción original en 1650, destruido por un terremoto y reconstruido. Sede del Palacio de la Real Audiencia. Alberga murales de José Clemente Orozco.",
-                    direccion: "Av. Corona, Zona Centro, Guadalajara, Jal."
-                },
-                {
                     nombre: "Teatro Degollado",
                     lat: 20.6769,
                     lng: -103.3467,
@@ -3516,7 +3520,7 @@
                     direccion: "Plaza de la Liberación, Zona Centro, Guadalajara, Jal."
                 },
                 {
-                    nombre: "Museo Regional de Guadalajara",
+                    nombre: "Museo Regional",
                     lat: 20.6772,
                     lng: -103.3488,
                     categoria: "EDIFICIO HISTÓRICO",
@@ -3524,7 +3528,7 @@
                     direccion: "Calle Liceo 60, Zona Centro, Guadalajara, Jal."
                 },
                 {
-                    nombre: "Hospicio Cabañas",
+                    nombre: "Museo Cabañas",
                     lat: 20.6764,
                     lng: -103.3382,
                     categoria: "EDIFICIO HISTÓRICO",
@@ -3532,7 +3536,16 @@
                     direccion: "Cabañas 8, Zona Centro, Guadalajara, Jal."
                 },
                 {
-                    nombre: "Glorieta Minerva",
+                    nombre: "Mercado de San Juan de Dios",
+                    lat: 20.675562,
+                    lng: -103.33986,
+                    categoria: "EDIFICIO HISTÓRICO",
+                    descripcion: "Es el mercado techado más grande de América Latina. Obra del arquitecto Alejandro Zohn, se inauguró el 30 de diciembre de 1958. Se encuentra ubicado en lo que una vez fue la orilla oriental del río San Juan de Dios, cercano a la capital de la entonces Nueva Galicia.",
+                    direccion: "Calle Javier Mina, Zona Centro, Guadalajara, Jal.",
+                    imagen: "assets/mercadosanjuandedios-removebg-preview.png"
+                },
+                {
+                    nombre: "Glorieta de la Minerva",
                     lat: 20.6700,
                     lng: -103.3800,
                     categoria: "MONUMENTO",
@@ -3540,7 +3553,7 @@
                     direccion: "Av. López Mateos y Av. Vallarta, Guadalajara, Jal."
                 },
                 {
-                    nombre: "Arcos de Guadalajara",
+                    nombre: "Los Arcos de Guadalajara",
                     lat: 20.6740,
                     lng: -103.3645,
                     categoria: "MONUMENTO",
@@ -3550,12 +3563,12 @@
             ],
             empresas: [
                 {
-                    nombre: "Restaurante Casa Dolores",
+                    nombre: "RESTAURANT Casa Dolores",
                     lat: 20.67750,
                     lng: -103.34650,
                     categoria: "COMIDA MEXICANA",
                     descripcion: "Inspirada en el aroma de la historia de México. Restaurante que elogia lo mejor de México, trasformando sus tradicionales sabores, texturas y aromas en los más exquisitos platillos de cocina mexicana, resultado de una cuidadosa selección de ingredientes, teniendo muy presente nuestro legado que implica ser orgullosamente mexicanos.",
-                    direccion: "Paseo Alcalde 22, Col. Centro. Guadalajara, Jal.",
+                    direccion: "Av. Alcalde 22, Paseo Alcalde.",
                     horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
                     telefono: "+52 33 1001 8581",
                     web: "opentable.com.mx",
@@ -3595,12 +3608,12 @@
                     ]
                 },
                 {
-                    nombre: "Casa Anguiano",
+                    nombre: "CASA ANGUIANO Artículos Religiosos",
                     lat: 20.67720,
                     lng: -103.34780,
                     categoria: "ARTÍCULOS RELIGIOSOS",
                     descripcion: "Casa fundada en 1942. Líderes en la comercialización de Artículos Religiosos en la República Mexicana. Contamos con un punto de venta al público en el centro de la bella ciudad de Guadalajara, a unas cuantas calles de Catedral, además de un taller donde fabricamos diferentes artículos y realizamos restauraciones de imágenes y metales sagrados.",
-                    direccion: "Av. Fray Antonio Alcalde 113, Col. Centro, Guadalajara, Jal.",
+                    direccion: "Av. Alcalde 113, Paseo Alcalde.",
                     horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
                     telefono: "+52 333 614 6880",
                     whatsapp: "+52 331 061 6961",
@@ -3616,7 +3629,7 @@
                     ]
                 },
                 {
-                    nombre: "El Pilón de los Arrieros",
+                    nombre: "BIRRIERIA El Pilón de los Arrieros",
                     lat: 20.67600,
                     lng: -103.34550,
                     categoria: "GASTRONOMÍA ARTESANAL",
@@ -3637,12 +3650,12 @@
                     ]
                 },
                 {
-                    nombre: "GUARDIÁN CAFÉ-GALERÍA",
+                    nombre: "GUARDÍAN Café Galería",
                     lat: 20.6797854,
                     lng: -103.3477979,
                     categoria: "ECLÉCTICA GALERÍA Y GALERÍA DE ARTE",
                     descripcion: "Ven, relájate y déjate llevar por la belleza que nos rodea. Sumérgete en un mundo de creatividad mientras disfrutas de una taza de café recién hecho. El espacio combina el aroma del café con la inspiración visual de obras de artistas locales y emergentes. Ofrecemos espressos intensos, café turco espumoso, lattes suaves, tisanas, tés aromáticos y chocolate caliente.",
-                    direccion: "Av. Alcalde 207, Col. Centro",
+                    direccion: "Av. Alcalde 207, Paseo Alcalde.",
                     horario: "Lunes a Domingo de 8:30 a 20:30 hrs.",
                     email: "guardiancafegdl@gmail.com",
                     facebook: "Guardian Café",
@@ -3658,12 +3671,12 @@
                     galeria: ["assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 20.59.47.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.00.26.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.01.28.png", "assets/fotos-anunciantes/tortas/Captura de Pantalla 2026-02-03 a la(s) 21.03.20.png"]
                 },
                 {
-                    nombre: "HOTEL ALÓ",
+                    nombre: "HOTEL Aló",
                     lat: 20.6772869,
                     lng: -103.3421337,
                     categoria: "HOTEL",
                     descripcion: "En el corazón del centro histórico de Guadalajara. Espacios diseñados para tu comodidad. Aló Degollado Hotel combina historia y modernidad en pleno centro. Situado en un andador lleno de historia, te ofrecemos una experiencia única cerca de los principales atractivos de la ciudad. Habitaciones sencillas o dobles.",
-                    direccion: "Paseo Degollado 54, Zona Centro, Guadalajara, Jal.",
+                    direccion: "Paseo Degollado 56, Col. Centro.",
                     telefono: "+52 33 3054 7224",
                     facebook: "AlóHotelDegollado",
                     instagram: "alohoteld",
@@ -3671,12 +3684,12 @@
                     galeria: ["assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.13.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.29.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.05.48.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.06.04.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.06.19.png", "assets/fotos-anunciantes/hotel-alo/Captura de Pantalla 2026-02-03 a la(s) 21.07.18.png"]
                 },
                 {
-                    nombre: "HOTEL OLÁ",
+                    nombre: "HOTEL Hola",
                     lat: 20.6728966,
                     lng: -103.3689122,
                     categoria: "HOTEL",
                     descripcion: "En el corazón del centro histórico. Espacios diseñados para tu comodidad. Descubre la Colonia Americana desde nuestro hotel en Av. Chapultepec. Según Time Out, esta colonia está entre las mejores del mundo. Habitaciones con decoración moderna y muy cómodas.",
-                    direccion: "Av. Chapultepec Norte 20A, Ladrón de Guevara – Americana, 44600 Guadalajara, Jal.",
+                    direccion: "Av. Chapultepec 204, Col. Americana.",
                     telefono: "+52 33 4347 3751",
                     facebook: "OLÁ Hotel",
                     instagram: "olahotelc",
@@ -3684,12 +3697,12 @@
                     galeria: ["assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.08.51.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.23.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.46.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.10.59.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.11.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.40.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.45.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.52.png"]
                 },
                 {
-                    nombre: "RESTAURANT LOS PACEÑOS",
+                    nombre: "RESTAURANT Los Paceños",
                     lat: 20.6767769,
                     lng: -103.3433889,
                     categoria: "TACOS DE CAMARÓN Y PESCADO",
                     descripcion: "En el meritito centro de Guadalajara. Un restaurante para todos. Aquí el sabor no tiene límites: platillos, mariscos, opciones para todos los paladares y un ambiente que se vive. Buena música, juegos y momentos que se convierten en recuerdos. Ven con amigos, en pareja o en familia.",
-                    direccion: "Morelos 126, Centro Histórico de Guadalajara, Jal.",
+                    direccion: "Morelos 126, Col. Centro.",
                     horario: "Miércoles a lunes de 11:00 am a 6:30 pm. Para llevar: 11:00 am a 5:30 pm. Cerrado los martes.",
                     telefono: "+52 33 3955 3932",
                     email: "pacenostacos@gmail.com",
@@ -3698,12 +3711,12 @@
                     galeria: ["assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.46.26.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.46.53.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.04.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.24.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.47.59.png", "assets/fotos-anunciantes/pacenos/Captura de Pantalla 2026-02-03 a la(s) 20.49.17.png"]
                 },
                 {
-                    nombre: "TARASKA HELADOS Y PALETAS",
+                    nombre: "TARASKA Helados y Paletas",
                     lat: 20.6765762,
                     lng: -103.3428047,
                     categoria: "PALETAS Y AGUAS FRESCAS DE FRUTA 100% NATURAL",
                     descripcion: "Michoacana por tradición. Encuentra los mejores helados, paletas y aguas frescas de fruta 100% natural. 100% mexicanas y 100% deliciosas. Porque el verdadero lujo es consentirte con tus helados favoritos. En Taraska siempre hay un sabor dulce esperando para compartirlo.",
-                    direccion: "Morelos 99, Centro Histórico de Guadalajara, Jal.",
+                    direccion: "Morelos 99, Col. Centro.",
                     horario: "Lunes a Domingo de 9:00 am a 9:00 pm",
                     telefono: "+52 33 3345 0021",
                     facebook: "Taraska Helados",
@@ -3716,7 +3729,7 @@
                     lng: -103.3465643,
                     categoria: "PALETAS Y AGUAS FRESCAS DE FRUTA 100% NATURAL",
                     descripcion: "Michoacana por tradición. Encuentra los mejores helados, paletas y aguas frescas de fruta 100% natural. 100% mexicanas y 100% deliciosas. Porque el verdadero lujo es consentirte con tus helados favoritos.",
-                    direccion: "Ramón Corona 156, Zona Centro Guadalajara, Jal.",
+                    direccion: "Av. Ramón Corona 156, Col. Centro.",
                     horario: "Lunes a Domingo de 9:00 am a 9:00 pm",
                     telefono: "+52 33 3345 0021",
                     facebook: "Taraska Helados",
@@ -3724,7 +3737,7 @@
                     galeria: ["assets/Anuncios/TARASKAS - Las mejores AGUAS FRESCAS (2)_page-0001.jpg"]
                 },
                 {
-                    nombre: "EX CONVENTO DE SANTA TERESA",
+                    nombre: "EX-CONVENTO DE SANTA TERESA",
                     lat: 20.6759382,
                     lng: -103.3504487,
                     categoria: "SALÓN DE EVENTOS",
@@ -3737,23 +3750,23 @@
                     galeria: ["assets/galeria-ex-convento/1.png", "assets/galeria-ex-convento/2.png", "assets/galeria-ex-convento/3.png"]
                 },
                 {
-                    nombre: "HOTEL ONE GUADALAJARA CENTRO",
+                    nombre: "HOTEL ONE Guadalajara Centro",
                     lat: 20.6760064,
                     lng: -103.3478317,
                     categoria: "HOTEL",
                     descripcion: "Ideal para viajes de negocios o de placer. Ubicado en el centro histórico, a 2 minutos a pie de la Catedral y del Museo Regional. Habitaciones con aire acondicionado, WiFi gratuito y desayuno gratuito. Cada habitación moderna y luminosa con escritorio y TV con canales por cable.",
-                    direccion: "Av. 16 de Septiembre No. 16, Centro Histórico, Guadalajara, Jal.",
+                    direccion: "Av. 16 de Septiembre 16, Centro Histórico.",
                     telefono: "+52 55 2317 3736",
                     web: "onehoteles.com",
                     galeria: ["assets/Anuncios/Hotel ONE.jpg"]
                 },
                 {
-                    nombre: "RAGAZZA FASHION",
+                    nombre: "RAGAZZA Fashion",
                     lat: 20.6753489,
                     lng: -103.345839,
                     categoria: "DISEÑO Y VENTA DE VESTIDOS PARA XV AÑOS",
                     descripcion: "Enamórate de la magia de un AUTÉNTICO RAGAZZA. Cada vestido de XV años Ragazza nace de un proceso artesanal donde la creatividad, la técnica y la precisión se unen para dar vida a algo verdaderamente extraordinario. Bordados hechos a mano, cristales aplicados con delicadeza y telas seleccionadas con rigor.",
-                    direccion: "Av. Juárez 210, Colonia Centro Guadalajara, Jal.",
+                    direccion: "Av. Juárez 210, Col. Centro.",
                     horario: "Lunes a Domingo de 9:00 am a 9:00 pm",
                     telefono: "+52 33 3345 0021",
                     facebook: "Taraska Helados",
@@ -3761,12 +3774,12 @@
                     galeria: ["assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.14.15.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.14.33.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.14.45.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.15.28.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.15.43.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.15.52.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.02.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.26.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.38.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.17.01.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.17.13.png", "assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.17.26.png"]
                 },
                 {
-                    nombre: "RAGAZZA FASHION",
+                    nombre: "RAGAZZA Fashion",
                     lat: 20.67442,
                     lng: -103.3648253,
                     categoria: "DISEÑO Y VENTA DE VESTIDOS PARA XV AÑOS",
                     descripcion: "Enamórate de la magia de un AUTÉNTICO RAGAZZA. Porque cada pieza expresa quién eres y todo lo que estás por vivir. Auténtico Ragazza no es solo una etiqueta: es el resultado de una visión, de un compromiso con la excelencia y de una historia que honra la tradición de la alta costura mexicana.",
-                    direccion: "Av. Vallarta 1291, Col. Americana, Guadalajara, Jal.",
+                    direccion: "Av. Vallarta 1291, Col. Americana.",
                     horario: "Lunes a Domingo de 9:00 am a 9:00 pm",
                     telefono: "+52 33 3345 0021",
                     facebook: "Taraska Helados",
@@ -3774,12 +3787,12 @@
                     galeria: ["assets/fotos-anunciantes/ragazza/Captura de Pantalla 2026-02-03 a la(s) 21.16.38.png"]
                 },
                 {
-                    nombre: "RESTAURANTE CASA DOLORES",
+                    nombre: "RESTAURANT Casa Dolores",
                     lat: 20.676684,
                     lng: -103.3471716,
                     categoria: "COMIDA MEXICANA",
                     descripcion: "Inspirada en el aroma de la historia de México. Restaurante que elogia lo mejor de México, trasformando sus tradicionales sabores, texturas y aromas en los más exquisitos platillos de cocina mexicana.",
-                    direccion: "Paseo Alcalde 22, Col. Centro. Guadalajara, Jal.",
+                    direccion: "Av. Alcalde 22, Paseo Alcalde.",
                     horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
                     telefono: "+52 33 1001 8581",
                     web: "opentable.com.mx",
@@ -3787,31 +3800,31 @@
                     galeria: ["assets/Anuncios/DOL-9.5x10cm 01.jpg", "assets/galeria-casa-dolores/1.jpg"]
                 },
                 {
-                    nombre: "RESTAURANTE CASA DOLORES",
+                    nombre: "RESTAURANT Casa Dolores",
                     lat: 20.6691209,
                     lng: -103.3681815,
                     categoria: "COMIDA MEXICANA",
                     descripcion: "Inspirada en el aroma de la historia de México. Restaurante que elogia lo mejor de México, trasformando sus tradicionales sabores, texturas y aromas en los más exquisitos platillos de cocina mexicana.",
-                    direccion: "Av. Chapultepec Sur 451, Col. Americana, Guadalajara, Jal.",
+                    direccion: "Av. Chapultepec Sur 451, Col. Americana.",
                     telefono: "+52 33 3794 2123",
                     web: "opentable.com.mx",
                     instagram: "@casadoloresgdl",
                     galeria: ["assets/Anuncios/DOL-9.5x10cm 01.jpg", "assets/galeria-casa-dolores/1.jpg"]
                 },
                 {
-                    nombre: "ALMA JALISCO RESTAURANT",
+                    nombre: "RESTAURANT Alma Jalisco",
                     lat: 20.6775006,
                     lng: -103.3494319,
                     categoria: "ESPACIO CULTURAL Y GASTRONÓMICO",
                     descripcion: "Una carta de amor a Jalisco. Vive la esencia de Jalisco en cada detalle: gastronomía, música y hospitalidad. Alma es tradición que se disfruta con orgullo. Comida que apapacha, ambiente que inspira y servicio que enamora.",
-                    direccion: "Av. Miguel Hidalgo y Costilla 469, 5to. Piso, Zona Centro, Guadalajara, Jal.",
+                    direccion: "Av. Hidalgo 469, Quinto Piso, Centro Histórico.",
                     telefono: "+52 33 2034 8548",
                     facebook: "Alma Jalisco",
                     instagram: "@almajalisco.mx",
                     web: "almajalisco.mx"
                 },
                 {
-                    nombre: "CONOCE JALISCO TOURS",
+                    nombre: "CONOCE JALISCO Tours",
                     lat: 20.67874,
                     lng: -103.3465796,
                     categoria: "TOURS",
@@ -3821,12 +3834,12 @@
                     facebook: "Tours Meralib Travels"
                 },
                 {
-                    nombre: "CASA ANGUIANO",
+                    nombre: "CASA ANGUIANO Artículos Religiosos",
                     lat: 20.6782519,
                     lng: -103.3477103,
                     categoria: "ARTÍCULOS RELIGIOSOS",
                     descripcion: "Casa fundada en 1942. Líderes en la comercialización de Artículos Religiosos en la República Mexicana. Punto de venta en el centro de Guadalajara, a unas cuantas calles de Catedral, además de taller donde fabricamos artículos y realizamos restauraciones de imágenes y metales sagrados.",
-                    direccion: "Av. Fray Antonio Alcalde 113, Col. Centro, Guadalajara, Jal.",
+                    direccion: "Av. Alcalde 113, Paseo Alcalde.",
                     horario: "Lunes – Domingo: 8:00 am – 10:00 pm",
                     telefono: "+52 333 614 6880",
                     whatsapp: "+52 331 061 6961",
@@ -3834,23 +3847,23 @@
                     galeria: ["assets/Anuncios/Casa Anguiano - Modulo PDF_page-0001.jpg", "assets/galeria-casa-anguiano/1.png"]
                 },
                 {
-                    nombre: "EL MESÓN",
+                    nombre: "RESTAURANT BAR El Mesón",
                     lat: 20.6779142,
                     lng: -103.3457776,
                     categoria: "RESTAURANT BAR",
                     descripcion: "Restaurante de estilo colonial en el corazón del centro histórico. A un costado del Congreso del estado y a unos pasos del Teatro Degollado y de la Catedral Metropolitana. Desayunos, comida mexicana auténtica, tacos artesanales y cócteles.",
-                    direccion: "Calle Pino Suárez 92, Centro Histórico, Guadalajara, Jal.",
+                    direccion: "Calle Pino Suárez 92, Col. Centro.",
                     telefono: "+52 33 3614 7992",
                     facebook: "El Mesón",
                     galeria: ["assets/Anuncios/ANUNCIO EL MESON (1)_page-0001.jpg"]
                 },
                 {
-                    nombre: "EL PILÓN DE LOS ARRIEROS",
+                    nombre: "BIRRIERIA El Pilón de los Arrieros",
                     lat: 20.6705018,
                     lng: -103.348486,
                     categoria: "GASTRONOMÍA ARTESANAL",
                     descripcion: "Con más de 40 años de tradición. Lupita Figueroa es la dueña de todas las recetas. Especialidad: birria de chivo, barbacoa de borrego, chamorros adobados y cochinita pibil. Por sus mesas han pasado artistas, cantantes, actores y personajes de la radio y la televisión.",
-                    direccion: "Calle Galeana 388, Plaza de las 9 Esquinas, Centro Histórico. Guadalajara, Jal.",
+                    direccion: "Calle Galeana 388, Plaza de las 9 Esquinas.",
                     horario: "Lunes – Domingo: 9:00 am – 9:00 pm",
                     telefono: "+52 33 3613 2799",
                     instagram: "@elpilondelosarrieros",
@@ -3863,7 +3876,7 @@
                     lng: -103.348373,
                     categoria: "GASTRONOMÍA",
                     descripcion: "Una tradición hecha comida. Carnitas, Birria, Carne en su Jugo, Carne Asada. Famosas por su sabor desde 1948. Carnitas estilo Michoacán y antojitos locales como tortas ahogadas en una fonda de barrio abierta a la calle.",
-                    direccion: "Calle Colón 368, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
+                    direccion: "Calle Colón 368, Plaza de las 9 Esquinas.",
                     horario: "Abre a las 9:00 hrs. Cerrado los miércoles.",
                     telefono: "+52 33 3614 3291",
                     facebook: "Carnitas Uruapan 9 Esquinas",
@@ -3872,69 +3885,69 @@
                     galeria: ["assets/Anuncios/ANUNCIO CARNITAS URUAPAN_page-0001.jpg"]
                 },
                 {
-                    nombre: "FARMACIA Y BOTICA TOLEDO",
+                    nombre: "FARMACIA Toledo",
                     lat: 20.6830116,
                     lng: -103.3479814,
                     categoria: "FARMACIA Y BOTICA",
                     descripcion: "Desde 1950. La Botica Toledo sigue las tradicionales recetas de nuestros ancestros y te ofrece una variedad de productos a buen precio.",
-                    direccion: "Paseo Alcalde 409, Centro Histórico. Guadalajara, Jal.",
+                    direccion: "Av. Alcalde 409, Paseo Alcalde.",
                     telefono: "+52 33 3614 7990",
                     facebook: "Farmacia Toledo",
                     galeria: ["assets/Anuncios/ANUNCIO TOLEDO.jpeg"]
                 },
                 {
-                    nombre: "FARMACIA Y BOTICA TOLEDO",
+                    nombre: "BOTICA Toledo",
                     lat: 20.6830043,
                     lng: -103.3480686,
                     categoria: "FARMACIA Y BOTICA",
                     descripcion: "Desde 1950. La Botica Toledo sigue las tradicionales recetas de nuestros ancestros y te ofrece una variedad de productos a buen precio.",
-                    direccion: "Calle Herrera y Cairo 422, Col. Centro, Guadalajara, Jal.",
+                    direccion: "Calle Herrera y Cairo 422, Col. Centro.",
                     telefono: "+52 33 3613 0063",
                     facebook: "Farmacia Toledo",
                     galeria: ["assets/Anuncios/ANUNCIO TOLEDO.jpeg"]
                 },
                 {
-                    nombre: "MERCADO DE LAS FLORES",
+                    nombre: "MERCADO de las Flores",
                     lat: 20.6905,
                     lng: -103.342,
                     categoria: "MERCADO",
                     descripcion: "La mayor oferta floral en Guadalajara. Conocido también como el Mercado de Mezquitán. Mayor variedad de flores, accesorios, ramos y arreglos florales para Bodas, XV Años, Cumpleaños, Aniversarios, Coronas, Floreros, etc.",
-                    direccion: "Calle Mezquitán esquina Jesús García",
+                    direccion: "Mezquitán 901, Col. Mezquitán.",
                     galeria: ["assets/Anuncios/mercado de las flores_page-0001.jpg"]
                 },
                 {
-                    nombre: "CALANDRIAS ELÉCTRICAS",
+                    nombre: "CALANDRIAS eléctricas",
                     lat: 20.6772,
                     lng: -103.3468,
                     categoria: "TRANSPORTE TURÍSTICO",
                     descripcion: "Recorridos en calandrias. Disfruta de un paseo tradicional por el centro de Guadalajara, con vistas panorámicas por las principales plazas y puntos turísticos. Capacidad de 1 a 5 personas. Contrataciones: Pedro Aguilar +52 33 1209 5377 / Gerardo Jiménez +52 33 2216 5446",
-                    direccion: "Ubicadas sobre Av. Hidalgo, a una cuadra de La Catedral",
+                    direccion: "Av. Hidalgo a una cuadra de Catedral.",
                     galeria: ["assets/Anuncios/calandrias_page-0001.jpg"]
                 },
                 {
-                    nombre: "ARTÍCULOS RELIGIOSOS LA GLORIA",
+                    nombre: "LA GLORIA Artículos Religiosos",
                     lat: 20.6792802,
                     lng: -103.348433,
                     categoria: "ARTÍCULOS RELIGIOSOS",
                     descripcion: "Toda clase de artículos para la religión católica. Velas, rosarios, imágenes religiosas en resina, estampas y mucho más.",
-                    direccion: "Calle Pedro Loza 189, Col. Centro, Guadalajara, Jal.",
+                    direccion: "Calle Pedro Loza 189, Col. Centro.",
                     telefono: "+52 33 3613 6370",
                     facebook: "Gloria de LA Gloria",
                     galeria: ["assets/Anuncios/ANUNCIO LA GLORIA.jpeg"]
                 },
                 {
-                    nombre: "CASA CARRANZA",
+                    nombre: "CASA CARRANZA Hotel Airbnb",
                     lat: 20.6810377,
                     lng: -103.3442471,
                     categoria: "BOUTIQUE HOTEL EN AIRBNB",
                     descripcion: "Descubre Guadalajara en nuestra suite en el corazón del centro histórico: Baño y cocina independiente totalmente equipada; 5-10 minutos caminando a la Catedral/Teatro Degollado. Disponibilidad para dejar maletas antes.",
-                    direccion: "Calle Venustiano Carranza 242, Col. Centro, Guadalajara",
+                    direccion: "Calle Venustiano Carranza 242, Col. Centro.",
                     telefono: "+52 33 1062 6345",
                     instagram: "_casacarranza_",
                     galeria: ["assets/Anuncios/CASA CARRANZA.jpg"]
                 },
                 {
-                    nombre: "GUASANGA RESTAURANT",
+                    nombre: "RESTAURANT Guasanga",
                     lat: 20.6764485,
                     lng: -103.3483055,
                     categoria: "RESTAURANTE",
@@ -3945,7 +3958,7 @@
                     galeria: ["assets/Anuncios/Guasanga mapa Guadalajara ciudad de las rosas_page-0001.jpg"]
                 },
                 {
-                    nombre: "LOS FAMOSOS EQUIPALES",
+                    nombre: "CANTINA Los Famosos Equipales",
                     lat: 20.684555,
                     lng: -103.3522987,
                     categoria: "CANTINA",
@@ -3955,12 +3968,12 @@
                     galeria: ["assets/Anuncios/ANUNCIO LOS EQUIPALES_page-0001.jpg"]
                 },
                 {
-                    nombre: "MARIACHI MÉXICO EN LA PIEL",
+                    nombre: "MARIACHI México en la Piel",
                     lat: 20.677,
                     lng: -103.347,
                     categoria: "MARIACHI / EVENTOS",
                     descripcion: "Al son del Mariachi, Jalisco está de fiesta. La música más mexicana interpretada por mariachis profesionales para amenizar cualquier evento u ocasión. Atención personalizada.",
-                    direccion: "Atiende eventos en Zona Metropolitana de Guadalajara, Jal.",
+                    direccion: "Atiende eventos en Zona Metropolitana.",
                     telefono: "+52 33 1027 6501",
                     facebook: "Mariachi México en la piel",
                     galeria: ["assets/Anuncios/mariachi02_page-0001.jpg"]
@@ -3971,11 +3984,11 @@
                     lng: -103.3431203,
                     categoria: "CLASES DE DANZA FOLCLÓRICA",
                     descripcion: "Inscripciones abiertas para niños, jóvenes y adultos.",
-                    direccion: "Av. Hidalgo 107, Col. Centro, Guadalajara, Jal.",
+                    direccion: "Av. Hidalgo 107, Col. Centro.",
                     telefono: "+52 33 3033 5787"
                 },
                 {
-                    nombre: "MIMOSA PROMOCIONALES",
+                    nombre: "MIMOSA Artículos Religiosos",
                     lat: 20.6764789,
                     lng: -103.3595036,
                     categoria: "DESIGN & MERCH STUDIO",
@@ -3988,12 +4001,12 @@
                     galeria: ["assets/Anuncios/MIMOSA_page-0001.jpg"]
                 },
                 {
-                    nombre: "TAKASAMI",
+                    nombre: "TAKASAMI Clothing",
                     lat: 20.639109,
                     lng: -103.3126873,
                     categoria: "MEXICAN HANDCRAFTED CLOTHES",
                     descripcion: "Línea de ropa artesanal con mantas y tejidos de algodón en diferentes texturas, complementadas con textiles mexicanos y detalles artesanales. Prendas con diseño internacional y alma mexicana.",
-                    direccion: "Calle Matamoros No. 12, Centro Tlaquepaque, Jal.",
+                    direccion: "Calle Matamoros 12, Tlaquepaque Centro.",
                     telefono: "+52 33 3122 4512",
                     email: "tienda@takasami.com.mx",
                     instagram: "tkstakasami",
@@ -4016,7 +4029,16 @@
             var list = document.getElementById('sidebarPuntosList');
             if (!list) return;
             var historicos = lugares.historicos || [];
-            var empresas = (lugares.empresas || []).slice(0, 31);
+            var empresas = lugares.empresas || [];
+            var ordenAnunciantes = [
+                'GUARDÍAN Café Galería', 'TORTAS AHOGADAS Las Famosas', 'HOTEL Aló', 'HOTEL Hola', 'RESTAURANT Los Paceños',
+                'TARASKA Helados y Paletas', 'TARASKA Helados y Paletas', 'EX-CONVENTO DE SANTA TERESA', 'HOTEL ONE Guadalajara Centro',
+                'RAGAZZA Fashion', 'RAGAZZA Fashion', 'RESTAURANT Casa Dolores', 'RESTAURANT Casa Dolores', 'RESTAURANT Alma Jalisco',
+                'CONOCE JALISCO Tours', 'CASA ANGUIANO Artículos Religiosos', 'RESTAURANT BAR El Mesón', 'BIRRIERIA El Pilón de los Arrieros',
+                'CARNITAS Uruapan', 'BOTICA Toledo', 'FARMACIA Toledo', 'MERCADO de las Flores', 'CALANDRIAS eléctricas',
+                'LA GLORIA Artículos Religiosos', 'CASA CARRANZA Hotel Airbnb', 'RESTAURANT Guasanga', 'CANTINA Los Famosos Equipales',
+                'MARIACHI México en la Piel', 'ACADEMIA Nuevo Jalisco', 'MIMOSA Artículos Religiosos', 'TAKASAMI Clothing'
+            ];
             list.innerHTML = '';
 
             function addItem(label, nombre, markerIndex) {
@@ -4038,10 +4060,21 @@
                 list.appendChild(li);
             }
 
-            // 1. Anunciantes: números 1 a 31 (conforme al mapa)
-            empresas.forEach(function(lugar, i) {
-                var markerIndex = historicos.length + i;
-                addItem(i + 1, lugar.nombre, markerIndex);
+            // 1. Anunciantes: números 1 a 31 en el orden del listado oficial (nombres duplicados por ocurrencia)
+            var usedCount = {};
+            ordenAnunciantes.forEach(function(nombre, i) {
+                var count = (usedCount[nombre] || 0);
+                usedCount[nombre] = count + 1;
+                var idx = -1, n = 0;
+                for (var j = 0; j < empresas.length; j++) {
+                    if (empresas[j].nombre === nombre) {
+                        if (n === count - 1) { idx = j; break; }
+                        n++;
+                    }
+                }
+                if (idx === -1) idx = i;
+                var markerIndex = historicos.length + idx;
+                addItem(i + 1, nombre, markerIndex);
             });
 
             // 2. Separador: Edificios históricos (solo nombre, sin redacción)
