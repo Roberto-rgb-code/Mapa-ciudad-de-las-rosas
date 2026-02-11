@@ -1171,10 +1171,8 @@
             font-size: 12px;
             line-height: 1.45;
             margin: 0 0 8px 0;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            max-height: 12em;
+            overflow-y: auto;
         }
 
         .info-window .address {
@@ -2503,7 +2501,8 @@
 
             .info-window p {
                 font-size: 12px;
-                -webkit-line-clamp: 3;
+                max-height: 10em;
+                overflow-y: auto;
             }
 
             .info-window-body {
@@ -2557,7 +2556,8 @@
         }
         html.embedded .info-window p {
             margin-bottom: 6px;
-            -webkit-line-clamp: 1;
+            max-height: 8em;
+            overflow-y: auto;
         }
         html.embedded .gallery-container {
             margin: 6px 0;
@@ -4820,7 +4820,7 @@
                 };
             }
 
-            // Icono de georreferenciación para empresas - estilo ArcGIS profesional
+            // Icono de georreferenciación para empresas - estilo ArcGIS profesional (reserva / sin número)
             const iconoGeorreferenciacion = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
                     <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
@@ -4839,6 +4839,63 @@
                 scaledSize: new google.maps.Size(22, 29),
                 anchor: new google.maps.Point(11, 29)
             };
+
+            // Icono para edificios históricos (sin imagen) - color distintivo
+            const iconoHistorico = {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                    <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="shadowH" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+                            </filter>
+                        </defs>
+                        <path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" 
+                              fill="#1565C0" filter="url(#shadowH)"/>
+                        <circle cx="20" cy="20" r="14" fill="#fff"/>
+                        <circle cx="20" cy="20" r="8" fill="#1565C0"/>
+                        <circle cx="20" cy="20" r="4" fill="#fff"/>
+                    </svg>
+                `),
+                scaledSize: new google.maps.Size(22, 29),
+                anchor: new google.maps.Point(11, 29)
+            };
+            const iconoHistoricoGrande = {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                    <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="shadowHg" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+                            </filter>
+                        </defs>
+                        <path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" 
+                              fill="#1565C0" filter="url(#shadowHg)"/>
+                        <circle cx="20" cy="20" r="14" fill="#fff"/>
+                        <circle cx="20" cy="20" r="8" fill="#1565C0"/>
+                        <circle cx="20" cy="20" r="4" fill="#fff"/>
+                    </svg>
+                `),
+                scaledSize: new google.maps.Size(28, 36),
+                anchor: new google.maps.Point(14, 36)
+            };
+
+            // Crear icono crema con número (1-31) para anunciantes
+            function crearIconoEmpresaNumero(num, grande) {
+                var size = grande ? 28 : 22;
+                var anchorY = grande ? 36 : 29;
+                var textSize = grande ? 12 : 10;
+                var svg = '<svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">' +
+                    '<defs><filter id="shadowC' + (grande ? 'g' : '') + '" x="-20%" y="-20%" width="140%" height="140%">' +
+                    '<feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.25"/></filter></defs>' +
+                    '<path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" fill="#E8E0D5" filter="url(#shadowC' + (grande ? 'g' : '') + ')"/>' +
+                    '<circle cx="20" cy="20" r="14" fill="#fff"/>' +
+                    '<text x="20" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="' + textSize + '" fill="#5d4037">' + num + '</text>' +
+                    '</svg>';
+                return {
+                    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg),
+                    scaledSize: new google.maps.Size(size, Math.round(size * 52 / 40)),
+                    anchor: new google.maps.Point(size / 2, anchorY)
+                };
+            }
             
             // Icono de georreferenciación GRANDE para hover
             const iconoGeorreferenciacionGrande = {
@@ -5458,10 +5515,10 @@
             lugares.historicos.forEach(lugar => {
                 const iconoNormal = lugar.imagen 
                     ? crearIconoPersonalizado(lugar.imagen, tamañoNormal)
-                    : iconoGeorreferenciacion;
+                    : iconoHistorico;
                 const iconoHover = lugar.imagen 
                     ? crearIconoPersonalizado(lugar.imagen, tamañoGrande)
-                    : iconoGeorreferenciacionGrande;
+                    : iconoHistoricoGrande;
 
                 const marker = new google.maps.Marker({
                     position: { lat: lugar.lat, lng: lugar.lng },
@@ -5525,13 +5582,42 @@
                 allMarkers.push({ marker, infoWindow, lugar, iconoNormal, iconoHover });
             });
 
-            // Agregar marcadores de empresas
-            lugares.empresas.forEach(lugar => {
+            // Orden oficial de los 31 anunciantes (mismo que en el sidebar)
+            var ordenAnunciantesMap = [
+                'GUARDÍAN Café Galería', 'TORTAS AHOGADAS Las Famosas', 'HOTEL Aló', 'HOTEL Hola', 'RESTAURANT Los Paceños',
+                'TARASKA Helados y Paletas', 'TARASKA Helados y Paletas', 'EX-CONVENTO DE SANTA TERESA', 'HOTEL ONE Guadalajara Centro',
+                'RAGAZZA Fashion', 'RAGAZZA Fashion', 'RESTAURANT Casa Dolores', 'RESTAURANT Casa Dolores', 'RESTAURANT Alma Jalisco',
+                'CONOCE JALISCO Tours', 'CASA ANGUIANO Artículos Religiosos', 'RESTAURANT BAR El Mesón', 'BIRRIERIA El Pilón de los Arrieros',
+                'CARNITAS Uruapan', 'BOTICA Toledo', 'FARMACIA Toledo', 'MERCADO de las Flores', 'CALANDRIAS eléctricas',
+                'LA GLORIA Artículos Religiosos', 'CASA CARRANZA Hotel Airbnb', 'RESTAURANT Guasanga', 'CANTINA Los Famosos Equipales',
+                'MARIACHI México en la Piel', 'ACADEMIA Nuevo Jalisco', 'MIMOSA Artículos Religiosos', 'TAKASAMI Clothing'
+            ];
+            var numeroParaEmpresa = {};
+            var usedCountMap = {};
+            ordenAnunciantesMap.forEach(function(nombre, listPos) {
+                var occ = (usedCountMap[nombre] || 0);
+                usedCountMap[nombre] = occ + 1;
+                var idx = -1, n = 0;
+                for (var j = 0; j < lugares.empresas.length; j++) {
+                    if (lugares.empresas[j].nombre === nombre) {
+                        if (n === occ) { idx = j; break; }
+                        n++;
+                    }
+                }
+                if (idx !== -1) numeroParaEmpresa[idx] = listPos + 1;
+            });
+
+            // Agregar marcadores de empresas (crema con número 1-31)
+            lugares.empresas.forEach((lugar, i) => {
+                var num = numeroParaEmpresa[i];
+                var iconoNormal = (num >= 1 && num <= 31) ? crearIconoEmpresaNumero(num, false) : iconoGeorreferenciacion;
+                var iconoHover = (num >= 1 && num <= 31) ? crearIconoEmpresaNumero(num, true) : iconoGeorreferenciacionGrande;
+
                 const marker = new google.maps.Marker({
                     position: { lat: lugar.lat, lng: lugar.lng },
                     map: map,
                     title: lugar.nombre,
-                    icon: iconoGeorreferenciacion,
+                    icon: iconoNormal,
                     animation: null,
                     cursor: 'pointer'
                 });
@@ -5561,7 +5647,7 @@
                     setupGaleria(lugar);
                     
                     // Hacer el icono más grande al seleccionar
-                    marker.setIcon(iconoGeorreferenciacionGrande);
+                    marker.setIcon(iconoHover);
                     
                     // Pequeña animación de rebote
                     marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -5570,7 +5656,7 @@
 
                 // Hover: efecto visual - icono crece
                 marker.addListener('mouseover', () => {
-                    marker.setIcon(iconoGeorreferenciacionGrande);
+                    marker.setIcon(iconoHover);
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(() => {
                         if (marker !== activeMarker) {
@@ -5582,11 +5668,11 @@
                 // Mouseout: volver al tamaño normal (si no está seleccionado)
                 marker.addListener('mouseout', () => {
                     if (marker !== activeMarker) {
-                        marker.setIcon(iconoGeorreferenciacion);
+                        marker.setIcon(iconoNormal);
                     }
                 });
 
-                allMarkers.push({ marker, infoWindow, lugar, iconoNormal: iconoGeorreferenciacion, iconoHover: iconoGeorreferenciacionGrande });
+                allMarkers.push({ marker, infoWindow, lugar, iconoNormal, iconoHover });
             });
 
             // Rellenar menú lateral: lista de todos los puntos (clic = centrar mapa y abrir tooltip). Nombres traducidos según idioma.
