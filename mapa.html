@@ -3062,8 +3062,8 @@
                         'Hospicio Cabañas': { nombre: 'Hospicio Cabañas', categoria: 'HISTORIC BUILDING', direccion: 'Cabañas 8, Zona Centro, Guadalajara, Jal.', descripcion: 'UNESCO World Heritage Site. Designed by architect Manuel Tolsá; murals by José Clemente Orozco. Originally an orphanage founded by Bishop Juan Cruz Ruiz de Cabañas.' },
                         'Glorieta Minerva': { nombre: 'Minerva Roundabout', categoria: 'MONUMENT', direccion: 'Av. López Mateos y Av. Vallarta, Guadalajara, Jal.', descripcion: 'Iconic monument inaugurated in 1956, work of sculptor Joaquín Arias. It represents the Roman goddess Minerva; circular fountain with inscriptions.' },
                         'Glorieta de la Minerva': { nombre: 'Minerva Roundabout', categoria: 'MONUMENT', direccion: 'Av. López Mateos y Av. Vallarta, Guadalajara, Jal.', descripcion: 'Iconic monument inaugurated in 1956, work of sculptor Joaquín Arias. It represents the Roman goddess Minerva; circular fountain with inscriptions.' },
-                        'Arcos de Guadalajara': { nombre: 'Guadalajara Arches', categoria: 'MONUMENT', direccion: 'Av. Vallarta, Col. Americana, Guadalajara, Jal.', descripcion: 'Located on Av. Vallarta; built between 1939 and 1942 by Aurelio Aceves to commemorate the 400th anniversary of the city.' },
-                        'Los Arcos de Guadalajara': { nombre: 'Guadalajara Arches', categoria: 'MONUMENT', direccion: 'Av. Vallarta, Col. Americana, Guadalajara, Jal.', descripcion: 'Located on Av. Vallarta; built between 1939 and 1942 by Aurelio Aceves to commemorate the 400th anniversary of the city.' },
+                        'Arcos de Guadalajara': { nombre: 'Guadalajara Arches', categoria: 'MONUMENT', direccion: 'C. Manuel López Cotilla before Chapultepec, Guadalajara, Jal.', descripcion: 'Located on Av. Vallarta; built between 1939 and 1942 by Aurelio Aceves to commemorate the 400th anniversary of the city.' },
+                        'Los Arcos de Guadalajara': { nombre: 'Guadalajara Arches', categoria: 'MONUMENT', direccion: 'C. Manuel López Cotilla before Chapultepec, Guadalajara, Jal.', descripcion: 'Located on Av. Vallarta; built between 1939 and 1942 by Aurelio Aceves to commemorate the 400th anniversary of the city.' },
                         'Museo Regional': { nombre: 'Regional Museum of Guadalajara', categoria: 'HISTORIC BUILDING', direccion: 'Calle Liceo 60, Zona Centro, Guadalajara, Jal.', descripcion: 'From military barracks (1810) to public library (1857); Regional Museum of Guadalajara since 1976.' },
                         'Museo Cabañas': { nombre: 'Cabañas Museum', categoria: 'HISTORIC BUILDING', direccion: 'Cabañas 8, Zona Centro, Guadalajara, Jal.', descripcion: 'UNESCO World Heritage Site. Designed by architect Manuel Tolsá; murals by José Clemente Orozco. Originally an orphanage founded by Bishop Juan Cruz Ruiz de Cabañas.' },
                         'Mercado de San Juan de Dios': { nombre: 'San Juan de Dios Market', categoria: 'HISTORIC BUILDING', direccion: 'Calle Javier Mina, Zona Centro, Guadalajara, Jal.', descripcion: 'The largest covered market in Latin America. Designed by architect Alejandro Zohn, it opened on December 30, 1958.' },
@@ -3569,7 +3569,7 @@
                     lng: -103.3645,
                     categoria: "MONUMENTO",
                     descripcion: "Ubicados en Av. Vallarta; construidos entre 1939 y 1942 por Aurelio Aceves para conmemorar el 400 aniversario de la ciudad.",
-                    direccion: "Av. Vallarta, Col. Americana, Guadalajara, Jal."
+                    direccion: "C. Manuel López Cotilla antes de Chapultepec, Guadalajara, Jal."
                 }
             ],
             empresas: [
@@ -4887,7 +4887,7 @@
                 anchor: new google.maps.Point(14, 36)
             };
 
-            // Crear icono crema con número (1-31) para anunciantes
+            // Crear icono rojito muy tenue con número (1-31) para negocios/anunciantes
             function crearIconoEmpresaNumero(num, grande) {
                 var size = grande ? 28 : 22;
                 var anchorY = grande ? 36 : 29;
@@ -4895,9 +4895,9 @@
                 var svg = '<svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">' +
                     '<defs><filter id="shadowC' + (grande ? 'g' : '') + '" x="-20%" y="-20%" width="140%" height="140%">' +
                     '<feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.25"/></filter></defs>' +
-                    '<path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" fill="#E8E0D5" filter="url(#shadowC' + (grande ? 'g' : '') + ')"/>' +
+                    '<path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" fill="#fce4ec" filter="url(#shadowC' + (grande ? 'g' : '') + ')"/>' +
                     '<circle cx="20" cy="20" r="14" fill="#fff"/>' +
-                    '<text x="20" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="' + textSize + '" fill="#5d4037">' + num + '</text>' +
+                    '<text x="20" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="' + textSize + '" fill="#8B1538">' + num + '</text>' +
                     '</svg>';
                 return {
                     url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg),
