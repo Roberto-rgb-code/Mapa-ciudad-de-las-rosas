@@ -2483,9 +2483,17 @@
                 transition: all 0.3s ease;
             }
 
-            /* InfoWindow más compacto en móvil */
+            /* InfoWindow en móvil: scroll para ver todo (Dirección, Cómo llegar, etc.) */
+            .gm-style-iw-d {
+                max-height: 75vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
             .gm-style-iw-c {
                 max-width: 280px !important;
+                max-height: 75vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch;
             }
 
             .info-window {
@@ -3697,7 +3705,7 @@
                     facebook: "OLÁ Hotel",
                     instagram: "olahotelc",
                     web: "olahotel.mx",
-                    galeria: ["assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.08.51.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.23.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.09.46.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.10.59.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.11.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.40.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.45.png", "assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.11.52.png"]
+                    galeria: ["assets/fotos-anunciantes/hotel-ola/Captura de Pantalla 2026-02-03 a la(s) 21.08.51.png"]
                 },
                 {
                     nombre: "RESTAURANT Los Paceños",
