@@ -96,7 +96,7 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             list-style: none;
-            padding: 12px 0;
+            padding: 12px 0 24px 0;
             margin: 0;
         }
 
@@ -137,14 +137,15 @@
 
         .sidebar-puntos-sep {
             list-style: none;
-            padding: 12px 16px 6px;
+            padding: 12px 16px 8px;
             margin-top: 8px;
             border-top: 1px solid #f0e6ec;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: #880e4f;
+            background: #fdf9fc;
             pointer-events: none;
         }
 
@@ -2986,6 +2987,7 @@
                         'HOTEL Aló': 'Aló Hotel',
                         'HOTEL ALÓ': 'Aló Hotel',
                         'HOTEL Holá': 'Holá Hotel',
+                        'HOTEL Olá': 'OLÁ Hotel',
                         'HOTEL OLÁ': 'OLÁ Hotel',
                         'RESTAURANT Los Paceños': 'Los Paceños Restaurant',
                         'RESTAURANT LOS PACEÑOS': 'Los Paceños Restaurant',
@@ -2998,6 +3000,7 @@
                         'RAGAZZA Fashion': 'RAGAZZA Fashion',
                         'RAGAZZA FASHION': 'RAGAZZA Fashion',
                         'CASA Dolores Restaurant': 'Casa Dolores Restaurant',
+                        'RESTAURANT Casa Dolores': 'Casa Dolores Restaurant',
                         'RESTAURANTE CASA DOLORES': 'Casa Dolores Restaurant',
                         'ALMA JALISCO Restaurant': 'ALMA JALISCO Restaurant',
                         'ALMA JALISCO RESTAURANT': 'ALMA JALISCO Restaurant',
@@ -4075,14 +4078,14 @@
                 addItem(i + 1, nombre, markerIndex);
             });
 
-            // 2. Separador: Edificios históricos (solo nombre, sin redacción)
+            // 2. Separador: Edificios históricos (A-I, 9 en total)
             var sep = document.createElement('li');
             sep.className = 'sidebar-puntos-sep';
             sep.setAttribute('aria-hidden', 'true');
-            sep.textContent = 'Edificios históricos';
+            sep.textContent = 'Edificios históricos (A-' + String.fromCharCode(64 + Math.max(1, historicos.length)) + ')';
             list.appendChild(sep);
 
-            // 3. Edificios históricos: letras A, B, C...
+            // 3. Edificios históricos: letras A, B, C... I (9 lugares)
             historicos.forEach(function(lugar, i) {
                 var letra = String.fromCharCode(65 + i);
                 addItem(letra, lugar.nombre, i);
