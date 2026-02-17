@@ -2763,24 +2763,24 @@
                 <img src="assets/Anuncios/ANUNCIO CARNITAS URUAPAN_page-0001.jpg" alt="Carnitas Uruapan">
             </div>
         </a>
-        <a class="anuncio-panel" href="#" data-marker-index="32" title="FARMACIA Y BOTICA TOLEDO">
+        <a class="anuncio-panel" href="#" data-marker-index="27" title="CONOCE JALISCO TOURS">
             <div class="anuncio-content">
                 <span class="anuncio-num">15</span>
-                <span class="anuncio-titulo">FARMACIA Y BOTICA TOLEDO</span>
-                <span class="anuncio-direccion">Herrera y Cairo 422, Col. Centro</span>
+                <span class="anuncio-titulo">CONOCE JALISCO TOURS</span>
+                <span class="anuncio-direccion">Liceo 148, Col. Centro</span>
             </div>
             <div class="anuncio-img-wrap">
-                <img src="assets/Anuncios/ANUNCIO TOLEDO.jpeg" alt="Botica Toledo">
+                <img src="assets/logo.png" alt="Conoce Jalisco Tours">
             </div>
         </a>
-        <a class="anuncio-panel" href="#" data-marker-index="34" title="MERCADO DE LAS FLORES">
+        <a class="anuncio-panel" href="#" data-marker-index="11" title="CASA ANGUIANO">
             <div class="anuncio-content">
                 <span class="anuncio-num">16</span>
-                <span class="anuncio-titulo">MERCADO DE LAS FLORES</span>
-                <span class="anuncio-direccion">Mezquitán 901, Col. Mezquitán</span>
+                <span class="anuncio-titulo">CASA ANGUIANO ARTÍCULOS RELIGIOSOS</span>
+                <span class="anuncio-direccion">Av. Fray Antonio Alcalde 113, Paseo Alcalde</span>
             </div>
             <div class="anuncio-img-wrap">
-                <img src="assets/Anuncios/mercado de las flores_page-0001.jpg" alt="Mercado de las Flores">
+                <img src="assets/Anuncios/Casa Anguiano - Modulo PDF_page-0001.jpg" alt="Casa Anguiano">
             </div>
         </a>
         <a class="anuncio-panel" href="#" data-marker-index="29" title="RESTAURANT BAR EL MESÓN">
@@ -3696,8 +3696,8 @@
                 },
                 {
                     nombre: "HOTEL Olá",
-                    lat: 20.67424,
-                    lng: -103.36856,
+                    lat: 20.6742,
+                    lng: -103.3684,
                     categoria: "EN EL CORAZÓN DEL CENTRO HISTÓRICO DE GUADALAJARA",
                     descripcion: "Espacios diseñados para tu comodidad. Descubre, experimenta y siente la Colonia Americana de Guadalajara, desde nuestro hotel en Av. Chapultepec. Según la revista Time Out, esta colonia cuenta con belleza que la posiciona entre las mejores del mundo. Sus habitaciones tienen una decoración moderna y son muy cómodas.",
                     direccion: "Av. Chapultepec Norte 20A, Ladrón de Guevara – Americana, 44600 Guadalajara, Jal.",
@@ -4071,7 +4071,7 @@
 
             // 1. Anunciantes: números 1 a 31. Tabla explícita para que cada ítem abra siempre el marcador correcto.
             var sidebarMarkerIndices = [
-                13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,  9, 25, 26, 11, 29, 12, 31, 33, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 43
+                13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,  9, 25, 26, 27, 11, 29, 12, 31, 33, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
             ];
             ordenAnunciantes.forEach(function(nombre, i) {
                 var markerIndex = (i < sidebarMarkerIndices.length) ? sidebarMarkerIndices[i] : (historicos.length + i);
@@ -4383,6 +4383,27 @@
 
             window._mapLoaded = true;
             if (window._mapLoadTimeout) clearTimeout(window._mapLoadTimeout);
+
+            // Opcional: verificar ubicaciones con Google Geocoder (API de Google Maps)
+            try {
+                var geocoder = new google.maps.Geocoder();
+                var direccionesPuntos15a20 = [
+                    'Liceo 148, Col. Centro, Guadalajara, Jalisco',
+                    'Av. Fray Antonio Alcalde 113, Guadalajara, Jalisco',
+                    'Pino Suárez 92, Centro Histórico, Guadalajara, Jalisco',
+                    'Galeana 388, Plaza de las 9 esquinas, Guadalajara, Jalisco',
+                    'Colón 368, Plaza de las 9 esquinas, Guadalajara, Jalisco',
+                    'Herrera y Cairo 422, Col. Centro, Guadalajara, Jalisco'
+                ];
+                direccionesPuntos15a20.forEach(function(addr, idx) {
+                    geocoder.geocode({ address: addr }, function(res, status) {
+                        if (status === 'OK' && res[0] && res[0].geometry) {
+                            var loc = res[0].geometry.location;
+                            console.log('Geocode Punto ' + (15 + idx) + ':', addr, '→ lat:', loc.lat(), 'lng:', loc.lng());
+                        }
+                    });
+                });
+            } catch (e) { /* Geocoder no disponible o sin permiso */ }
 
             // ===== ETIQUETAS DE ZONAS ESTILO VINTAGE =====
             // Clase personalizada para crear etiquetas sobre el mapa
