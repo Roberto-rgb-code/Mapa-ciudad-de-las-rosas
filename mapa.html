@@ -4069,20 +4069,12 @@
                 list.appendChild(li);
             }
 
-            // 1. Anunciantes: números 1 a 31 en el orden del listado oficial (nombres duplicados por ocurrencia)
-            var usedCount = {};
+            // 1. Anunciantes: números 1 a 31. Tabla explícita para que cada ítem abra siempre el marcador correcto.
+            var sidebarMarkerIndices = [
+                13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,  9, 25, 26, 11, 29, 12, 31, 33, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 43
+            ];
             ordenAnunciantes.forEach(function(nombre, i) {
-                var count = (usedCount[nombre] || 0);
-                usedCount[nombre] = count + 1;
-                var idx = -1, n = 0;
-                for (var j = 0; j < empresas.length; j++) {
-                    if (empresas[j].nombre === nombre) {
-                        if (n === count - 1) { idx = j; break; }
-                        n++;
-                    }
-                }
-                if (idx === -1) idx = i;
-                var markerIndex = historicos.length + idx;
+                var markerIndex = (i < sidebarMarkerIndices.length) ? sidebarMarkerIndices[i] : (historicos.length + i);
                 addItem(i + 1, nombre, markerIndex);
             });
 
