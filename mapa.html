@@ -5705,13 +5705,16 @@
                 }
             };
 
-            // Franja de anunciantes: clic en un panel centra el mapa y abre el tooltip del marcador
-            document.querySelectorAll('#anunciantesStrip .anuncio-panel[data-marker-index]').forEach(panel => {
-                panel.addEventListener('click', function(e) {
+            // Franja de anunciantes: delegación de eventos para que funcione con paneles originales y clones del carrusel
+            var stripContainer = document.getElementById('anunciantesStrip');
+            if (stripContainer) {
+                stripContainer.addEventListener('click', function(e) {
+                    var panel = e.target && e.target.closest ? e.target.closest('.anuncio-panel[data-marker-index]') : null;
+                    if (!panel) return;
                     e.preventDefault();
-                    const idx = parseInt(this.getAttribute('data-marker-index'), 10);
-                    if (allMarkers[idx]) {
-                        const m = allMarkers[idx];
+                    var idx = parseInt(panel.getAttribute('data-marker-index'), 10);
+                    if (!isNaN(idx) && allMarkers[idx]) {
+                        var m = allMarkers[idx];
                         map.panTo(m.marker.getPosition());
                         map.setZoom(17);
                         if (m.marker.getMap()) {
@@ -5719,7 +5722,7 @@
                         }
                     }
                 });
-            });
+            }
 
             // Variables para almacenar el marcador y círculo del usuario
             let userMarker = null;
