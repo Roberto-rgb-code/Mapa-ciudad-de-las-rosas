@@ -94,12 +94,71 @@ def extraer_campos(obj_str):
     return nombre, direccion, lat, lng
 
 
+# Centro de Guadalajara para restringir búsquedas
+GDL_CENTER = "20.6767,-103.347"
+GDL_BIAS_RADIUS = 35000  # metros (incluye ZMG: Zapopan, Tlaquepaque, etc.)
+
+
+def find_place_google(nombre, direccion, api_key):
+    """
+    Usa Places API (Find Place from Text) para obtener la ubicación exacta del lugar por nombre + dirección.
+    Más preciso que solo Geocoding para negocios y sitios con nombre.
+    Devuelve (lat, lng, formatted_address, place_name, error).
+    """
+    query = (nombre + ", " + direccion).strip()
+    if not query.endswith("Guadalajara") and "Guadalajara" not in query and "Jalisco" not in query:
+        query = query + ", Guadalajara, Jalisco, México"
+    params = {
+        "input": query[:200],
+        "inputtype": "textquery",
+        "fields": "geometry,formatted_address,name",
+        "key": api_key,
+        "language": "es",
+        "locationbias": "circle:%d@%s" % (GDL_BIAS_RADIUS, GDL_CENTER),
+    }
+    url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?" + urllib.parse.urlencode(params)
+    try:
+        with urllib.request.urlopen(url, timeout=15) as resp:
+            data = json.loads(resp.read().decode())
+    except Exception as e:
+        return None, None, None, None, str(e)
+    if data.get("status") != "OK":
+        return None, None, None, None, data.get("status", "ERROR")
+    candidates = data.get("candidates") or []
+    if not candidates:
+        return None, None, None, None, "ZERO_RESULTS"
+    c = candidates[0]
+    geo = c.get("geometry") or {}
+    loc = geo.get("location") or {}
+    lat, lng = loc.get("lat"), loc.get("lng")
+    if lat is None or lng is None:
+        return None, None, None, None, "NO_GEOMETRY"
+    return (
+        lat,
+        lng,
+        c.get("formatted_address") or "",
+        c.get("name") or "",
+        None,
+    )
+
+
 def geocode_address(address, api_key):
-    """Geocodifica una dirección con Google Geocoding API. Devuelve (lat, lng, formatted_address) o None."""
+    """
+    Geocodifica una dirección con Google Geocoding API (respaldo si Places no devuelve resultado).
+    Usa bounds de Guadalajara para mejorar precisión.
+    """
     full = address.strip()
     if not full.endswith("México") and "Guadalajara" not in full:
         full = full + SUFIJO
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + urllib.parse.quote(full) + "&key=" + api_key
+    # Bounds aproximados ZMG para priorizar resultados en la zona
+    bounds = "20.55,-103.42|20.75,-103.28"
+    url = (
+        "https://maps.googleapis.com/maps/api/geocode/json?address="
+        + urllib.parse.quote(full)
+        + "&bounds=" + bounds
+        + "&region=mx"
+        + "&key=" + api_key
+    )
     try:
         with urllib.request.urlopen(url, timeout=15) as resp:
             data = json.loads(resp.read().decode())
@@ -107,7 +166,14 @@ def geocode_address(address, api_key):
         return None, None, None, str(e)
     if data.get("status") != "OK" or not data.get("results"):
         return None, None, None, data.get("status", "ZERO_RESULTS")
-    r = data["results"][0]
+    # Preferir resultado con tipo street_address o premise
+    results = data["results"]
+    r = results[0]
+    for candidate in results:
+        types = candidate.get("types") or []
+        if "street_address" in types or "premise" in types or "establishment" in types:
+            r = candidate
+            break
     loc = r["geometry"]["location"]
     return loc["lat"], loc["lng"], r.get("formatted_address", ""), None
 
@@ -127,22 +193,38 @@ def normalizar_para_comparar(texto):
 
 def nombre_coincide_con_direccion(nombre, direccion, formatted_address, place_name=None):
     """
-    Comprueba si el nombre del punto es coherente con la dirección geocodificada.
-    - Si tenemos place_name (de Places), comprobamos que el nombre contenga palabras clave.
-    - Comprobamos que la dirección devuelta (formatted_address) esté en Guadalajara y contenga la calle/número.
+    Comprueba si el resultado es coherente: dirección en ZMG (Guadalajara, Zapopan, Tlaquepaque, etc.)
+    y opcionalmente que el nombre del lugar coincida si viene de Places.
     """
     if not formatted_address:
         return True, ""
     addr_norm = normalizar_para_comparar(formatted_address)
-    dir_norm = normalizar_para_comparar(direccion) if direccion else ""
-    # Que la dirección geocodificada esté en Guadalajara
-    if "guadalajara" not in addr_norm and "jalisco" not in addr_norm:
-        return False, "La dirección geocodificada no está en Guadalajara: " + formatted_address
-    # Extraer número y calle de nuestra dirección (primer número y primera palabra significativa)
-    numeros_nuestros = set(re.findall(r"\d+", dir_norm))
-    numeros_geo = set(re.findall(r"\d+", addr_norm))
-    if numeros_nuestros and not (numeros_nuestros & numeros_geo):
-        return False, "El número de la dirección no coincide con el geocodificado. Nuestra: " + direccion + " | Geo: " + formatted_address
+    # Aceptar Zona Metropolitana de Guadalajara (Guadalajara, Zapopan, Tlaquepaque, etc.)
+    en_zmg = (
+        "guadalajara" in addr_norm
+        or "zapopan" in addr_norm
+        or "tlaquepaque" in addr_norm
+        or "tonala" in addr_norm
+        or "jalisco" in addr_norm
+    )
+    if not en_zmg:
+        return False, "La dirección no está en la ZMG: " + formatted_address
+    # Si tenemos nombre del lugar (Places), comprobar que sea parecido al nuestro
+    if place_name:
+        nom_norm = normalizar_para_comparar(nombre)
+        place_norm = normalizar_para_comparar(place_name)
+        # Que al menos una palabra significativa del nombre aparezca (ej. "Alma", "Catedral")
+        palabras_nombre = set(w for w in nom_norm.split() if len(w) > 2)
+        palabras_place = set(place_norm.split())
+        if palabras_nombre and not (palabras_nombre & palabras_place):
+            return False, "Nombre del lugar no coincide. Nuestro: " + nombre + " | Google: " + place_name
+    # Números: si nuestra dirección tiene número, que aparezca en la devuelta (flexible: 469 vs 469-5to)
+    if direccion:
+        dir_norm = normalizar_para_comparar(direccion)
+        numeros_nuestros = set(re.findall(r"\d+", dir_norm))
+        numeros_geo = set(re.findall(r"\d+", addr_norm))
+        if numeros_nuestros and not (numeros_nuestros & numeros_geo):
+            return False, "Número de dirección no coincide. Nuestra: " + direccion + " | Geo: " + formatted_address
     return True, ""
 
 
@@ -189,13 +271,32 @@ def main():
         print("  [%d/%d] %s" % (i + 1, len(con_direccion), nombre[:50]))
 
         time.sleep(DELAY_SEC)
-        lat_new, lng_new, formatted_addr, err = geocode_address(direccion, API_KEY)
+        # 1) Intentar Places API (Find Place from Text) = ubicación exacta por nombre + dirección
+        lat_new, lng_new, formatted_addr, place_name, err_places = find_place_google(nombre, direccion, API_KEY)
+        if lat_new is None and err_places:
+            time.sleep(DELAY_SEC)
+            # 2) Respaldo: Geocoding API por dirección exacta (bounds Guadalajara)
+            lat_new, lng_new, formatted_addr, err_geo = geocode_address(direccion, API_KEY)
+            place_name = None
+            err = err_geo
+        else:
+            err = err_places
+
+        # 3) Si Places devolvió algo pero falla verificación (dirección/número distinto), usar Geocoding con dirección exacta
+        if lat_new is not None and formatted_addr:
+            ok_pre, _ = nombre_coincide_con_direccion(nombre, direccion, formatted_addr, place_name)
+            if not ok_pre:
+                time.sleep(DELAY_SEC)
+                lat_geo, lng_geo, addr_geo, err_geo = geocode_address(direccion, API_KEY)
+                if lat_geo is not None:
+                    lat_new, lng_new, formatted_addr = lat_geo, lng_geo, addr_geo or formatted_addr
+                    place_name = None
 
         if err or lat_new is None:
             no_coincidencias.append({
                 "nombre": nombre,
                 "direccion": direccion,
-                "motivo": "Geocoding falló: " + (err or "sin resultados"),
+                "motivo": "Places/Geocoding falló: " + (err or "sin resultados"),
             })
             resultados.append({
                 "nombre": nombre,
@@ -212,7 +313,7 @@ def main():
             })
             continue
 
-        ok, msg = nombre_coincide_con_direccion(nombre, direccion, formatted_addr)
+        ok, msg = nombre_coincide_con_direccion(nombre, direccion, formatted_addr, place_name)
         if not ok:
             no_coincidencias.append({
                 "nombre": nombre,
