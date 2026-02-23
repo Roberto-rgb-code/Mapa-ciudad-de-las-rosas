@@ -5588,13 +5588,27 @@
             // Agregar marcadores históricos
             const tamañoNormal = 34;
             const tamañoGrande = 44;
+            const tamañoMonumentoBase = 60;
+            const tamañoMonumentoHover = 75;
+            const zoomReferencia = 15;
+
+            function getMonumentoSize(base, zoom) {
+                var factor = 1 + Math.max(0, (zoomReferencia - zoom)) * 0.12;
+                return Math.round(base * factor);
+            }
+
+            var monumentoMarkers = [];
             
             lugares.historicos.forEach(lugar => {
-                const iconoNormal = lugar.imagen 
-                    ? crearIconoPersonalizado(lugar.imagen, tamañoNormal)
+                var esMonumento = !!lugar.imagen;
+                var sizeNormal = esMonumento ? tamañoMonumentoBase : tamañoNormal;
+                var sizeHover = esMonumento ? tamañoMonumentoHover : tamañoGrande;
+
+                const iconoNormal = esMonumento
+                    ? crearIconoPersonalizado(lugar.imagen, sizeNormal)
                     : iconoHistorico;
-                const iconoHover = lugar.imagen 
-                    ? crearIconoPersonalizado(lugar.imagen, tamañoGrande)
+                const iconoHover = esMonumento
+                    ? crearIconoPersonalizado(lugar.imagen, sizeHover)
                     : iconoHistoricoGrande;
 
                 const marker = new google.maps.Marker({
@@ -5605,6 +5619,10 @@
                     animation: null,
                     cursor: 'pointer'
                 });
+
+                if (esMonumento) {
+                    monumentoMarkers.push({ marker, lugar, base: tamañoMonumentoBase, hover: tamañoMonumentoHover });
+                }
 
                 const infoWindow = new google.maps.InfoWindow({
                     content: crearContenidoInfo(lugar),
@@ -5619,28 +5637,25 @@
 
                 // Click en marcador: cerrar anterior y abrir nuevo
                 marker.addListener('click', () => {
-                    // Cerrar InfoWindow anterior si existe
                     closeActiveInfoWindow();
-                    
-                    // Abrir el nuevo InfoWindow
                     infoWindow.open(map, marker);
                     activeInfoWindow = infoWindow;
                     activeMarker = marker;
-                    
-                    // Inicializar galería si existe
                     setupGaleria(lugar);
-                    
-                    // Hacer el icono más grande al seleccionar
-                    marker.setIcon(iconoHover);
-                    
-                    // Pequeña animación de rebote
+                    var z = map.getZoom();
+                    marker.setIcon(crearIconoPersonalizado(lugar.imagen || '', getMonumentoSize(tamañoMonumentoHover, z)));
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(() => marker.setAnimation(null), 700);
                 });
 
                 // Hover: efecto visual - icono crece
                 marker.addListener('mouseover', () => {
-                    marker.setIcon(iconoHover);
+                    var z = map.getZoom();
+                    if (esMonumento) {
+                        marker.setIcon(crearIconoPersonalizado(lugar.imagen, getMonumentoSize(tamañoMonumentoHover, z)));
+                    } else {
+                        marker.setIcon(iconoHover);
+                    }
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(() => {
                         if (marker !== activeMarker) {
@@ -5652,11 +5667,26 @@
                 // Mouseout: volver al tamaño normal (si no está seleccionado)
                 marker.addListener('mouseout', () => {
                     if (marker !== activeMarker) {
-                        marker.setIcon(iconoNormal);
+                        if (esMonumento) {
+                            var z = map.getZoom();
+                            marker.setIcon(crearIconoPersonalizado(lugar.imagen, getMonumentoSize(tamañoMonumentoBase, z)));
+                        } else {
+                            marker.setIcon(iconoNormal);
+                        }
                     }
                 });
 
                 allMarkers.push({ marker, infoWindow, lugar, iconoNormal, iconoHover });
+            });
+
+            // Ajustar iconos de monumentos al cambiar zoom
+            map.addListener('zoom_changed', function() {
+                var z = map.getZoom();
+                monumentoMarkers.forEach(function(m) {
+                    if (m.marker === activeMarker) return;
+                    var newSize = getMonumentoSize(m.base, z);
+                    m.marker.setIcon(crearIconoPersonalizado(m.lugar.imagen, newSize));
+                });
             });
 
             // Orden oficial de los 31 anunciantes (mismo que en el sidebar)
