@@ -4316,22 +4316,22 @@
             // Crear el mapa centrado donde están los puntos
             // Estilo "Ciudad de las Rosas" - tonos rosa/pastel
             const estiloMapa = [
-                // Fondo general rosa claro
+                // Fondo general rosa pálido
                 {
                     featureType: 'all',
                     elementType: 'geometry',
-                    stylers: [{ saturation: 10 }, { lightness: 5 }]
+                    stylers: [{ saturation: -10 }, { lightness: 15 }]
                 },
-                // Paisaje/fondo en rosa #f79ed6
+                // Paisaje/fondo en rosa muy pálido
                 {
                     featureType: 'landscape',
                     elementType: 'geometry.fill',
-                    stylers: [{ color: '#f9c4e2' }] // Rosa claro basado en #f79ed6
+                    stylers: [{ color: '#fdf0f5' }]
                 },
                 {
                     featureType: 'landscape.man_made',
                     elementType: 'geometry.fill',
-                    stylers: [{ color: '#f79ed6' }] // Rosa principal del usuario
+                    stylers: [{ color: '#f9dce8' }]
                 },
                 // Parques en verde suave
                 {
