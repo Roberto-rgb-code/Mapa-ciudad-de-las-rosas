@@ -6063,27 +6063,16 @@
                 }
                 if (accuracyCircle) {
                     accuracyCircle.setMap(null);
+                    accuracyCircle = null;
                 }
 
-                // Crear marcador para la ubicación del usuario
+                // Crear marcador para la ubicación del usuario (sin círculo de precisión)
                 userMarker = new google.maps.Marker({
                     position: userLocation,
                     map: map,
                     title: "Tu ubicación actual",
                     icon: iconoUbicacionUsuario,
                     animation: google.maps.Animation.DROP
-                });
-
-                // Crear círculo de precisión
-                accuracyCircle = new google.maps.Circle({
-                    center: userLocation,
-                    radius: accuracy,
-                    map: map,
-                    fillColor: '#4285F4',
-                    fillOpacity: 0.15,
-                    strokeColor: '#4285F4',
-                    strokeOpacity: 0.3,
-                    strokeWeight: 1
                 });
 
                 // Info window para la ubicación del usuario
