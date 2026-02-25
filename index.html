@@ -4961,26 +4961,16 @@
                 anchor: new google.maps.Point(14, 36)
             };
 
-            // Icono para la ubicación actual del usuario - estilo moderno con pulso
+            // Icono para la ubicación actual del usuario - punto azul normal sin halo
             const iconoUbicacionUsuario = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                    <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        <circle cx="16" cy="16" r="14" fill="#4285F4" opacity="0.2"/>
-                        <circle cx="16" cy="16" r="10" fill="#4285F4" opacity="0.4"/>
-                        <circle cx="16" cy="16" r="6" fill="#4285F4" stroke="#fff" stroke-width="2" filter="url(#glow)"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="8" fill="#4285F4"/>
+                        <circle cx="12" cy="12" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(32, 32),
-                anchor: new google.maps.Point(16, 16)
+                scaledSize: new google.maps.Size(24, 24),
+                anchor: new google.maps.Point(12, 12)
             };
 
             // Función para crear contenido del info window mejorado. lang opcional (usa window.currentLang si no se pasa).
