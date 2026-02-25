@@ -4961,16 +4961,18 @@
                 anchor: new google.maps.Point(14, 36)
             };
 
-            // Icono para la ubicación actual del usuario - punto azul normal sin halo
+            // Icono para la ubicación actual del usuario - pin igual a los rojos pero azul turquesa, sin efectos
             const iconoUbicacionUsuario = {
                 url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="8" fill="#4285F4"/>
-                        <circle cx="12" cy="12" r="4" fill="#fff"/>
+                    <svg width="40" height="52" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 0 C8.95 0 0 8.95 0 20 C0 35 20 52 20 52 C20 52 40 35 40 20 C40 8.95 31.05 0 20 0 Z" fill="#20B2AA"/>
+                        <circle cx="20" cy="20" r="14" fill="#fff"/>
+                        <circle cx="20" cy="20" r="8" fill="#20B2AA"/>
+                        <circle cx="20" cy="20" r="4" fill="#fff"/>
                     </svg>
                 `),
-                scaledSize: new google.maps.Size(24, 24),
-                anchor: new google.maps.Point(12, 12)
+                scaledSize: new google.maps.Size(22, 29),
+                anchor: new google.maps.Point(11, 29)
             };
 
             // Función para crear contenido del info window mejorado. lang opcional (usa window.currentLang si no se pasa).
