@@ -1,0 +1,853 @@
+{
+  "results": [
+    {
+      "idx": 0,
+      "nombre": "Catedral de Guadalajara",
+      "tipo": "historico",
+      "actual": [
+        20.677034,
+        -103.346984
+      ],
+      "google": [
+        20.6803372,
+        -103.3477033
+      ],
+      "dist_m": 375,
+      "status": "REVISAR",
+      "direccion_tooltip": "Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "Av. Alcalde, Zona Centro, Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 1,
+      "nombre": "Palacio de Gobierno",
+      "tipo": "historico",
+      "actual": [
+        20.6764,
+        -103.3472
+      ],
+      "google": [
+        20.6723859,
+        -103.3463674
+      ],
+      "dist_m": 455,
+      "status": "MAL_UBICADO",
+      "direccion_tooltip": "Av. Corona, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "Av. Ramón Corona, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 2,
+      "nombre": "Rotonda de los Jaliscienses Ilustres",
+      "tipo": "historico",
+      "actual": [
+        20.6778865,
+        -103.3470261
+      ],
+      "google": [
+        20.6803372,
+        -103.3477033
+      ],
+      "dist_m": 281,
+      "status": "REVISAR",
+      "direccion_tooltip": "Av. Fray Antonio Alcalde, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "Av. Alcalde, Zona Centro, Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 3,
+      "nombre": "Teatro Degollado",
+      "tipo": "historico",
+      "actual": [
+        20.6770173,
+        -103.3447566
+      ],
+      "google": [
+        20.6769553,
+        -103.3459141
+      ],
+      "dist_m": 121,
+      "status": "OK",
+      "direccion_tooltip": "Plaza de la Liberación, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "Plaza de la Liberación, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 4,
+      "nombre": "Museo Regional",
+      "tipo": "historico",
+      "actual": [
+        20.6779,
+        -103.3457
+      ],
+      "google": [
+        20.6777708,
+        -103.3462157
+      ],
+      "dist_m": 56,
+      "status": "OK",
+      "direccion_tooltip": "Calle Liceo 60, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "C. Liceo 60, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 5,
+      "nombre": "Museo Cabañas",
+      "tipo": "historico",
+      "actual": [
+        20.6765575,
+        -103.3382462
+      ],
+      "google": [
+        20.6769692,
+        -103.338808
+      ],
+      "dist_m": 74,
+      "status": "OK",
+      "direccion_tooltip": "Cabañas 8, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "C. Cabañas 8, Las Fresas, 44360 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 6,
+      "nombre": "Mercado de San Juan de Dios",
+      "tipo": "historico",
+      "actual": [
+        20.6755148,
+        -103.3398522
+      ],
+      "google": [
+        20.6752552,
+        -103.3411144
+      ],
+      "dist_m": 134,
+      "status": "OK",
+      "direccion_tooltip": "Calle Javier Mina, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "Av. Javier Mina, Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 7,
+      "nombre": "Glorieta de la Minerva",
+      "tipo": "historico",
+      "actual": [
+        20.6743943,
+        -103.3874128
+      ],
+      "google": [
+        20.6744378,
+        -103.3813176
+      ],
+      "dist_m": 634,
+      "status": "MAL_UBICADO",
+      "direccion_tooltip": "Av. López Mateos y Av. Vallarta, Guadalajara, Jal.",
+      "direccion_google": "Av. Ignacio L Vallarta, Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 8,
+      "nombre": "Los Arcos de Guadalajara",
+      "tipo": "historico",
+      "actual": [
+        20.6744549,
+        -103.3848249
+      ],
+      "google": [
+        20.6745514,
+        -103.3687671
+      ],
+      "dist_m": 1671,
+      "status": "MAL_UBICADO",
+      "direccion_tooltip": "Av. Vallarta, Col. Americana, Guadalajara, Jal.",
+      "direccion_google": "Av. Ignacio L Vallarta, Col Americana, Obrera, Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 9,
+      "nombre": "Santuario de Nuestra Señora de Guadalupe",
+      "tipo": "historico",
+      "actual": [
+        20.6839,
+        -103.3491
+      ],
+      "google": [
+        20.6846533,
+        -103.3487245
+      ],
+      "dist_m": 92,
+      "status": "OK",
+      "direccion_tooltip": "Barrio del Santuario, Guadalajara, Jal.",
+      "direccion_google": "Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 10,
+      "nombre": "Panteón de Belén",
+      "tipo": "historico",
+      "actual": [
+        20.6874364,
+        -103.3453356
+      ],
+      "google": [
+        20.6880564,
+        -103.3452385
+      ],
+      "dist_m": 70,
+      "status": "OK",
+      "direccion_tooltip": "C. Belén 684, El Retiro, 44100 Guadalajara, Jal.",
+      "direccion_google": "C. Belén 684, El Retiro, 44200 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 11,
+      "nombre": "Casa de los Perros",
+      "tipo": "historico",
+      "actual": [
+        20.6799528,
+        -103.3478305
+      ],
+      "google": [
+        20.6799521,
+        -103.3478543
+      ],
+      "dist_m": 2,
+      "status": "OK",
+      "direccion_tooltip": "Av. Alcalde 225, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "Av. Alcalde 225, Zona Centro, 44200 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 12,
+      "nombre": "Arcos del Milenio",
+      "tipo": "historico",
+      "actual": [
+        20.6591829,
+        -103.383872
+      ],
+      "google": [
+        20.6595183,
+        -103.3849487
+      ],
+      "dist_m": 118,
+      "status": "OK",
+      "direccion_tooltip": "Calz. Lázaro Cárdenas 2713, Jardines del Bosque, Guadalajara, Jal.",
+      "direccion_google": "Calz. Lázaro Cárdenas 2713, Jardines del Bosque, 44520 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 13,
+      "nombre": "RESTAURANT Casa Dolores",
+      "tipo": "empresa",
+      "actual": [
+        20.6799983,
+        -103.3469833
+      ],
+      "google": [
+        20.676684,
+        -103.3471716
+      ],
+      "dist_m": 369,
+      "status": "REVISAR",
+      "direccion_tooltip": "Paseo Alcalde 22, Col. Centro. Guadalajara, Jal.",
+      "direccion_google": "Av. Alcalde 22, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 14,
+      "nombre": "Ex Convento de Santa Teresa",
+      "tipo": "empresa",
+      "actual": [
+        20.6759382,
+        -103.3504487
+      ],
+      "google": [
+        20.6759382,
+        -103.3504487
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "C. Donato Guerra 25, Zona Centro, 44100 Guadalajara, Jal.",
+      "direccion_google": "C. Donato Guerra 25, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 15,
+      "nombre": "CASA ANGUIANO Artículos Religiosos",
+      "tipo": "empresa",
+      "actual": [
+        20.6782519,
+        -103.3477103
+      ],
+      "google": [
+        20.6782519,
+        -103.3477103
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Av. Alcalde 113, Paseo Alcalde.",
+      "direccion_google": "Av. Alcalde 113, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 16,
+      "nombre": "BIRRIERIA El Pilón de los Arrieros",
+      "tipo": "empresa",
+      "actual": [
+        20.670644,
+        -103.34876
+      ],
+      "google": [
+        20.6706247,
+        -103.3487475
+      ],
+      "dist_m": 3,
+      "status": "OK",
+      "direccion_tooltip": "Calle Galeana 388, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
+      "direccion_google": "C/ Galeana 388, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 17,
+      "nombre": "GUARDIÁN CAFÉ-GALERÍA",
+      "tipo": "empresa",
+      "actual": [
+        20.6797854,
+        -103.3477979
+      ],
+      "google": [
+        20.6797854,
+        -103.3477979
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Av. Alcalde 207, Col. Centro",
+      "direccion_google": "Av. Alcalde 207, Zona Centro, 44200 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 18,
+      "nombre": "TORTAS AHOGADAS Las Famosas",
+      "tipo": "empresa",
+      "actual": [
+        20.6772053,
+        -103.3435073
+      ],
+      "google": [
+        20.6772053,
+        -103.3435073
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Paseo Degollado 128, Col. Centro, Guadalajara, Jal.",
+      "direccion_google": "P.º Degollado 128, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 19,
+      "nombre": "HOTEL Aló",
+      "tipo": "empresa",
+      "actual": [
+        20.6773343,
+        -103.3414626
+      ],
+      "google": [
+        20.6773343,
+        -103.3414626
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Paseo Degollado 54, Zona Centro, Guadalajara, Jal.",
+      "direccion_google": "P.º Degollado 54, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 20,
+      "nombre": "HOTEL Olá",
+      "tipo": "empresa",
+      "actual": [
+        20.6763536,
+        -103.3681944
+      ],
+      "google": [
+        20.6763221,
+        -103.3683108
+      ],
+      "dist_m": 13,
+      "status": "OK",
+      "direccion_tooltip": "Av. Chapultepec Norte 20A, Ladrón de Guevara – Americana, 44600 Guadalajara, Jal.",
+      "direccion_google": "Av. Chapultepec Nte. 20A, Col Americana, Americana, 44600 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 21,
+      "nombre": "RESTAURANT Los Paceños",
+      "tipo": "empresa",
+      "actual": [
+        20.6767717,
+        -103.3434121
+      ],
+      "google": [
+        20.6767769,
+        -103.3433889
+      ],
+      "dist_m": 2,
+      "status": "OK",
+      "direccion_tooltip": "Morelos 126, Centro Histórico de Guadalajara, Jal.",
+      "direccion_google": "C. José María Morelos 126, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 22,
+      "nombre": "TARASKA Helados y Paletas",
+      "tipo": "empresa",
+      "actual": [
+        20.6766186,
+        -103.3428764
+      ],
+      "google": [
+        20.6765762,
+        -103.3428047
+      ],
+      "dist_m": 9,
+      "status": "OK",
+      "direccion_tooltip": "Morelos 99, Centro Histórico de Guadalajara, Jal.",
+      "direccion_google": "C. José María Morelos 99, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 23,
+      "nombre": "TARASKA Helados y Paletas",
+      "tipo": "empresa",
+      "actual": [
+        20.6742713,
+        -103.3465562
+      ],
+      "google": [
+        20.674271,
+        -103.3465643
+      ],
+      "dist_m": 1,
+      "status": "OK",
+      "direccion_tooltip": "Ramón Corona 156, Zona Centro Guadalajara, Jal.",
+      "direccion_google": "Av. Ramón Corona 156, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 24,
+      "nombre": "EX-CONVENTO DE SANTA TERESA",
+      "tipo": "empresa",
+      "actual": [
+        20.6759382,
+        -103.3504487
+      ],
+      "google": [
+        20.6759382,
+        -103.3504487
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "C. Donato Guerra 25, Zona Centro, 44100 Guadalajara, Jal.",
+      "direccion_google": "C. Donato Guerra 25, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 25,
+      "nombre": "HOTEL ONE Guadalajara Centro",
+      "tipo": "empresa",
+      "actual": [
+        20.6763225,
+        -103.3475391
+      ],
+      "google": [
+        20.6760064,
+        -103.3478317
+      ],
+      "dist_m": 46,
+      "status": "OK",
+      "direccion_tooltip": "Av. 16 de Septiembre No. 16, Centro Histórico, Guadalajara, Jal.",
+      "direccion_google": "Av. 16 de Septiembre 16, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 26,
+      "nombre": "RAGAZZA Fashion",
+      "tipo": "empresa",
+      "actual": [
+        20.6753489,
+        -103.345839
+      ],
+      "google": [
+        20.6753489,
+        -103.345839
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Av. Juárez 210, Colonia Centro Guadalajara, Jal.",
+      "direccion_google": "Av Juárez 210, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 27,
+      "nombre": "RAGAZZA Fashion",
+      "tipo": "empresa",
+      "actual": [
+        20.6744401,
+        -103.3648251
+      ],
+      "google": [
+        20.67442,
+        -103.3648253
+      ],
+      "dist_m": 2,
+      "status": "OK",
+      "direccion_tooltip": "Av. Vallarta 1291, Col. Americana, Guadalajara, Jal.",
+      "direccion_google": "Av. Ignacio L Vallarta 1291, Col Americana, Americana, 44160 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 28,
+      "nombre": "RESTAURANT Casa Dolores",
+      "tipo": "empresa",
+      "actual": [
+        20.6691582,
+        -103.3682445
+      ],
+      "google": [
+        20.6691209,
+        -103.3681815
+      ],
+      "dist_m": 8,
+      "status": "OK",
+      "direccion_tooltip": "Av. Chapultepec Sur 451, Col. Americana.",
+      "direccion_google": "Av. Chapultepec Sur 451, Col Americana, Americana, 44150 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 29,
+      "nombre": "RESTAURANT Alma Jalisco",
+      "tipo": "empresa",
+      "actual": [
+        20.6775006,
+        -103.3494319
+      ],
+      "google": [
+        20.6775006,
+        -103.3494319
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Av. Miguel Hidalgo y Costilla 469-5to. piso, Zona Centro, 44100 Guadalajara, Jal.",
+      "direccion_google": "Av. Miguel Hidalgo y Costilla 469-5to. piso, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 30,
+      "nombre": "CONOCE JALISCO Tours",
+      "tipo": "empresa",
+      "actual": [
+        20.67874,
+        -103.3465796
+      ],
+      "google": [
+        20.67874,
+        -103.3465796
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Calle Liceo 148, Col. Centro, Guadalajara, Jal.",
+      "direccion_google": "Los Sabores D’ Alis, C. Liceo 148, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 31,
+      "nombre": "CASA ANGUIANO Artículos Religiosos",
+      "tipo": "empresa",
+      "actual": [
+        20.6782519,
+        -103.3477103
+      ],
+      "google": [
+        20.6782519,
+        -103.3477103
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Av. Fray Antonio Alcalde 113, Paseo Alcalde, Col. Centro, Guadalajara, Jal.",
+      "direccion_google": "Av. Alcalde 113, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 32,
+      "nombre": "RESTAURANT BAR El Mesón",
+      "tipo": "empresa",
+      "actual": [
+        20.6779142,
+        -103.3457776
+      ],
+      "google": [
+        20.6779142,
+        -103.3457776
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Calle Pino Suárez 92, Centro Histórico, Guadalajara, Jal.",
+      "direccion_google": "C. Pino Suárez 92, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 33,
+      "nombre": "BIRRIERIA El Pilón de los Arrieros",
+      "tipo": "empresa",
+      "actual": [
+        20.670644,
+        -103.34876
+      ],
+      "google": [
+        20.6706247,
+        -103.3487475
+      ],
+      "dist_m": 3,
+      "status": "OK",
+      "direccion_tooltip": "Calle Galeana 388, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
+      "direccion_google": "C/ Galeana 388, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 34,
+      "nombre": "CARNITAS Uruapan",
+      "tipo": "empresa",
+      "actual": [
+        20.6708807,
+        -103.348373
+      ],
+      "google": [
+        20.6708807,
+        -103.348373
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Calle Colón 368, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
+      "direccion_google": "C. Colón 368, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 35,
+      "nombre": "FARMACIA Toledo",
+      "tipo": "empresa",
+      "actual": [
+        20.6830116,
+        -103.3479814
+      ],
+      "google": [
+        20.6830116,
+        -103.3479814
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Paseo Alcalde 409, Centro Histórico. Guadalajara, Jal.",
+      "direccion_google": "Av. Alcalde 409, Zona Centro, 44280 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 36,
+      "nombre": "BOTICA Toledo",
+      "tipo": "empresa",
+      "actual": [
+        20.6828461,
+        -103.3480833
+      ],
+      "google": [
+        20.6830037,
+        -103.3480718
+      ],
+      "dist_m": 18,
+      "status": "OK",
+      "direccion_tooltip": "Calle Herrera y Cairo 422, Col. Centro, Guadalajara, Jal.",
+      "direccion_google": "Herrera y Cairo 422, Zona Centro, 44200 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 37,
+      "nombre": "MERCADO de las Flores",
+      "tipo": "empresa",
+      "actual": [
+        20.689247,
+        -103.3531346
+      ],
+      "google": [
+        20.6888099,
+        -103.353121
+      ],
+      "dist_m": 49,
+      "status": "OK",
+      "direccion_tooltip": "Calle Mezquitán esquina Jesús García",
+      "direccion_google": "C. Mezquitán & C. Jesús García, Artesanos, 44200 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 38,
+      "nombre": "CALANDRIAS eléctricas",
+      "tipo": "empresa",
+      "actual": [
+        20.6772,
+        -103.3475
+      ],
+      "google": [
+        22.2539177,
+        -97.8761859
+      ],
+      "dist_m": 592655,
+      "status": "MAL_UBICADO",
+      "direccion_tooltip": "Ubicadas sobre Av. Hidalgo, a una cuadra de La Catedral",
+      "direccion_google": "Av. Miguel Hidalgo, Tampico, Tamps., Mexico"
+    },
+    {
+      "idx": 39,
+      "nombre": "LA GLORIA Artículos Religiosos",
+      "tipo": "empresa",
+      "actual": [
+        20.6792802,
+        -103.348433
+      ],
+      "google": [
+        20.6792802,
+        -103.348433
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Calle Pedro Loza 189, Col. Centro, Guadalajara, Jal.",
+      "direccion_google": "C. Pedro Loza 189, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 40,
+      "nombre": "CASA CARRANZA Hotel Airbnb",
+      "tipo": "empresa",
+      "actual": [
+        20.6810377,
+        -103.3442471
+      ],
+      "google": [
+        20.7238665,
+        -103.397
+      ],
+      "dist_m": 7266,
+      "status": "MAL_UBICADO",
+      "direccion_tooltip": "Calle Venustiano Carranza 242, Col. Centro, Guadalajara",
+      "direccion_google": "Col. Centro, Zapopan, Jal., Mexico"
+    },
+    {
+      "idx": 41,
+      "nombre": "RESTAURANT Guasanga",
+      "tipo": "empresa",
+      "actual": [
+        20.6765126,
+        -103.348303
+      ],
+      "google": [
+        20.6765126,
+        -103.348303
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Calle Morelos 401, Primer piso, Col. Centro, Guadalajara",
+      "direccion_google": "C. José María Morelos 401, Zona Centro, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 42,
+      "nombre": "CANTINA Los Famosos Equipales",
+      "tipo": "empresa",
+      "actual": [
+        20.6845525,
+        -103.3522648
+      ],
+      "google": [
+        20.684555,
+        -103.3522987
+      ],
+      "dist_m": 4,
+      "status": "OK",
+      "direccion_tooltip": "Calle Juan Álvarez 704, Col. Centro, Guadalajara",
+      "direccion_google": "C. Juan Álvarez 704, Artesanos, 44200 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 43,
+      "nombre": "MARIACHI México en la Piel",
+      "tipo": "empresa",
+      "actual": [
+        20.677,
+        -103.347
+      ],
+      "google": [
+        20.623611,
+        -103.247037
+      ],
+      "dist_m": 11976,
+      "status": "MAL_UBICADO",
+      "direccion_tooltip": "Contrataciones: Rep. Pedro Zaragoza +52 33 1027 6501",
+      "direccion_google": "Av. Tonaltecas 84-Int 9, Tonalá Centro, 45400 Tonalá, Jal., Mexico"
+    },
+    {
+      "idx": 44,
+      "nombre": "ACADEMIA Nuevo Jalisco",
+      "tipo": "empresa",
+      "actual": [
+        20.6773869,
+        -103.3431894
+      ],
+      "google": [
+        20.6773644,
+        -103.3431203
+      ],
+      "dist_m": 8,
+      "status": "OK",
+      "direccion_tooltip": "Av. Hidalgo 107, Col. Centro, Guadalajara, Jal.",
+      "direccion_google": "Av. Miguel Hidalgo y Costilla 107, Zona Plaza Tapatía, 44100 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 45,
+      "nombre": "MIMOSA Artículos Religiosos",
+      "tipo": "empresa",
+      "actual": [
+        20.6764789,
+        -103.3595036
+      ],
+      "google": [
+        20.6764789,
+        -103.3595036
+      ],
+      "dist_m": 0,
+      "status": "OK",
+      "direccion_tooltip": "Av. Enrique Díaz de León 13, Col. Villaseñor, Guadalajara, Jal.",
+      "direccion_google": "Av Enrique Díaz de León Nte 13, Col Americana, Zona Centro, 44200 Guadalajara, Jal., Mexico"
+    },
+    {
+      "idx": 46,
+      "nombre": "TAKASAMI Clothing",
+      "tipo": "empresa",
+      "actual": [
+        20.6391046,
+        -103.3127007
+      ],
+      "google": [
+        20.639109,
+        -103.3126873
+      ],
+      "dist_m": 1,
+      "status": "OK",
+      "direccion_tooltip": "Calle Matamoros No. 12, Centro Tlaquepaque, Jal.",
+      "direccion_google": "Calle Matamoros 12, Centro, 45500 San Pedro Tlaquepaque, Jal., Mexico"
+    }
+  ],
+  "duplicados_coordenadas": [
+    {
+      "idx1": 0,
+      "idx2": 43,
+      "dist_m": 4,
+      "nombre1": "Catedral de Guadalajara",
+      "nombre2": "MARIACHI México en la Piel"
+    },
+    {
+      "idx1": 4,
+      "idx2": 32,
+      "dist_m": 8,
+      "nombre1": "Museo Regional",
+      "nombre2": "RESTAURANT BAR El Mesón"
+    },
+    {
+      "idx1": 11,
+      "idx2": 17,
+      "dist_m": 19,
+      "nombre1": "Casa de los Perros",
+      "nombre2": "GUARDIÁN CAFÉ-GALERÍA"
+    },
+    {
+      "idx1": 14,
+      "idx2": 24,
+      "dist_m": 0,
+      "nombre1": "Ex Convento de Santa Teresa",
+      "nombre2": "EX-CONVENTO DE SANTA TERESA"
+    },
+    {
+      "idx1": 15,
+      "idx2": 31,
+      "dist_m": 0,
+      "nombre1": "CASA ANGUIANO Artículos Religiosos",
+      "nombre2": "CASA ANGUIANO Artículos Religiosos"
+    },
+    {
+      "idx1": 16,
+      "idx2": 33,
+      "dist_m": 0,
+      "nombre1": "BIRRIERIA El Pilón de los Arrieros",
+      "nombre2": "BIRRIERIA El Pilón de los Arrieros"
+    }
+  ],
+  "resumen": {
+    "ok": 38,
+    "revisar": 3,
+    "mal_ubicado": 6,
+    "no_encontrado": 0
+  }
+}
