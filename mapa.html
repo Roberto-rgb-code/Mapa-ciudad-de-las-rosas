@@ -4091,13 +4091,21 @@
                 list.appendChild(li);
             }
 
-            // 1. Anunciantes: números 1 a 30. Tabla explícita para que cada ítem abra siempre el marcador correcto.
-            var sidebarMarkerIndices = [
-                18, 19, 20, 21, 22, 25, 23, 24, 15, 26, 27, 14, 28, 29, 36, 16, 17, 31, 32, 34, 33, 35, 37, 38, 39, 40, 41, 42, 43, 44
-            ];
-            ordenAnunciantes.forEach(function(nombre, i) {
-                var markerIndex = (i < sidebarMarkerIndices.length) ? sidebarMarkerIndices[i] : (historicos.length + i);
-                addItem(i + 1, nombre, markerIndex);
+            // 1. Anunciantes: mismos números que en el mapa. Calcular índice del marcador igual que numeroParaEmpresa.
+            var ordenAnunciantesSidebar = ordenAnunciantes;
+            var usedCount = {};
+            ordenAnunciantesSidebar.forEach(function(nombre, listPos) {
+                var occ = (usedCount[nombre] || 0);
+                usedCount[nombre] = occ + 1;
+                var idx = -1, n = 0;
+                for (var j = 0; j < empresas.length; j++) {
+                    if (empresas[j].nombre === nombre) {
+                        if (n === occ) { idx = j; break; }
+                        n++;
+                    }
+                }
+                var markerIndex = (idx !== -1) ? (historicos.length + idx) : (historicos.length + listPos);
+                addItem(listPos + 1, nombre, markerIndex);
             });
 
             // 2. Separador: Edificios históricos
