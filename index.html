@@ -2096,10 +2096,11 @@
         .controls-panel {
             position: absolute;
             top: 70px;
-            right: 10px;
+            right: 0;
             z-index: 1000;
             display: flex;
             flex-direction: column;
+            align-items: flex-end;
             gap: 8px;
             max-height: calc(100vh - 90px);
             overflow-y: auto;
@@ -2148,6 +2149,40 @@
             font-weight: 700;
             letter-spacing: 0.02em;
             color: #5d4037;
+        }
+
+        /* Botón geolocalización - resaltado para destacar su función */
+        .control-btn-geolocation {
+            width: auto;
+            min-width: 40px;
+            padding: 0 10px 0 8px;
+            gap: 6px;
+            background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+            color: #1967d2;
+            border: 2px solid #4285f4;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.35);
+        }
+
+        .control-btn-geolocation svg {
+            flex-shrink: 0;
+        }
+
+        .control-btn-geolocation:hover {
+            background: linear-gradient(135deg, #d2e3fc 0%, #a8c7fa 100%);
+            color: #1557b0;
+            border-color: #3367d6;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.45);
+        }
+
+        .control-btn-geolocation:active {
+            background: #a8c7fa;
+        }
+
+        .control-btn-geolocation .js-btn-geolocation-text {
+            white-space: nowrap;
         }
 
         /* Grupo de zoom */
@@ -2289,7 +2324,7 @@
                 right: 10px;
             }
             .controls-panel {
-                right: 10px;
+                right: 0;
             }
             .layers-menu,
             .map-type-menu {
@@ -2441,7 +2476,7 @@
             }
 
             .controls-panel {
-                right: 10px;
+                right: 0;
                 top: 60px;
                 gap: 6px;
             }
@@ -2454,6 +2489,16 @@
             .control-btn svg {
                 width: 18px;
                 height: 18px;
+            }
+
+            /* En móvil: geolocalización solo icono pero mantiene resaltado */
+            .control-btn-geolocation {
+                padding: 0;
+                min-width: 36px;
+            }
+
+            .control-btn-geolocation .js-btn-geolocation-text {
+                display: none;
             }
 
             .north-indicator {
@@ -2952,6 +2997,7 @@
                     layers: 'Capas del mapa',
                     streetView: 'Vista de calle',
                     myLocation: 'Mi ubicación',
+                    actualizarUbicacion: 'Actualizar mi ubicación',
                     translateBtn: 'Traducir al inglés',
                     translateBtnLabel: 'English',
                     legend: 'LEYENDA',
@@ -2978,6 +3024,7 @@
                     layers: 'Map layers',
                     streetView: 'Street View',
                     myLocation: 'My location',
+                    actualizarUbicacion: 'Update my location',
                     translateBtn: 'Translate to Spanish',
                     translateBtnLabel: 'ES',
                     legend: 'LEGEND',
@@ -3180,7 +3227,8 @@
                 var btnStreetView = document.getElementById('btnStreetView');
                 if (btnStreetView) btnStreetView.title = t.streetView;
                 var btnGeolocation = document.getElementById('btnGeolocation');
-                if (btnGeolocation) btnGeolocation.title = t.myLocation;
+                if (btnGeolocation) btnGeolocation.title = t.actualizarUbicacion;
+                document.querySelectorAll('.js-btn-geolocation-text').forEach(function(span) { span.textContent = t.actualizarUbicacion; });
                 document.querySelectorAll('.js-btn-translate').forEach(function(btn) { btn.title = t.translateBtn; });
                 document.querySelectorAll('.js-btn-translate-text').forEach(function(span) { span.textContent = t.translateBtnLabel; });
                 var legendHeader = document.getElementById('legendHeader');
@@ -3304,8 +3352,9 @@
         </button>
 
         <!-- Geolocalización -->
-        <button id="btnGeolocation" class="control-btn" title="Mi ubicación">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+        <button id="btnGeolocation" class="control-btn control-btn-geolocation js-btn-geolocation" title="Actualizar mi ubicación">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+            <span id="btnGeolocationText" class="js-btn-geolocation-text">Actualizar mi ubicación</span>
         </button>
 
         <!-- Traducir idioma (debajo de los demás controles) -->
@@ -6107,7 +6156,9 @@
                     userInfoWindow.open(map, userMarker);
                 });
 
-                // No mover el mapa - solo mostrar el marcador de ubicación
+                // Centrar y hacer zoom al punto de ubicación del usuario
+                map.panTo(userLocation);
+                map.setZoom(16);
             }
 
             // Función para obtener y mostrar la ubicación del usuario (siguiendo el patrón del ejemplo)
@@ -6271,8 +6322,7 @@
                 obtenerUbicacionUsuario(true);
             });
 
-            // Intentar obtener la ubicación automáticamente al cargar
-            obtenerUbicacionUsuario(false);
+            // No obtener ubicación al cargar; solo cuando el usuario haga clic en "Actualizar mi ubicación"
         }
     </script>
 
