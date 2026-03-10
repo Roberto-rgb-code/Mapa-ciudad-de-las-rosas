@@ -1,0 +1,8 @@
+NO COINCIDENCIAS O ADVERTENCIAS (revisar antes de aplicar coordenadas)
+================================================================================
+
+1. CASA CARRANZA Hotel Airbnb
+   Dirección en mapa: Calle Venustiano Carranza 242, Col. Centro, Guadalajara
+   Motivo: Número de dirección no coincide. Nuestra: Calle Venustiano Carranza 242, Col. Centro, Guadalajara | Geo: Col. Centro, Zapopan, Jal., Mexico
+   Dirección devuelta por Google: Col. Centro, Zapopan, Jal., Mexico
+
