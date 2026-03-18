@@ -4061,9 +4061,9 @@
             var empresas = lugares.empresas || [];
             var ordenAnunciantes = [
                 'GUARDIÁN CAFÉ-GALERÍA', 'TORTAS AHOGADAS Las Famosas', 'HOTEL Aló', 'HOTEL Olá', 'RESTAURANT Los Paceños',
-                'HOTEL ONE Guadalajara Centro', 'TARASKA Helados y Paletas', 'TARASKA Helados y Paletas',
+                'HOTEL ONE Guadalajara Centro', 'TARASKA Helados y Paletas', 'TARASKA Helados y Paletas', 'Ex Convento de Santa Teresa',
                 'RAGAZZA Fashion', 'RAGAZZA Fashion', 'RESTAURANT Casa Dolores', 'RESTAURANT Casa Dolores', 'RESTAURANT Alma Jalisco',
-                'CASA ANGUIANO Artículos Religiosos', 'RESTAURANT BAR El Mesón', 'BIRRIERIA El Pilón de los Arrieros',
+                'CALANDRIAS eléctricas', 'CASA ANGUIANO Artículos Religiosos', 'RESTAURANT BAR El Mesón', 'BIRRIERIA El Pilón de los Arrieros',
                 'CARNITAS Uruapan', 'BOTICA Toledo', 'FARMACIA Toledo', 'MERCADO de las Flores',
                 'LA GLORIA Artículos Religiosos', 'CASA CARRANZA Hotel Airbnb', 'RESTAURANT Guasanga', 'CANTINA Los Famosos Equipales',
                 'MARIACHI México en la Piel', 'ACADEMIA Nuevo Jalisco', 'MIMOSA Artículos Religiosos', 'TAKASAMI Clothing'
@@ -4102,7 +4102,16 @@
                         n++;
                     }
                 }
-                var markerIndex = (idx !== -1) ? (historicos.length + idx) : (historicos.length + listPos);
+                var markerIndex;
+                if (idx !== -1) {
+                    markerIndex = historicos.length + idx;
+                } else {
+                    var hIdx = -1;
+                    for (var h = 0; h < historicos.length; h++) {
+                        if (historicos[h].nombre === nombre) { hIdx = h; break; }
+                    }
+                    markerIndex = (hIdx !== -1) ? hIdx : (historicos.length + listPos);
+                }
                 addItem(listPos + 1, nombre, markerIndex);
             });
 
@@ -5657,9 +5666,9 @@
             // Orden oficial de los 30 anunciantes (mismo que en el sidebar)
             var ordenAnunciantesMap = [
                 'GUARDIÁN CAFÉ-GALERÍA', 'TORTAS AHOGADAS Las Famosas', 'HOTEL Aló', 'HOTEL Olá', 'RESTAURANT Los Paceños',
-                'HOTEL ONE Guadalajara Centro', 'TARASKA Helados y Paletas', 'TARASKA Helados y Paletas',
+                'HOTEL ONE Guadalajara Centro', 'TARASKA Helados y Paletas', 'TARASKA Helados y Paletas', 'Ex Convento de Santa Teresa',
                 'RAGAZZA Fashion', 'RAGAZZA Fashion', 'RESTAURANT Casa Dolores', 'RESTAURANT Casa Dolores', 'RESTAURANT Alma Jalisco',
-                'CASA ANGUIANO Artículos Religiosos', 'RESTAURANT BAR El Mesón', 'BIRRIERIA El Pilón de los Arrieros',
+                'CALANDRIAS eléctricas', 'CASA ANGUIANO Artículos Religiosos', 'RESTAURANT BAR El Mesón', 'BIRRIERIA El Pilón de los Arrieros',
                 'CARNITAS Uruapan', 'BOTICA Toledo', 'FARMACIA Toledo', 'MERCADO de las Flores',
                 'LA GLORIA Artículos Religiosos', 'CASA CARRANZA Hotel Airbnb', 'RESTAURANT Guasanga', 'CANTINA Los Famosos Equipales',
                 'MARIACHI México en la Piel', 'ACADEMIA Nuevo Jalisco', 'MIMOSA Artículos Religiosos', 'TAKASAMI Clothing'
