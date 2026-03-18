@@ -4451,7 +4451,8 @@
                     }
                     markerIndex = (hIdx !== -1) ? hIdx : (historicos.length + listPos);
                 }
-                addItem(listPos + 1, nombre, markerIndex);
+                var label = (listPos < 22) ? (listPos + 1) : (listPos + 2);
+                addItem(label, nombre, markerIndex);
             });
 
             // 2. Separador: Edificios históricos
@@ -6024,7 +6025,10 @@
                         n++;
                     }
                 }
-                if (idx !== -1) numeroParaEmpresa[idx] = listPos + 1;
+                if (idx !== -1) {
+                    var numLabel = (listPos < 22) ? (listPos + 1) : (listPos + 2);
+                    numeroParaEmpresa[idx] = numLabel;
+                }
             });
 
             // Detectar duplicados sin número (crean puntos rojos extra)
