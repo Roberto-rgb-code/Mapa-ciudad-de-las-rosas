@@ -4395,8 +4395,8 @@
                 },
                 {
                     nombre: "PELOTAS del Centro",
-                    lat: 20.6815,
-                    lng: -103.353,
+                    lat: 20.6837,
+                    lng: -103.3526,
                     categoria: "DEPORTES / ENTRETENIMIENTO",
                     descripcion: "Pelotas del Centro, Col. Centro.",
                     direccion: "Calle Juan Manuel 625, Col. Centro, Guadalajara, Jal."
@@ -6067,8 +6067,8 @@
             // Agregar marcadores de empresas (crema con número 1-30)
             lugares.empresas.forEach((lugar, i) => {
                 var num = numeroParaEmpresa[i];
-                var iconoNormal = (num >= 1 && num <= 30) ? crearIconoEmpresaNumero(num, false) : iconoGeorreferenciacion;
-                var iconoHover = (num >= 1 && num <= 30) ? crearIconoEmpresaNumero(num, true) : iconoGeorreferenciacionGrande;
+                var iconoNormal = (num >= 1 && num <= 33) ? crearIconoEmpresaNumero(num, false) : iconoGeorreferenciacion;
+                var iconoHover = (num >= 1 && num <= 33) ? crearIconoEmpresaNumero(num, true) : iconoGeorreferenciacionGrande;
 
                 const marker = new google.maps.Marker({
                     position: { lat: lugar.lat, lng: lugar.lng },
