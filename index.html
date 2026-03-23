@@ -3901,8 +3901,8 @@
                 },
                 {
                     nombre: "Palacio de Gobierno",
-                    lat: 20.6760966,
-                    lng: -103.3465039,
+                    lat: 20.67625,
+                    lng: -103.34622,
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Construcción original en 1650, destruido por un terremoto y reconstruido. Sede del Palacio de la Real Audiencia. Alberga murales de José Clemente Orozco.",
                     direccion: "Av. Corona, Zona Centro, Guadalajara, Jal.",
@@ -5384,7 +5384,9 @@
                     : '';
                 
                 const routeButtonHTML = createRouteButton(lugar.lat, lugar.lng, lugar.nombre, t.verRuta);
-                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView);
+                const svHeading = lugar.streetViewHeading != null ? lugar.streetViewHeading : null;
+                const svPitch = lugar.streetViewPitch != null ? lugar.streetViewPitch : null;
+                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch);
                 
                 let galeriaHTML = '';
                 if (lugar.galeria && lugar.galeria.length > 0) {
@@ -5804,12 +5806,26 @@
                 `;
             }
 
-            function createStreetViewButton(lat, lng, nombre, label, titleLabel) {
+            // POV por defecto para Street View (heading 0-360°, pitch -90 a 90). Sin entrada = heading 0, pitch 0.
+            const streetViewPOV = {
+                "Catedral de Guadalajara": { heading: 90, pitch: 0 },
+                "Palacio de Gobierno": { heading: 270, pitch: 0 },
+                "Teatro Degollado": { heading: 90, pitch: 0 },
+                "Museo Regional": { heading: 180, pitch: 0 },
+                "Mercado de San Juan de Dios": { heading: 270, pitch: 0 },
+                "RESTAURANT Casa Dolores": { heading: 90, pitch: 0 },
+                "CASA ANGUIANO Artículos Religiosos": { heading: 270, pitch: 0 },
+                "HOTEL ONE Guadalajara Centro": { heading: 180, pitch: 0 },
+                "Ex Convento de Santa Teresa": { heading: 90, pitch: 0 }
+            };
+            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch) {
                 const text = (label || 'Street View').replace(/"/g, '&quot;');
                 const title = (titleLabel != null ? titleLabel : text).replace(/"/g, '&quot;');
                 const nombreEscapado = (nombre || '').replace(/"/g, '&quot;');
+                const h = (heading != null && !isNaN(heading)) ? Number(heading) : ((streetViewPOV[nombre] && streetViewPOV[nombre].heading != null) ? streetViewPOV[nombre].heading : 0);
+                const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : ((streetViewPOV[nombre] && streetViewPOV[nombre].pitch != null) ? streetViewPOV[nombre].pitch : 0);
                 return `
-                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-nombre="${nombreEscapado}" title="${title}">
+                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-nombre="${nombreEscapado}" data-streetview-heading="${h}" data-streetview-pitch="${p}" title="${title}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                             <circle cx="18" cy="6" r="5"/>
@@ -5847,7 +5863,9 @@
                     var lat = parseFloat(svBtn.getAttribute('data-lat'));
                     var lng = parseFloat(svBtn.getAttribute('data-lng'));
                     var nom = (svBtn.getAttribute('data-nombre') || '').replace(/&quot;/g, '"');
-                    if (typeof window.openStreetView === 'function') window.openStreetView(lat, lng, nom);
+                    var h = parseFloat(svBtn.getAttribute('data-streetview-heading'));
+                    var p = parseFloat(svBtn.getAttribute('data-streetview-pitch'));
+                    if (typeof window.openStreetView === 'function') window.openStreetView(lat, lng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p);
                 }
             });
 
@@ -5857,9 +5875,11 @@
             const streetviewModalBody = document.getElementById('streetviewModalBody');
             let currentStreetViewLocation = null;
 
-            // Abrir modal de Street View
-            function openStreetView(lat, lng, placeName) {
+            // Abrir modal de Street View. heading y pitch opcionales (orientación hacia el negocio).
+            function openStreetView(lat, lng, placeName, heading, pitch) {
                 currentStreetViewLocation = { lat, lng };
+                const h = (heading != null && !isNaN(heading)) ? Number(heading) : 0;
+                const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : 0;
                 
                 // Actualizar título
                 streetviewModalTitle.textContent = placeName;
@@ -5881,7 +5901,7 @@
                         document.getElementById('streetviewPanorama'),
                         {
                             position: { lat, lng },
-                            pov: { heading: 0, pitch: 0 },
+                            pov: { heading: h, pitch: p },
                             zoom: 1,
                             addressControl: true,
                             fullscreenControl: true,
