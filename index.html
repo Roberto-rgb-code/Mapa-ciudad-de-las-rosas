@@ -4095,6 +4095,8 @@
                     nombre: "GUARDIÁN CAFÉ-GALERÍA",
                     lat: 20.6797854,
                     lng: -103.3477979,
+                    streetViewLat: 20.67982,
+                    streetViewLng: -103.34772,
                     categoria: "ECLÉCTICA GALERÍA Y GALERÍA DE ARTE",
                     descripcion: "Ven, relájate y déjate llevar por la belleza que nos rodea. Sumérgete en un mundo de creatividad mientras disfrutas de una taza de café recién hecho. El espacio combina el aroma del café con la inspiración visual de obras de artistas locales y emergentes. Ofrecemos una variedad de opciones deliciosas, desde espressos intensos, café turco espumoso hasta lattes suaves, pasando por tisanas, tés aromáticos y chocolate caliente.",
                     direccion: "Av. Alcalde 207, Col. Centro",
@@ -4114,8 +4116,11 @@
                 },
                 {
                     nombre: "HOTEL Aló",
-                    lat: 20.6774109,
-                    lng: -103.3420262,
+                    lat: 20.67715,
+                    lng: -103.34355,
+                    streetViewLat: 20.67718,
+                    streetViewLng: -103.34350,
+                    streetViewHeading: 270,
                     categoria: "EN EL CORAZÓN DEL CENTRO HISTÓRICO DE GUADALAJARA",
                     descripcion: "Espacios diseñados para tu comodidad. Aló Degollado Hotel combina historia y modernidad en pleno centro de Guadalajara. Situado en un andador lleno de historia, te ofrecemos una experiencia única cerca de los principales atractivos de la ciudad. Elige entre nuestras habitaciones sencillas o dobles y disfruta de una estancia inigualable.",
                     direccion: "Paseo Degollado 54, Zona Centro, Guadalajara, Jal.",
@@ -4129,6 +4134,8 @@
                     nombre: "HOTEL Olá",
                     lat: 20.6763536,
                     lng: -103.3681944,
+                    streetViewLat: 20.67640,
+                    streetViewLng: -103.36812,
                     categoria: "EN EL CORAZÓN DEL CENTRO HISTÓRICO DE GUADALAJARA",
                     descripcion: "Espacios diseñados para tu comodidad. Descubre, experimenta y siente la Colonia Americana de Guadalajara, desde nuestro hotel en Av. Chapultepec. Según la revista Time Out, esta colonia cuenta con belleza que la posiciona entre las mejores del mundo. Sus habitaciones tienen una decoración moderna y son muy cómodas.",
                     direccion: "Av. Chapultepec Norte 20A, Ladrón de Guevara – Americana, 44600 Guadalajara, Jal.",
@@ -4193,6 +4200,8 @@
                     nombre: "RAGAZZA Fashion",
                     lat: 20.6753489,
                     lng: -103.345839,
+                    streetViewLat: 20.67538,
+                    streetViewLng: -103.34578,
                     categoria: "DISEÑO Y VENTA DE VESTIDOS PARA XV AÑOS",
                     descripcion: "Enamórate de la magia de un AUTÉNTICO RAGAZZA. Cada vestido de XV años Ragazza nace de un proceso artesanal donde la creatividad, la técnica y la precisión se unen para dar vida a algo verdaderamente extraordinario. Detrás de cada diseño hay horas de trabajo minucioso: bordados hechos a mano, cristales aplicados con delicadeza y telas seleccionadas con rigor, para crear siluetas exclusivas que se ajustan a tu esencia.",
                     direccion: "Av. Juárez 210, Colonia Centro Guadalajara, Jal.",
@@ -4251,8 +4260,10 @@
                 },
                 {
                     nombre: "CARNITAS Uruapan",
-                    lat: 20.6708522,
-                    lng: -103.3484105,
+                    lat: 20.6708854,
+                    lng: -103.348286,
+                    streetViewLat: 20.67088,
+                    streetViewLng: -103.34822,
                     categoria: "UNA TRADICIÓN HECHA COMIDA",
                     descripcion: "Carnitas, Birria, Carne en su Jugo, Carne Asada. Famosas por su sabor las Carnitas Uruapan combinan el sazón y la calidad de sus ingredientes desde 1948. Carnitas estilo Michoacán y antojitos locales como tortas ahogadas en una fonda de barrio abierta a la calle.",
                     direccion: "Calle Colón 368, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
@@ -5386,7 +5397,9 @@
                 const routeButtonHTML = createRouteButton(lugar.lat, lugar.lng, lugar.nombre, t.verRuta);
                 const svHeading = lugar.streetViewHeading != null ? lugar.streetViewHeading : null;
                 const svPitch = lugar.streetViewPitch != null ? lugar.streetViewPitch : null;
-                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch);
+                const svLat = lugar.streetViewLat != null ? lugar.streetViewLat : lugar.lat;
+                const svLng = lugar.streetViewLng != null ? lugar.streetViewLng : lugar.lng;
+                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch, svLat, svLng);
                 
                 let galeriaHTML = '';
                 if (lugar.galeria && lugar.galeria.length > 0) {
@@ -5806,26 +5819,35 @@
                 `;
             }
 
-            // POV por defecto para Street View (heading 0-360°, pitch -90 a 90). Sin entrada = heading 0, pitch 0.
+            // POV para Street View: heading (0-360°) orienta la vista hacia la fachada del negocio. pitch típicamente 0.
+            // Sin entrada = heading 0. Priorizamos vista de calle (exterior) para que el usuario pueda llegar.
             const streetViewPOV = {
                 "Catedral de Guadalajara": { heading: 90, pitch: 0 },
-                "Palacio de Gobierno": { heading: 270, pitch: 0 },
+                "Palacio de Gobierno": { heading: 90, pitch: 0 },
                 "Teatro Degollado": { heading: 90, pitch: 0 },
                 "Museo Regional": { heading: 180, pitch: 0 },
                 "Mercado de San Juan de Dios": { heading: 270, pitch: 0 },
                 "RESTAURANT Casa Dolores": { heading: 90, pitch: 0 },
                 "CASA ANGUIANO Artículos Religiosos": { heading: 270, pitch: 0 },
+                "BIRRIERIA El Pilón de los Arrieros": { heading: 315, pitch: 0 },
+                "GUARDIÁN CAFÉ-GALERÍA": { heading: 180, pitch: 0 },
                 "HOTEL ONE Guadalajara Centro": { heading: 180, pitch: 0 },
+                "CARNITAS Uruapan": { heading: 90, pitch: 0 },
+                "RAGAZZA Fashion": { heading: 180, pitch: 0 },
+                "HOTEL Aló": { heading: 270, pitch: 0 },
+                "HOTEL Olá": { heading: 90, pitch: 0 },
                 "Ex Convento de Santa Teresa": { heading: 90, pitch: 0 }
             };
-            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch) {
+            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch, svLat, svLng) {
                 const text = (label || 'Street View').replace(/"/g, '&quot;');
                 const title = (titleLabel != null ? titleLabel : text).replace(/"/g, '&quot;');
                 const nombreEscapado = (nombre || '').replace(/"/g, '&quot;');
                 const h = (heading != null && !isNaN(heading)) ? Number(heading) : ((streetViewPOV[nombre] && streetViewPOV[nombre].heading != null) ? streetViewPOV[nombre].heading : 0);
                 const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : ((streetViewPOV[nombre] && streetViewPOV[nombre].pitch != null) ? streetViewPOV[nombre].pitch : 0);
+                const slat = (svLat != null && !isNaN(svLat)) ? svLat : lat;
+                const slng = (svLng != null && !isNaN(svLng)) ? svLng : lng;
                 return `
-                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-nombre="${nombreEscapado}" data-streetview-heading="${h}" data-streetview-pitch="${p}" title="${title}">
+                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-sv-lat="${slat}" data-sv-lng="${slng}" data-nombre="${nombreEscapado}" data-streetview-heading="${h}" data-streetview-pitch="${p}" title="${title}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                             <circle cx="18" cy="6" r="5"/>
@@ -5860,12 +5882,14 @@
                 if (svBtn) {
                     e.preventDefault();
                     e.stopPropagation();
-                    var lat = parseFloat(svBtn.getAttribute('data-lat'));
-                    var lng = parseFloat(svBtn.getAttribute('data-lng'));
+                    var slat = parseFloat(svBtn.getAttribute('data-sv-lat'));
+                    var slng = parseFloat(svBtn.getAttribute('data-sv-lng'));
+                    if (isNaN(slat)) slat = parseFloat(svBtn.getAttribute('data-lat'));
+                    if (isNaN(slng)) slng = parseFloat(svBtn.getAttribute('data-lng'));
                     var nom = (svBtn.getAttribute('data-nombre') || '').replace(/&quot;/g, '"');
                     var h = parseFloat(svBtn.getAttribute('data-streetview-heading'));
                     var p = parseFloat(svBtn.getAttribute('data-streetview-pitch'));
-                    if (typeof window.openStreetView === 'function') window.openStreetView(lat, lng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p);
+                    if (typeof window.openStreetView === 'function') window.openStreetView(slat, slng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p);
                 }
             });
 
@@ -5875,16 +5899,14 @@
             const streetviewModalBody = document.getElementById('streetviewModalBody');
             let currentStreetViewLocation = null;
 
-            // Abrir modal de Street View. heading y pitch opcionales (orientación hacia el negocio).
+            // Abrir modal de Street View. heading y pitch opcionales (orientación hacia la fachada del negocio).
+            // Prioriza panoramas de calle (outdoor) para que se vea el exterior, no interiores.
             function openStreetView(lat, lng, placeName, heading, pitch) {
                 currentStreetViewLocation = { lat, lng };
                 const h = (heading != null && !isNaN(heading)) ? Number(heading) : 0;
                 const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : 0;
                 
-                // Actualizar título
                 streetviewModalTitle.textContent = placeName;
-                
-                // Mostrar modal con loading
                 streetviewModal.classList.add('active');
                 streetviewModalBody.innerHTML = `
                     <div class="streetview-loading">
@@ -5893,14 +5915,26 @@
                     </div>
                 `;
                 
-                // Crear el Street View panorama dentro del modal
-                setTimeout(() => {
+                function showError() {
+                    streetviewModalBody.innerHTML = `
+                        <div style="text-align:center;padding:60px 20px;color:#666;background:#fce4ec;">
+                            <svg viewBox="0 0 24 24" fill="#C2185B" style="width:64px;height:64px;margin-bottom:16px;">
+                                <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
+                                <circle cx="18" cy="6" r="5"/>
+                                <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
+                            </svg>
+                            <div style="font-size:18px;font-weight:600;color:#8B1538;margin-bottom:8px;">Street View no disponible</div>
+                            <div style="font-size:14px;color:#666;">No hay imágenes de Street View cerca de esta ubicación.</div>
+                        </div>
+                    `;
+                }
+                function initPanorama(data) {
                     streetviewModalBody.innerHTML = '<div id="streetviewPanorama" style="width:100%;height:500px;"></div>';
-                    
-                    const panorama = new google.maps.StreetViewPanorama(
+                    var loc = data.location;
+                    new google.maps.StreetViewPanorama(
                         document.getElementById('streetviewPanorama'),
                         {
-                            position: { lat, lng },
+                            pano: loc.pano,
                             pov: { heading: h, pitch: p },
                             zoom: 1,
                             addressControl: true,
@@ -5913,25 +5947,20 @@
                             enableCloseButton: false
                         }
                     );
-                    
-                    // Verificar si Street View está disponible
-                    const streetViewService = new google.maps.StreetViewService();
-                    streetViewService.getPanorama({ location: { lat, lng }, radius: 100 }, (data, status) => {
-                        if (status !== 'OK') {
-                            streetviewModalBody.innerHTML = `
-                                <div style="text-align:center;padding:60px 20px;color:#666;background:#fce4ec;">
-                                    <svg viewBox="0 0 24 24" fill="#C2185B" style="width:64px;height:64px;margin-bottom:16px;">
-                                        <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
-                                        <circle cx="18" cy="6" r="5"/>
-                                        <path d="M11.5 6c0-1.08.27-2.1.74-3H5c-1.1 0-2 .9-2 2v14c0 .55.23 1.05.59 1.41l9.82-9.82C12.23 9.42 11.5 7.8 11.5 6z"/>
-                                    </svg>
-                                    <div style="font-size:18px;font-weight:600;color:#8B1538;margin-bottom:8px;">Street View no disponible</div>
-                                    <div style="font-size:14px;color:#666;">No hay imágenes de Street View cerca de esta ubicación.</div>
-                                </div>
-                            `;
-                        }
-                    });
-                }, 100);
+                }
+                
+                var svs = new google.maps.StreetViewService();
+                var pos = { lat: lat, lng: lng };
+                svs.getPanorama({ location: pos, radius: 150, sources: ['outdoor'], preference: 'nearest' }, function(data, status) {
+                    if (status === 'OK') {
+                        initPanorama(data);
+                    } else {
+                        svs.getPanorama({ location: pos, radius: 150, preference: 'nearest' }, function(data2, status2) {
+                            if (status2 === 'OK') initPanorama(data2);
+                            else showError();
+                        });
+                    }
+                });
             }
             window.openStreetView = openStreetView;
 
