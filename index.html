@@ -4265,13 +4265,16 @@
                 },
                 {
                     nombre: "CARNITAS Uruapan",
-                    lat: 20.6708854,
-                    lng: -103.348286,
-                    streetViewLat: 20.67088,
-                    streetViewLng: -103.34822,
+                    lat: 20.6708603,
+                    lng: -103.3483756,
+                    streetViewLat: 20.6708603,
+                    streetViewLng: -103.3483756,
+                    streetViewHeading: 164,
+                    streetViewPitch: 10,
+                    streetViewOutdoor: false,
                     categoria: "UNA TRADICIÓN HECHA COMIDA",
                     descripcion: "Carnitas, Birria, Carne en su Jugo, Carne Asada. Famosas por su sabor las Carnitas Uruapan combinan el sazón y la calidad de sus ingredientes desde 1948. Carnitas estilo Michoacán y antojitos locales como tortas ahogadas en una fonda de barrio abierta a la calle.",
-                    direccion: "Calle Colón 368, Plaza de las 9 esquinas, Centro Histórico. Guadalajara, Jal.",
+                    direccion: "Av. Cristóbal Colón 377, Zona Centro, Guadalajara, Jal.",
                     horario: "Abre a las 9:00 hrs. / Cerrado los miércoles",
                     telefono: "+52 33 3614 3291",
                     facebook: "Carnitas Uruapan 9 Esquinas",
@@ -5407,7 +5410,8 @@
                 const svPitch = lugar.streetViewPitch != null ? lugar.streetViewPitch : null;
                 const svLat = lugar.streetViewLat != null ? lugar.streetViewLat : lugar.lat;
                 const svLng = lugar.streetViewLng != null ? lugar.streetViewLng : lugar.lng;
-                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch, svLat, svLng);
+                const svOutdoor = lugar.streetViewOutdoor === false ? false : true;
+                const streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch, svLat, svLng, svOutdoor);
                 
                 let galeriaHTML = '';
                 if (lugar.galeria && lugar.galeria.length > 0) {
@@ -5840,14 +5844,14 @@
                 "BIRRIERIA El Pilón de los Arrieros": { heading: 305, pitch: 0 },
                 "GUARDIÁN CAFÉ-GALERÍA": { heading: 180, pitch: 0 },
                 "HOTEL ONE Guadalajara Centro": { heading: 270, pitch: 0 },
-                "CARNITAS Uruapan": { heading: 90, pitch: 0 },
+                "CARNITAS Uruapan": { heading: 164, pitch: 10 },
                 "RAGAZZA Fashion": { heading: 180, pitch: 0 },
                 "HOTEL Aló": { heading: 270, pitch: 0 },
                 "HOTEL Olá": { heading: 90, pitch: 0 },
                 "CALANDRIAS eléctricas": { heading: 328, pitch: 0 },
                 "Ex Convento de Santa Teresa": { heading: 90, pitch: 0 }
             };
-            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch, svLat, svLng) {
+            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch, svLat, svLng, svOutdoor) {
                 const text = (label || 'Street View').replace(/"/g, '&quot;');
                 const title = (titleLabel != null ? titleLabel : text).replace(/"/g, '&quot;');
                 const nombreEscapado = (nombre || '').replace(/"/g, '&quot;');
@@ -5855,8 +5859,9 @@
                 const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : ((streetViewPOV[nombre] && streetViewPOV[nombre].pitch != null) ? streetViewPOV[nombre].pitch : 0);
                 const slat = (svLat != null && !isNaN(svLat)) ? svLat : lat;
                 const slng = (svLng != null && !isNaN(svLng)) ? svLng : lng;
+                const outdoor = svOutdoor === false ? 'false' : 'true';
                 return `
-                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-sv-lat="${slat}" data-sv-lng="${slng}" data-nombre="${nombreEscapado}" data-streetview-heading="${h}" data-streetview-pitch="${p}" title="${title}">
+                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-sv-lat="${slat}" data-sv-lng="${slng}" data-sv-outdoor="${outdoor}" data-nombre="${nombreEscapado}" data-streetview-heading="${h}" data-streetview-pitch="${p}" title="${title}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                             <circle cx="18" cy="6" r="5"/>
@@ -5898,7 +5903,8 @@
                     var nom = (svBtn.getAttribute('data-nombre') || '').replace(/&quot;/g, '"');
                     var h = parseFloat(svBtn.getAttribute('data-streetview-heading'));
                     var p = parseFloat(svBtn.getAttribute('data-streetview-pitch'));
-                    if (typeof window.openStreetView === 'function') window.openStreetView(slat, slng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p);
+                    var outdoor = svBtn.getAttribute('data-sv-outdoor') !== 'false';
+                    if (typeof window.openStreetView === 'function') window.openStreetView(slat, slng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p, outdoor);
                 }
             });
 
@@ -5908,9 +5914,8 @@
             const streetviewModalBody = document.getElementById('streetviewModalBody');
             let currentStreetViewLocation = null;
 
-            // Abrir modal de Street View. heading y pitch opcionales (orientación hacia la fachada del negocio).
-            // Prioriza panoramas de calle (outdoor) para que se vea el exterior, no interiores.
-            function openStreetView(lat, lng, placeName, heading, pitch) {
+            // Abrir modal de Street View. heading y pitch opcionales. useOutdoor=true prioriza panoramas de calle.
+            function openStreetView(lat, lng, placeName, heading, pitch, useOutdoor) {
                 currentStreetViewLocation = { lat, lng };
                 const h = (heading != null && !isNaN(heading)) ? Number(heading) : 0;
                 const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : 0;
@@ -5960,14 +5965,18 @@
                 
                 var svs = new google.maps.StreetViewService();
                 var pos = { lat: lat, lng: lng };
-                svs.getPanorama({ location: pos, radius: 150, sources: ['outdoor'], preference: 'nearest' }, function(data, status) {
+                var req = { location: pos, radius: 150, preference: 'nearest' };
+                if (useOutdoor !== false) req.sources = ['outdoor'];
+                svs.getPanorama(req, function(data, status) {
                     if (status === 'OK') {
                         initPanorama(data);
-                    } else {
+                    } else if (useOutdoor !== false) {
                         svs.getPanorama({ location: pos, radius: 150, preference: 'nearest' }, function(data2, status2) {
                             if (status2 === 'OK') initPanorama(data2);
                             else showError();
                         });
+                    } else {
+                        showError();
                     }
                 });
             }
