@@ -4547,12 +4547,16 @@
             var sep = document.createElement('li');
             sep.className = 'sidebar-puntos-sep';
             sep.setAttribute('aria-hidden', 'true');
-            sep.textContent = 'Edificios históricos (A-' + String.fromCharCode(64 + Math.max(1, historicos.length)) + ')';
+            var numHistoricosVisibles = historicos.filter(function(l) { return l.nombre !== "CALANDRIAS eléctricas"; }).length;
+            sep.textContent = 'Edificios históricos (A-' + String.fromCharCode(64 + Math.max(1, numHistoricosVisibles)) + ')';
             list.appendChild(sep);
 
-            // 3. Edificios históricos: letras A, B, C...
+            // 3. Edificios históricos: letras A, B, C... (excluir CALANDRIAS, ya aparece con número en anunciantes)
+            var letterIdx = 0;
             historicos.forEach(function(lugar, i) {
-                var letra = String.fromCharCode(65 + i);
+                if (lugar.nombre === "CALANDRIAS eléctricas") return;
+                var letra = String.fromCharCode(65 + letterIdx);
+                letterIdx++;
                 addItem(letra, lugar.nombre, i);
             });
         };
