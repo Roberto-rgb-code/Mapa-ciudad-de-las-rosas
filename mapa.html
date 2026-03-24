@@ -3923,6 +3923,11 @@
                     nombre: "Teatro Degollado",
                     lat: 20.6769963,
                     lng: -103.34477,
+                    streetViewLat: 20.6771,
+                    streetViewLng: -103.3450,
+                    streetViewHeading: 90,
+                    streetViewPitch: 10,
+                    streetViewZoom: 1,
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Inaugurado en 1866, arquitectura neoclásica. Sede de la Orquesta Filarmónica de Jalisco y de festivales; capacidad 1027 butacas.",
                     direccion: "Plaza de la Liberación, Zona Centro, Guadalajara, Jal.",
@@ -5482,14 +5487,15 @@
                     streetViewButtonHTML = lugar.streetViewOptions.map(function(opt) {
                         var lbl = (opt.label || t.streetView);
                         var modalTtl = opt.label ? (lugar.nombre + ' - ' + opt.label) : null;
-                        return createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, lbl, (opt.label ? lugar.nombre + ' - ' + opt.label : t.verStreetView), opt.heading, opt.pitch || 0, opt.lat, opt.lng, svOutdoor, modalTtl);
+                        return createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, lbl, (opt.label ? lugar.nombre + ' - ' + opt.label : t.verStreetView), opt.heading, opt.pitch || 0, opt.lat, opt.lng, svOutdoor, modalTtl, opt.zoom);
                     }).join('');
                 } else {
                     var svHeading = lugar.streetViewHeading != null ? lugar.streetViewHeading : null;
                     var svPitch = lugar.streetViewPitch != null ? lugar.streetViewPitch : null;
                     var svLat = lugar.streetViewLat != null ? lugar.streetViewLat : lugar.lat;
                     var svLng = lugar.streetViewLng != null ? lugar.streetViewLng : lugar.lng;
-                    streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch, svLat, svLng, svOutdoor);
+                    var svZoom = lugar.streetViewZoom != null ? lugar.streetViewZoom : null;
+                    streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch, svLat, svLng, svOutdoor, null, svZoom);
                 }
                 
                 let galeriaHTML = '';
@@ -5930,7 +5936,7 @@
                 "CALANDRIAS eléctricas": { heading: 328, pitch: 0 },
                 "Ex Convento de Santa Teresa": { heading: 90, pitch: 0 }
             };
-            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch, svLat, svLng, svOutdoor, modalTitleOverride) {
+            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch, svLat, svLng, svOutdoor, modalTitleOverride, zoom) {
                 const text = (label || 'Street View').replace(/"/g, '&quot;');
                 const title = (titleLabel != null ? titleLabel : text).replace(/"/g, '&quot;');
                 const nombreEscapado = (nombre || '').replace(/"/g, '&quot;');
@@ -5940,8 +5946,9 @@
                 const slng = (svLng != null && !isNaN(svLng)) ? svLng : lng;
                 const outdoor = svOutdoor === false ? 'false' : 'true';
                 const modalTitle = (modalTitleOverride != null && modalTitleOverride !== '') ? modalTitleOverride.replace(/"/g, '&quot;') : nombreEscapado;
+                const z = (zoom != null && !isNaN(zoom)) ? Number(zoom) : '';
                 return `
-                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-sv-lat="${slat}" data-sv-lng="${slng}" data-sv-outdoor="${outdoor}" data-nombre="${nombreEscapado}" data-streetview-title="${modalTitle}" data-streetview-heading="${h}" data-streetview-pitch="${p}" title="${title}">
+                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-sv-lat="${slat}" data-sv-lng="${slng}" data-sv-outdoor="${outdoor}" data-nombre="${nombreEscapado}" data-streetview-title="${modalTitle}" data-streetview-heading="${h}" data-streetview-pitch="${p}" data-streetview-zoom="${z}" title="${title}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                             <circle cx="18" cy="6" r="5"/>
@@ -5983,8 +5990,9 @@
                     var nom = (svBtn.getAttribute('data-streetview-title') || svBtn.getAttribute('data-nombre') || '').replace(/&quot;/g, '"');
                     var h = parseFloat(svBtn.getAttribute('data-streetview-heading'));
                     var p = parseFloat(svBtn.getAttribute('data-streetview-pitch'));
+                    var z = parseFloat(svBtn.getAttribute('data-streetview-zoom'));
                     var outdoor = svBtn.getAttribute('data-sv-outdoor') !== 'false';
-                    if (typeof window.openStreetView === 'function') window.openStreetView(slat, slng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p, outdoor);
+                    if (typeof window.openStreetView === 'function') window.openStreetView(slat, slng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p, outdoor, isNaN(z) ? null : z);
                 }
             });
 
@@ -5994,11 +6002,12 @@
             const streetviewModalBody = document.getElementById('streetviewModalBody');
             let currentStreetViewLocation = null;
 
-            // Abrir modal de Street View. heading y pitch opcionales. useOutdoor=true prioriza panoramas de calle.
-            function openStreetView(lat, lng, placeName, heading, pitch, useOutdoor) {
+            // Abrir modal de Street View. heading, pitch y zoom opcionales. useOutdoor=true prioriza panoramas de calle.
+            function openStreetView(lat, lng, placeName, heading, pitch, useOutdoor, zoom) {
                 currentStreetViewLocation = { lat, lng };
                 const h = (heading != null && !isNaN(heading)) ? Number(heading) : 0;
                 const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : 0;
+                const z = (zoom != null && !isNaN(zoom)) ? Number(zoom) : 1;
                 
                 streetviewModalTitle.textContent = placeName;
                 streetviewModal.classList.add('active');
@@ -6030,7 +6039,7 @@
                         {
                             pano: loc.pano,
                             pov: { heading: h, pitch: p },
-                            zoom: 1,
+                            zoom: z,
                             addressControl: true,
                             fullscreenControl: true,
                             motionTracking: false,
