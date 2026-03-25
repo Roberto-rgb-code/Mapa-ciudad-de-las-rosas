@@ -5664,7 +5664,7 @@
             directionsService = new google.maps.DirectionsService();
             directionsRenderer = new google.maps.DirectionsRenderer({
                 map: map,
-                suppressMarkers: false,
+                suppressMarkers: true,
                 polylineOptions: {
                     strokeColor: '#8B1538',
                     strokeWeight: 5,
@@ -5797,6 +5797,15 @@
                 currentDestination = destination;
                 currentDestinationName = destinationName;
                 currentTravelMode = travelMode;
+
+                if (!userMarker) {
+                    userMarker = new google.maps.Marker({
+                        position: currentUserLocation,
+                        map: map,
+                        title: "Tu ubicación actual",
+                        icon: iconoUbicacionUsuario
+                    });
+                }
 
                 // Abrir panel y mostrar loading
                 openRoutePanel();
