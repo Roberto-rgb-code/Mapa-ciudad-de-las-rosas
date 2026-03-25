@@ -6979,11 +6979,19 @@
 
             setTimeout(function() {
                 restaurarUbicacionCacheada();
-                var inApp = esNavegadorInApp();
-                if (inApp) {
-                    mostrarAvisoInApp(inApp);
+                if (!currentUserLocation && navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(pos) {
+                        currentUserLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+                        try {
+                            localStorage.setItem('gdl_rosas_last_location', JSON.stringify({
+                                lat: pos.coords.latitude, lng: pos.coords.longitude,
+                                accuracy: pos.coords.accuracy || 0, source: 'gps',
+                                timestamp: Date.now()
+                            }));
+                        } catch(e) {}
+                        console.log('📍 Ubicación obtenida silenciosamente para rutas');
+                    }, function() {}, { timeout: 10000, enableHighAccuracy: false, maximumAge: 300000 });
                 }
-                obtenerUbicacionUsuario(false);
             }, 2000);
 
             async function fallbackToIP(lang) {
