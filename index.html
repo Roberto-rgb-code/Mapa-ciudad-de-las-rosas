@@ -5787,7 +5787,11 @@
                     mostrarMensaje('Obteniendo tu ubicación...', 'info');
                     await obtenerUbicacionUsuario(false);
                     if (!currentUserLocation) {
-                        mostrarMensaje('No pudimos obtener tu ubicación. Haz clic en "Mi ubicación" e intenta de nuevo.', 'error');
+                        var inApp = esNavegadorInApp();
+                        var errorMsg = inApp
+                            ? 'No pudimos obtener tu ubicación. Estás en ' + inApp + ': abre en Chrome o Safari para mejor resultado.'
+                            : 'No pudimos obtener tu ubicación. Presiona "Mi ubicación" o intenta "Cómo llegar" de nuevo.';
+                        mostrarMensaje(errorMsg, 'error', 10000);
                         return;
                     }
                 }
@@ -6355,16 +6359,17 @@
             let accuracyCircle = null;
 
             // Función para mostrar mensaje
-            function mostrarMensaje(mensaje, tipo = 'info') {
+            function mostrarMensaje(mensaje, tipo = 'info', duracion) {
+                var ms = duracion || (tipo === 'error' ? 8000 : 5000);
                 const messageDiv = document.getElementById('geolocationMessage');
                 if (messageDiv) {
                     messageDiv.textContent = mensaje;
                     messageDiv.className = 'geolocation-message ' + tipo;
                     messageDiv.style.display = 'block';
-                    
-                    setTimeout(() => {
+                    clearTimeout(messageDiv._hideTimer);
+                    messageDiv._hideTimer = setTimeout(function() {
                         messageDiv.style.display = 'none';
-                    }, 5000);
+                    }, ms);
                 }
             }
 
@@ -6613,6 +6618,14 @@
             function mostrarUbicacionEnMapa(userLocation, accuracy, source = 'gps') {
                 // Guardar ubicación del usuario para el sistema de rutas
                 currentUserLocation = userLocation;
+
+                try {
+                    localStorage.setItem('gdl_rosas_last_location', JSON.stringify({
+                        lat: userLocation.lat, lng: userLocation.lng,
+                        accuracy: accuracy || 0, source: source,
+                        timestamp: Date.now()
+                    }));
+                } catch (e) { /* localStorage no disponible */ }
                 
                 // Eliminar marcador anterior si existe
                 if (userMarker) {
@@ -6921,6 +6934,59 @@
                 showGeoLoading(lang === 'en' ? 'Getting approximate location...' : 'Obteniendo ubicación aproximada...');
                 fallbackToIP(lang);
             });
+
+            function esNavegadorInApp() {
+                var ua = navigator.userAgent || navigator.vendor || '';
+                if (/FBAN|FBAV|FB_IAB/i.test(ua)) return 'Facebook';
+                if (/Instagram/i.test(ua)) return 'Instagram';
+                if (/Twitter|X/i.test(ua)) return 'Twitter/X';
+                if (/Line\//i.test(ua)) return 'Line';
+                if (/MicroMessenger/i.test(ua)) return 'WeChat';
+                if (/Snapchat/i.test(ua)) return 'Snapchat';
+                if (/TikTok/i.test(ua)) return 'TikTok';
+                if (/LinkedInApp/i.test(ua)) return 'LinkedIn';
+                if (/WhatsApp/i.test(ua)) return 'WhatsApp';
+                return null;
+            }
+
+            function restaurarUbicacionCacheada() {
+                try {
+                    var cached = localStorage.getItem('gdl_rosas_last_location');
+                    if (!cached) return false;
+                    var loc = JSON.parse(cached);
+                    var age = Date.now() - (loc.timestamp || 0);
+                    if (age < 86400000 && loc.lat && loc.lng) {
+                        currentUserLocation = { lat: loc.lat, lng: loc.lng };
+                        console.log('📍 Ubicación cacheada restaurada (' + Math.round(age / 60000) + ' min)');
+                        return true;
+                    }
+                } catch (e) { /* localStorage no disponible */ }
+                return false;
+            }
+
+            function mostrarAvisoInApp(appName) {
+                var lang = window.currentLang || 'es';
+                var msg = lang === 'en'
+                    ? 'You are browsing from ' + appName + '. For better location accuracy, open in Chrome or Safari.'
+                    : 'Estás navegando desde ' + appName + '. Para mejor ubicación, abre en Chrome o Safari.';
+                mostrarMensaje(msg, 'info');
+                var messageDiv = document.getElementById('geolocationMessage');
+                if (messageDiv) {
+                    clearTimeout(messageDiv._hideTimer);
+                    messageDiv._hideTimer = setTimeout(function() {
+                        messageDiv.style.display = 'none';
+                    }, 10000);
+                }
+            }
+
+            setTimeout(function() {
+                restaurarUbicacionCacheada();
+                var inApp = esNavegadorInApp();
+                if (inApp) {
+                    mostrarAvisoInApp(inApp);
+                }
+                obtenerUbicacionUsuario(false);
+            }, 2000);
 
             async function fallbackToIP(lang) {
                 var googleLocation = await obtenerUbicacionGoogleGeolocation();
