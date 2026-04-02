@@ -4353,8 +4353,15 @@
                 },
                 {
                     nombre: "RESTAURANT Alma Jalisco",
-                    lat: 20.6775006,
-                    lng: -103.3494319,
+                    lat: 20.6776938,
+                    lng: -103.3494085,
+                    streetViewLat: 20.6776938,
+                    streetViewLng: -103.3494085,
+                    streetViewHeading: 75,
+                    streetViewPitch: 0,
+                    streetViewZoom: 1,
+                    streetViewOutdoor: false,
+                    streetViewImage: "assets/image.png",
                     categoria: "ESPACIO CULTURAL Y GASTRONÓMICO",
                     descripcion: "Una carta de amor a Jalisco. Vive la esencia de Jalisco en cada detalle: gastronomía, música y hospitalidad. Alma es tradición que se disfruta con orgullo. En Alma, cada visita es una historia: comida que apapacha, ambiente que inspira y servicio que enamora.",
                     direccion: "Av. Miguel Hidalgo y Costilla 469-5to. piso, Zona Centro, 44100 Guadalajara, Jal.",
@@ -4528,6 +4535,7 @@
                     streetViewLng: -103.3126312,
                     streetViewHeading: 255,
                     streetViewPitch: 0,
+                    streetViewImage: "assets/image copy.png",
                     categoria: "MEXICAN HANDCRAFTED CLOTHES",
                     descripcion: "Somos una línea de ropa artesanal que se caracteriza por el uso de mantas y tejidos de algodón en diferentes texturas, que al ser complementadas con los textiles mexicanos y los detalles artesanales damos vida a prendas con diseño internacional y alma mexicana.",
                     direccion: "Calle Matamoros No. 12, Centro Tlaquepaque, Jal.",
@@ -5558,7 +5566,7 @@
                     streetViewButtonHTML = lugar.streetViewOptions.map(function(opt) {
                         var lbl = (opt.label || t.streetView);
                         var modalTtl = opt.label ? (lugar.nombre + ' - ' + opt.label) : null;
-                        return createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, lbl, (opt.label ? lugar.nombre + ' - ' + opt.label : t.verStreetView), opt.heading, opt.pitch || 0, opt.lat, opt.lng, svOutdoor, modalTtl, opt.zoom);
+                        return createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, lbl, (opt.label ? lugar.nombre + ' - ' + opt.label : t.verStreetView), opt.heading, opt.pitch || 0, opt.lat, opt.lng, svOutdoor, modalTtl, opt.zoom, opt.image);
                     }).join('');
                 } else {
                     var svHeading = lugar.streetViewHeading != null ? lugar.streetViewHeading : null;
@@ -5566,7 +5574,8 @@
                     var svLat = lugar.streetViewLat != null ? lugar.streetViewLat : lugar.lat;
                     var svLng = lugar.streetViewLng != null ? lugar.streetViewLng : lugar.lng;
                     var svZoom = lugar.streetViewZoom != null ? lugar.streetViewZoom : null;
-                    streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch, svLat, svLng, svOutdoor, null, svZoom);
+                    var svImage = lugar.streetViewImage != null ? lugar.streetViewImage : null;
+                    streetViewButtonHTML = createStreetViewButton(lugar.lat, lugar.lng, lugar.nombre, t.streetView, t.verStreetView, svHeading, svPitch, svLat, svLng, svOutdoor, null, svZoom, svImage);
                 }
                 
                 let galeriaHTML = '';
@@ -6024,7 +6033,7 @@
                 "CALANDRIAS eléctricas": { heading: 328, pitch: 0 },
                 "Ex Convento de Santa Teresa": { heading: 90, pitch: 0 }
             };
-            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch, svLat, svLng, svOutdoor, modalTitleOverride, zoom) {
+            function createStreetViewButton(lat, lng, nombre, label, titleLabel, heading, pitch, svLat, svLng, svOutdoor, modalTitleOverride, zoom, customImage) {
                 const text = (label || 'Street View').replace(/"/g, '&quot;');
                 const title = (titleLabel != null ? titleLabel : text).replace(/"/g, '&quot;');
                 const nombreEscapado = (nombre || '').replace(/"/g, '&quot;');
@@ -6035,8 +6044,9 @@
                 const outdoor = svOutdoor === false ? 'false' : 'true';
                 const modalTitle = (modalTitleOverride != null && modalTitleOverride !== '') ? modalTitleOverride.replace(/"/g, '&quot;') : nombreEscapado;
                 const z = (zoom != null && !isNaN(zoom)) ? Number(zoom) : '';
+                const svImg = (customImage || '').replace(/"/g, '&quot;');
                 return `
-                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-sv-lat="${slat}" data-sv-lng="${slng}" data-sv-outdoor="${outdoor}" data-nombre="${nombreEscapado}" data-streetview-title="${modalTitle}" data-streetview-heading="${h}" data-streetview-pitch="${p}" data-streetview-zoom="${z}" title="${title}">
+                    <button type="button" class="streetview-btn" data-lat="${lat}" data-lng="${lng}" data-sv-lat="${slat}" data-sv-lng="${slng}" data-sv-outdoor="${outdoor}" data-nombre="${nombreEscapado}" data-streetview-title="${modalTitle}" data-streetview-heading="${h}" data-streetview-pitch="${p}" data-streetview-zoom="${z}" data-sv-image="${svImg}" title="${title}">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.56 14.33c-.34.27-.56.7-.56 1.17V21h7c1.1 0 2-.9 2-2v-5.98c-.94-.33-1.95-.52-3-.52-2.03 0-3.93.7-5.44 1.83z"/>
                             <circle cx="18" cy="6" r="5"/>
@@ -6080,7 +6090,8 @@
                     var p = parseFloat(svBtn.getAttribute('data-streetview-pitch'));
                     var z = parseFloat(svBtn.getAttribute('data-streetview-zoom'));
                     var outdoor = svBtn.getAttribute('data-sv-outdoor') !== 'false';
-                    if (typeof window.openStreetView === 'function') window.openStreetView(slat, slng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p, outdoor, isNaN(z) ? null : z);
+                    var customImg = svBtn.getAttribute('data-sv-image');
+                    if (typeof window.openStreetView === 'function') window.openStreetView(slat, slng, nom, isNaN(h) ? 0 : h, isNaN(p) ? 0 : p, outdoor, isNaN(z) ? null : z, customImg);
                 }
             });
 
@@ -6091,7 +6102,7 @@
             let currentStreetViewLocation = null;
 
             // Abrir modal de Street View. heading, pitch y zoom opcionales. useOutdoor=true prioriza panoramas de calle.
-            function openStreetView(lat, lng, placeName, heading, pitch, useOutdoor, zoom) {
+            function openStreetView(lat, lng, placeName, heading, pitch, useOutdoor, zoom, customImage) {
                 currentStreetViewLocation = { lat, lng };
                 const h = (heading != null && !isNaN(heading)) ? Number(heading) : 0;
                 const p = (pitch != null && !isNaN(pitch)) ? Number(pitch) : 0;
@@ -6099,6 +6110,15 @@
                 
                 streetviewModalTitle.textContent = placeName;
                 streetviewModal.classList.add('active');
+
+                if (customImage && customImage !== '') {
+                    streetviewModalBody.innerHTML = `
+                        <div style="width:100%; height:500px; display:flex; align-items:center; justify-content:center; background:#000; overflow:hidden;">
+                            <img src="${customImage}" style="max-width:100%; max-height:100%; object-fit:contain;" alt="${placeName}">
+                        </div>
+                    `;
+                    return;
+                }
                 streetviewModalBody.innerHTML = `
                     <div class="streetview-loading">
                         <div class="streetview-loading-spinner"></div>
