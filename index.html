@@ -4540,6 +4540,8 @@
                 'MARIACHI México en la Piel', 'CASA CARRANZA Hotel Airbnb', 'TAKASAMI Clothing',
                 'MUSEO DE CERA', 'PELOTAS del Centro'
             ];
+            // Números fijos del mapa impreso (huecos: 7, 13, 24, 28, 30; sin reordenar al eliminar)
+            var etiquetasAnunciantes = [1,2,3,4,5,6,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,25,26,27,29,30,31,32];
             list.innerHTML = '';
 
             function addItem(label, nombre, markerIndex) {
@@ -4584,7 +4586,7 @@
                     }
                     markerIndex = (hIdx !== -1) ? hIdx : (historicos.length + listPos);
                 }
-                var label = listPos + 1;
+                var label = etiquetasAnunciantes[listPos] || (listPos + 1);
                 addItem(label, nombre, markerIndex);
             });
 
@@ -6239,6 +6241,7 @@
                 'MARIACHI México en la Piel', 'CASA CARRANZA Hotel Airbnb', 'TAKASAMI Clothing',
                 'MUSEO DE CERA', 'PELOTAS del Centro'
             ];
+            var etiquetasAnunciantesMap = [1,2,3,4,5,6,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,25,26,27,29,30,31,32];
             var numeroParaEmpresa = {};
             var usedCountMap = {};
             ordenAnunciantesMap.forEach(function(nombre, listPos) {
@@ -6252,7 +6255,7 @@
                     }
                 }
                 if (idx !== -1) {
-                    var numLabel = listPos + 1;
+                    var numLabel = etiquetasAnunciantesMap[listPos] || (listPos + 1);
                     numeroParaEmpresa[idx] = numLabel;
                 }
             });
