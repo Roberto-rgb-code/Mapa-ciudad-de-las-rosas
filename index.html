@@ -4151,7 +4151,9 @@
                     categoria: "EDIFICIO HISTÓRICO",
                     descripcion: "Hospital Civil de Guadalajara 'Fray Antonio Alcalde', fundado en 1794 por el obispo Fray Antonio Alcalde. Es uno de los hospitales más antiguos en operación continua de América Latina y fue declarado Patrimonio Cultural de Jalisco en 2020.",
                     direccion: "Calle Hospital 278, El Retiro, Guadalajara, Jal.",
-                    imagen: "assets/nuevos_puntos_png/hospital-civil.png"
+                    imagen: "assets/nuevos_puntos_png/hospital-civil.png",
+                    sinMarcadorEnMapa: true,
+                    ocultoEnSidebar: true
                 },
                 {
                     nombre: "Hospital de Belén",
@@ -4603,9 +4605,17 @@
                 if (opts.map && opts.allMarkers && opts.allMarkers[markerIndex]) {
                     var m = opts.allMarkers[markerIndex];
                     li.addEventListener('click', function() {
-                        opts.map.panTo(m.marker.getPosition());
-                        opts.map.setZoom(17);
-                        if (m.marker.getMap()) google.maps.event.trigger(m.marker, 'click');
+                        if (m.marker) {
+                            opts.map.panTo(m.marker.getPosition());
+                            opts.map.setZoom(17);
+                            if (m.marker.getMap()) google.maps.event.trigger(m.marker, 'click');
+                        } else if (m.infoWindow && m.lugar && typeof window.closeActiveInfoWindow === 'function') {
+                            window.closeActiveInfoWindow();
+                            opts.map.panTo({ lat: m.lugar.lat, lng: m.lugar.lng });
+                            opts.map.setZoom(17);
+                            m.infoWindow.setPosition({ lat: m.lugar.lat, lng: m.lugar.lng });
+                            m.infoWindow.open(opts.map);
+                        }
                         if (window.innerWidth <= 768 && typeof window.closeSidebarPuntos === 'function') window.closeSidebarPuntos();
                     });
                 }
@@ -4647,12 +4657,13 @@
             sep.textContent = 'Edificios históricos (A-' + String.fromCharCode(64 + Math.max(1, numHistoricosVisibles)) + ')';
             list.appendChild(sep);
 
-            // 3. Edificios históricos: letras A, B, C... (excluir CALANDRIAS, ya aparece con número en anunciantes)
+            // 3. Edificios históricos: letras A, B, C... (excluir CALANDRIAS; ocultoEnSidebar reserva letra sin fila)
             var letterIdx = 0;
             historicos.forEach(function(lugar, i) {
                 if (lugar.nombre === "CALANDRIAS eléctricas") return;
                 var letra = String.fromCharCode(65 + letterIdx);
                 letterIdx++;
+                if (lugar.ocultoEnSidebar) return;
                 addItem(letra, lugar.nombre, i);
             });
         };
@@ -5130,10 +5141,11 @@
             function filterPlaces(query) {
                 if (!query.trim()) return [];
                 const lowerQuery = query.toLowerCase();
-                return allPlaces.filter(place => 
-                    place.nombre.toLowerCase().includes(lowerQuery) ||
+                return allPlaces.filter(place =>
+                    !place.ocultoEnSidebar &&
+                    (place.nombre.toLowerCase().includes(lowerQuery) ||
                     place.categoria.toLowerCase().includes(lowerQuery) ||
-                    (place.descripcion && place.descripcion.toLowerCase().includes(lowerQuery))
+                    (place.descripcion && place.descripcion.toLowerCase().includes(lowerQuery)))
                 );
             }
 
@@ -5214,11 +5226,17 @@
                     );
                     if (markerData) {
                         closeActiveInfoWindow();
-                        markerData.infoWindow.open(map, markerData.marker);
                         activeInfoWindow = markerData.infoWindow;
-                        activeMarker = markerData.marker;
-                        markerData.marker.setAnimation(google.maps.Animation.BOUNCE);
-                        setTimeout(() => markerData.marker.setAnimation(null), 700);
+                        if (markerData.marker) {
+                            markerData.infoWindow.open(map, markerData.marker);
+                            activeMarker = markerData.marker;
+                            markerData.marker.setAnimation(google.maps.Animation.BOUNCE);
+                            setTimeout(() => markerData.marker.setAnimation(null), 700);
+                        } else if (markerData.lugar) {
+                            activeMarker = null;
+                            markerData.infoWindow.setPosition({ lat: markerData.lugar.lat, lng: markerData.lugar.lng });
+                            markerData.infoWindow.open(map);
+                        }
                     }
                 }
             });
@@ -6190,6 +6208,21 @@
             var monumentoMarkers = [];
             
             lugares.historicos.forEach(lugar => {
+                if (lugar.sinMarcadorEnMapa) {
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: crearContenidoInfo(lugar),
+                        maxWidth: 400
+                    });
+                    google.maps.event.addListener(infoWindow, 'domready', function() {
+                        var iw = document.querySelector('.gm-style-iw');
+                        if (iw && iw.previousElementSibling) iw.previousElementSibling.style.setProperty('display', 'none', 'important');
+                        var closeBtn = document.querySelector('.gm-style-iw-c .gm-ui-hover-effect');
+                        if (closeBtn) closeBtn.style.setProperty('display', 'none', 'important');
+                    });
+                    allMarkers.push({ marker: null, infoWindow, lugar, iconoNormal: null, iconoHover: null });
+                    return;
+                }
+
                 var esMonumento = !!lugar.imagen;
                 var sizeNormal = esMonumento ? tamañoMonumentoBase : tamañoNormal;
                 var sizeHover = esMonumento ? tamañoMonumentoHover : tamañoGrande;
@@ -6420,10 +6453,21 @@
                     var idx = parseInt(panel.getAttribute('data-marker-index'), 10);
                     if (!isNaN(idx) && allMarkers[idx]) {
                         var m = allMarkers[idx];
-                        map.panTo(m.marker.getPosition());
-                        map.setZoom(17);
-                        if (m.marker.getMap()) {
-                            google.maps.event.trigger(m.marker, 'click');
+                        if (m.marker) {
+                            map.panTo(m.marker.getPosition());
+                            map.setZoom(17);
+                            if (m.marker.getMap()) {
+                                google.maps.event.trigger(m.marker, 'click');
+                            }
+                        } else if (m.infoWindow && m.lugar) {
+                            closeActiveInfoWindow();
+                            map.panTo({ lat: m.lugar.lat, lng: m.lugar.lng });
+                            map.setZoom(17);
+                            m.infoWindow.setPosition({ lat: m.lugar.lat, lng: m.lugar.lng });
+                            m.infoWindow.open(map);
+                            activeInfoWindow = m.infoWindow;
+                            activeMarker = null;
+                            setupGaleria(m.lugar);
                         }
                     }
                 });
