@@ -13,7 +13,7 @@ import urllib.request
 
 # --- Configuración ---
 FILES_TO_UPDATE = ["mapa.html", "index.html"]
-API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "AIzaSyBNkRTHRBGK6YZqa34DmiZfEzc3bRynnd0")
+API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "AIzaSyAEH7geT5dqaXiVNJ-L4EbcTHOIrlb05gs")
 SUFIJO = ", Guadalajara, Jalisco, México"
 DELAY_SEC = 0.2
 GDL_CENTER = "20.6767,-103.347"

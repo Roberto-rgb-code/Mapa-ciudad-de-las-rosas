@@ -14,7 +14,7 @@ import urllib.request
 
 # --- Configuración ---
 MAPA_HTML = os.path.join(os.path.dirname(__file__), "mapa.html")
-API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "AIzaSyBNkRTHRBGK6YZqa34DmiZfEzc3bRynnd0")
+API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "AIzaSyAEH7geT5dqaXiVNJ-L4EbcTHOIrlb05gs")
 SUFIJO = ", Guadalajara, Jalisco, México"
 DELAY_SEC = 0.2  # pausa entre llamadas a la API
 REPORTE_NO_COINCIDENCIAS = "no_coincidencias_nombre_direccion.txt"

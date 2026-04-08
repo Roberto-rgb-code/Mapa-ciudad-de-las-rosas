@@ -8,7 +8,7 @@ import urllib.parse
 import ssl
 import time
 
-API_KEY = "AIzaSyBNkRTHRBGK6YZqa34DmiZfEzc3bRynnd0"
+API_KEY = "AIzaSyAEH7geT5dqaXiVNJ-L4EbcTHOIrlb05gs"
 
 def geocode(query):
     """Consulta Google Geocoding API. Retorna (lat, lng, formatted_address) o None."""

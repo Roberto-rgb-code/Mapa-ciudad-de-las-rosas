@@ -8,7 +8,7 @@ import ssl
 import time
 from collections import defaultdict
 
-API_KEY = "AIzaSyBNkRTHRBGK6YZqa34DmiZfEzc3bRynnd0"
+API_KEY = "AIzaSyAEH7geT5dqaXiVNJ-L4EbcTHOIrlb05gs"
 THRESHOLD_M_OK = 150   # < 150m = OK
 THRESHOLD_M_REVISAR = 400  # 150-400m = revisar, > 400m = mal ubicado
 THRESHOLD_DUPLICADO_M = 20  # < 20m entre puntos = posible duplicado de coordenadas

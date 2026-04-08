@@ -5,7 +5,7 @@ import urllib.request
 import urllib.parse
 import ssl
 
-API_KEY = "AIzaSyBNkRTHRBGK6YZqa34DmiZfEzc3bRynnd0"
+API_KEY = "AIzaSyAEH7geT5dqaXiVNJ-L4EbcTHOIrlb05gs"
 
 def test_geocode(address):
     url = "https://maps.googleapis.com/maps/api/geocode/json?" + urllib.parse.urlencode({

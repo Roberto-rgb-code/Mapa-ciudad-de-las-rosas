@@ -5,7 +5,7 @@ import urllib.parse
 import ssl
 import time
 
-API_KEY = "AIzaSyBNkRTHRBGK6YZqa34DmiZfEzc3bRynnd0"
+API_KEY = "AIzaSyAEH7geT5dqaXiVNJ-L4EbcTHOIrlb05gs"
 
 with open("mapa.html", "r", encoding="utf-8") as f:
     html = f.read()
