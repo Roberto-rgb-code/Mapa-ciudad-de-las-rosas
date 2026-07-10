@@ -51,11 +51,10 @@ Para desplegar en GitHub Pages:
 ## Archivos
 
 - `mapa.html` - Mapa principal embebible
-- `assets/` - Imágenes de los edificios históricos
-  - `santuario.png`
-  - `catedral.png`
-  - `rotonda.png`
-  - `mercadosanjuandedios.png`
+- `index.html` - Misma aplicación (mantener sincronizado con `mapa.html`)
+- `MANUAL-CONTINUIDAD.pdf` - Manual para editar y dar continuidad al proyecto
+- `generar_manual.py` - Regenera el PDF del manual (`py -3 generar_manual.py`)
+- `assets/` - Imágenes de los edificios históricos y logos de anunciantes
 
 ## API Key y producción (GitHub Pages)
 
